@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS — Criar Conta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --v:#8B5CF6;--v2:#7C3AED;--v3:#A855F7;--v4:#6D28D9;--v5:#C4B5FD;
+  --b:#050505;--b2:#0A0A0A;--b3:#111111;--b4:#1A1A1A;
+  --w:#FFFFFF;--g1:#E5E7EB;--g2:#9CA3AF;--g3:#6B7280;--g4:#374151;
+  --glow:0 0 30px rgba(139,92,246,.4),0 0 60px rgba(139,92,246,.2);
+  --glow2:0 0 15px rgba(139,92,246,.6),0 0 30px rgba(139,92,246,.3);
+  --glass:rgba(255,255,255,.04);
+  --glassborder:rgba(255,255,255,.08);
+  --fd:'Syne',sans-serif;
+  --fb:'DM Sans',sans-serif;
+  --fm:'JetBrains Mono',monospace;
+}
+html{overflow-x:hidden}
+body{background:var(--b);color:var(--w);font-family:var(--fb);min-height:100vh;overflow-x:hidden;cursor:none;display:flex;flex-direction:column}
+#cur{position:fixed;width:12px;height:12px;background:var(--v3);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .15s ease;mix-blend-mode:screen;box-shadow:var(--glow2)}
+#cur-t{position:fixed;width:32px;height:32px;border:1px solid rgba(139,92,246,.35);border-radius:50%;pointer-events:none;z-index:9998;transition:left .09s ease,top .09s ease}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--b)}
+::-webkit-scrollbar-thumb{background:var(--v2);border-radius:2px}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+header{position:fixed;top:0;left:0;right:0;z-index:100;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.5rem,5vw,4rem);background:rgba(5,5,5,.75);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--glassborder)}
+.logo{font-family:var(--fd);font-weight:800;font-size:1.35rem;letter-spacing:.15em;background:linear-gradient(135deg,var(--w) 30%,var(--v3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.logo-icon{width:26px;height:26px;border:1.5px solid var(--v);border-radius:6px;display:grid;place-items:center;position:relative;overflow:hidden;flex-shrink:0}
+.logo-icon::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--v4),var(--v3));opacity:.3}
+.logo-icon svg{position:relative;z-index:1}
+.header-link{font-family:var(--fb);font-size:.82rem;color:var(--g3);text-decoration:none;display:flex;align-items:center;gap:.4rem;transition:color .2s}
+.header-link:hover{color:var(--v5)}
+.page{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;position:relative;z-index:1}
+.left-panel{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:8rem clamp(2rem,5vw,5rem) 4rem}
+.left-bg{position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 30% 50%,rgba(109,40,217,.18) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 80% 10%,rgba(168,85,247,.08) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 10% 90%,rgba(124,58,237,.1) 0%,transparent 60%),var(--b)}
+.left-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(139,92,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,.05) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse at 40% 50%,black 0%,transparent 70%)}
+.left-panel::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(139,92,246,.3) 40%,rgba(168,85,247,.4) 60%,transparent)}
+.left-content{position:relative;z-index:2}
+.panel-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);border-radius:20px;padding:.3rem .9rem;margin-bottom:1.8rem;font-family:var(--fm);font-size:.65rem;color:var(--v5);letter-spacing:.12em;text-transform:uppercase}
+.panel-tag::before{content:'';width:5px;height:5px;background:var(--v3);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(168,85,247,.4)}50%{box-shadow:0 0 0 5px rgba(168,85,247,0)}}
+.panel-title{font-family:var(--fd);font-weight:800;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;letter-spacing:-.025em;margin-bottom:1rem}
+.panel-title .accent{background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.panel-sub{font-size:.9rem;color:var(--g3);line-height:1.7;max-width:380px;margin-bottom:3rem}
+.benefits{display:flex;flex-direction:column;gap:1rem;margin-bottom:3rem}
+.benefit{display:flex;align-items:center;gap:.85rem;padding:.85rem 1.1rem;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:14px;transition:all .3s}
+.benefit:hover{background:rgba(139,92,246,.06);border-color:rgba(139,92,246,.2);transform:translateX(4px)}
+.benefit-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(124,58,237,.15));border:1px solid rgba(139,92,246,.2);display:grid;place-items:center;flex-shrink:0}
+.benefit-icon svg{filter:drop-shadow(0 0 5px rgba(168,85,247,.5))}
+.benefit-text h5{font-family:var(--fd);font-size:.82rem;font-weight:600;margin-bottom:.1rem}
+.benefit-text p{font-size:.72rem;color:var(--g3)}
+.social-proof{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:rgba(255,255,255,.02);border:1px solid var(--glassborder);border-radius:14px}
+.avatars{display:flex}
+.av{width:30px;height:30px;border-radius:50%;border:2px solid var(--b);margin-left:-8px;display:grid;place-items:center;font-family:var(--fd);font-size:.6rem;font-weight:700;flex-shrink:0}
+.av:first-child{margin-left:0}
+.proof-text strong{font-family:var(--fd);font-size:.8rem;font-weight:600}
+.proof-text span{font-size:.7rem;color:var(--g3);display:block}
+.proof-stars{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:.1rem}
+.proof-stars .stars{display:flex;gap:1px}
+.star{color:#F59E0B;font-size:.7rem}
+.proof-stars span{font-size:.65rem;color:var(--g3)}
+.deco-card{position:absolute;background:rgba(5,5,5,.85);backdrop-filter:blur(16px);border:1px solid var(--glassborder);border-radius:14px;padding:.75rem 1rem;display:flex;align-items:center;gap:.6rem;font-family:var(--fd);font-size:.78rem;font-weight:600;animation:float-deco ease-in-out infinite alternate;box-shadow:0 8px 30px rgba(0,0,0,.4),0 0 0 1px rgba(139,92,246,.08);z-index:3}
+@keyframes float-deco{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+.deco-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.particle{position:absolute;width:2px;height:2px;background:var(--v3);border-radius:50%;animation:fp linear infinite;opacity:0}
+@keyframes fp{0%{transform:translateY(100%) translateX(0);opacity:0}10%{opacity:.5}90%{opacity:.2}100%{transform:translateY(-10%) translateX(calc(var(--dx)*80px));opacity:0}}
+.right-panel{display:flex;align-items:center;justify-content:center;padding:8rem clamp(1.5rem,5vw,5rem) 4rem;position:relative}
+.right-panel::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(139,92,246,.05) 0%,transparent 70%)}
+.form-card{width:100%;max-width:460px;position:relative;z-index:2}
+.form-header{margin-bottom:2rem}
+.form-header h2{font-family:var(--fd);font-weight:800;font-size:1.7rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:.4rem}
+.form-header h2 span{background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.form-header p{font-size:.85rem;color:var(--g3)}
+.form-header p a{color:var(--v5);text-decoration:none;transition:color .2s}
+.form-header p a:hover{color:var(--w)}
+.steps{display:flex;align-items:center;gap:0;margin-bottom:2rem}
+.step{display:flex;flex-direction:column;align-items:center;gap:.4rem;flex:1;position:relative}
+.step::after{content:'';position:absolute;top:14px;left:50%;right:-50%;height:1px;background:linear-gradient(90deg,rgba(139,92,246,.5),rgba(255,255,255,.06));z-index:0}
+.step:last-child::after{display:none}
+.step-dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-family:var(--fm);font-size:.65rem;font-weight:500;border:1.5px solid rgba(255,255,255,.1);background:var(--b3);color:var(--g3);position:relative;z-index:1;transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+.step.active .step-dot{background:linear-gradient(135deg,var(--v2),var(--v3));border-color:transparent;color:var(--w);box-shadow:0 0 0 4px rgba(139,92,246,.2),var(--glow2)}
+.step.done .step-dot{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.4);color:var(--v5)}
+.step-label{font-family:var(--fm);font-size:.58rem;color:var(--g4);letter-spacing:.08em;text-transform:uppercase;text-align:center}
+.step.active .step-label{color:var(--v5)}
+.step.done .step-label{color:var(--g3)}
+.social-login{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem}
+.social-btn{display:flex;align-items:center;justify-content:center;gap:.6rem;padding:.75rem;background:var(--glass);border:1px solid var(--glassborder);border-radius:12px;color:var(--g2);font-family:var(--fb);font-size:.82rem;cursor:pointer;transition:all .3s}
+.social-btn:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:var(--w);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.divider{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--glassborder)}
+.divider span{font-family:var(--fm);font-size:.65rem;color:var(--g4);letter-spacing:.1em;white-space:nowrap}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+.form-group{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.form-group label{font-family:var(--fm);font-size:.65rem;color:var(--g3);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.req{color:var(--v3);font-size:.7rem}
+.input-wrap{position:relative}
+.input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--g4);pointer-events:none;transition:color .3s}
+.field{width:100%;background:rgba(10,10,10,.8);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:.8rem 1rem .8rem 2.7rem;color:var(--w);font-family:var(--fb);font-size:.88rem;outline:none;transition:all .3s;-webkit-appearance:none}
+.field::placeholder{color:var(--g4)}
+.field:hover{border-color:rgba(255,255,255,.12)}
+.field:focus{border-color:rgba(139,92,246,.55);background:rgba(139,92,246,.04);box-shadow:0 0 0 3px rgba(139,92,246,.1),0 0 20px rgba(139,92,246,.05)}
+.input-wrap:focus-within .input-icon{color:var(--v5)}
+.password-wrap .pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--g4);cursor:pointer;display:grid;place-items:center;transition:color .2s;padding:0}
+.password-wrap .pw-toggle:hover{color:var(--v5)}
+.pw-strength{margin-top:.5rem}
+.pw-bars{display:flex;gap:4px;margin-bottom:.3rem}
+.pw-bar{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.07);transition:background .4s ease}
+.pw-bar.weak{background:#EF4444}
+.pw-bar.fair{background:#F59E0B}
+.pw-bar.good{background:#8B5CF6}
+.pw-bar.strong{background:#10B981}
+.pw-label{font-family:var(--fm);font-size:.6rem;color:var(--g4);letter-spacing:.08em}
+.phone-wrap{display:flex;gap:.5rem}
+.flag-select{width:90px;flex-shrink:0;background:rgba(10,10,10,.8);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:.8rem .7rem;color:var(--g2);font-family:var(--fb);font-size:.82rem;outline:none;transition:all .3s;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:22px}
+.flag-select:focus{border-color:rgba(139,92,246,.5);box-shadow:0 0 0 3px rgba(139,92,246,.1)}
+.checkbox-group{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.5rem}
+.checkbox-label{display:flex;align-items:flex-start;gap:.7rem;cursor:pointer;font-size:.8rem;color:var(--g3);line-height:1.5}
+.checkbox-label input[type=checkbox]{display:none}
+.custom-check{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(255,255,255,.12);background:rgba(10,10,10,.8);flex-shrink:0;margin-top:1px;display:grid;place-items:center;transition:all .3s}
+.checkbox-label input:checked~.custom-check{background:linear-gradient(135deg,var(--v2),var(--v3));border-color:transparent;box-shadow:0 0 0 3px rgba(139,92,246,.15)}
+.custom-check svg{opacity:0;transition:opacity .2s}
+.checkbox-label input:checked~.custom-check svg{opacity:1}
+.checkbox-label a{color:var(--v5);text-decoration:none}
+.checkbox-label a:hover{color:var(--w)}
+.btn-submit{width:100%;background:linear-gradient(135deg,var(--v2),var(--v3));border:none;border-radius:14px;padding:1rem 2rem;color:var(--w);font-family:var(--fd);font-size:.95rem;font-weight:700;letter-spacing:.06em;cursor:pointer;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 30px rgba(124,58,237,.35);display:flex;align-items:center;justify-content:center;gap:.7rem}
+.btn-submit::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);transition:left .5s}
+.btn-submit:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 15px 45px rgba(124,58,237,.5),0 0 60px rgba(168,85,247,.2)}
+.btn-submit:hover::before{left:100%}
+.btn-submit:active{transform:translateY(-1px) scale(.99)}
+.btn-spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.form-footer{margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--glassborder);display:flex;align-items:center;justify-content:center;gap:.75rem}
+.trust-badge{display:flex;align-items:center;gap:.3rem;font-family:var(--fm);font-size:.6rem;color:var(--g4);letter-spacing:.07em}
+.trust-sep{width:3px;height:3px;background:var(--g4);border-radius:50%;opacity:.3}
+.field.error{border-color:rgba(239,68,68,.5);background:rgba(239,68,68,.04)}
+.field.success{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.03)}
+.field-msg{font-family:var(--fm);font-size:.62rem;margin-top:.3rem;letter-spacing:.04em}
+.field-msg.err{color:#EF4444}
+.field-msg.ok{color:#10B981}
+.input-suffix{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-family:var(--fm);font-size:.62rem;color:var(--g4);letter-spacing:.06em}
+.step-pane{animation:fade-slide .4s ease}
+@keyframes fade-slide{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+.success-screen{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 0;gap:1.5rem;animation:fade-slide .5s ease}
+.success-ring{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(124,58,237,.1));border:2px solid rgba(139,92,246,.4);display:grid;place-items:center;box-shadow:0 0 40px rgba(139,92,246,.3),0 0 80px rgba(139,92,246,.1);animation:pop .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.success-screen h3{font-family:var(--fd);font-weight:800;font-size:1.5rem;letter-spacing:-.02em}
+.success-screen p{font-size:.85rem;color:var(--g3);line-height:1.6;max-width:300px}
+.success-code{font-family:var(--fm);font-size:.7rem;color:var(--v5);background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:8px;padding:.4rem 1rem;letter-spacing:.1em}
+.glow-line{height:1px;background:linear-gradient(90deg,transparent,var(--v),var(--v3),transparent);opacity:.3;position:relative;z-index:1}
+@media(max-width:900px){.page{grid-template-columns:1fr}.left-panel{display:none}.right-panel{padding-top:6rem}}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}.social-login{grid-template-columns:1fr}header{padding:0 1.25rem}}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-t"></div>
+
+<div id="header-placeholder"></div>
+<script>
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+    });
+</script>
+
+<div class="glow-line"></div>
+
+<div class="page">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="left-bg"></div>
+    <div class="left-grid"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="deco-card" style="bottom:16%;right:5%;animation-duration:3.8s">
+      <div class="deco-dot" style="background:#10B981;box-shadow:0 0 8px #10B981"></div>
+      <span>+2.4k novos membros esta semana</span>
+    </div>
+    <div class="deco-card" style="top:22%;right:4%;animation-duration:5s;animation-delay:.6s;font-size:.72rem">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span style="color:var(--g2)">Dados protegidos · SSL</span>
+    </div>
+
+    <div class="left-content">
+      <div class="panel-tag">&#x2B21; ACESSO EXCLUSIVO</div>
+      <h1 class="panel-title">Bem-vindo ao<br><span class="accent">Universo NEXUS</span></h1>
+      <p class="panel-sub">Crie sua conta e acesse produtos exclusivos, ofertas antecipadas e uma experiência de compra personalizada por IA.</p>
+
+      <div class="benefits">
+        <div class="benefit">
+          <div class="benefit-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div class="benefit-text">
+            <h5>Frete Grátis Vitalício</h5>
+            <p>Em todos os pedidos acima de R$&nbsp;199</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="benefit-text">
+            <h5>Recomendações por IA</h5>
+            <p>Produtos curados para seu perfil</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="benefit-text">
+            <h5>Acesso Antecipado</h5>
+            <p>Drops exclusivos antes de qualquer um</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="benefit-text">
+            <h5>Programa NEXUS Points</h5>
+            <p>Ganhe cashback em toda compra</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="social-proof">
+        <div class="avatars">
+          <div class="av" style="background:linear-gradient(135deg,#7C3AED,#A855F7)">MR</div>
+          <div class="av" style="background:linear-gradient(135deg,#0891b2,#06b6d4)">AG</div>
+          <div class="av" style="background:linear-gradient(135deg,#059669,#10B981)">LS</div>
+          <div class="av" style="background:linear-gradient(135deg,#DC2626,#F87171)">PT</div>
+          <div class="av" style="background:linear-gradient(135deg,#D97706,#FCD34D);color:#000">+</div>
+        </div>
+        <div class="proof-text">
+          <strong>12.847 membros ativos</strong>
+          <span>Junte-se à comunidade</span>
+        </div>
+        <div class="proof-stars">
+          <div class="stars"><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span></div>
+          <span>4.9 / 5.0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="form-card" id="formCard">
+
+      <div class="form-header" id="formHeader">
+        <h2>Criar sua <span>Conta</span></h2>
+        <p>Ja tem uma conta? <a href="#">Fazer login</a></p>
+      </div>
+
+      <div class="steps" id="stepsEl">
+        <div class="step active" data-step="1">
+          <div class="step-dot">1</div>
+          <div class="step-label">Perfil</div>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-dot">2</div>
+          <div class="step-label">Acesso</div>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-dot">3</div>
+          <div class="step-label">Confirmar</div>
+        </div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div id="step1" class="step-pane">
+        <div class="social-login">
+          <button class="social-btn" type="button">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Google
+          </button>
+          <button class="social-btn" type="button">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </button>
+        </div>
+        <div class="divider"><span>ou preencha os dados</span></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome <span class="req">*</span></label>
+            <div class="input-wrap">
+              <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input class="field" type="text" id="fname" placeholder="Joao" autocomplete="given-name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Sobrenome <span class="req">*</span></label>
+            <div class="input-wrap">
+              <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input class="field" type="text" id="lname" placeholder="Silva" autocomplete="family-name">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>E-mail <span class="req">*</span></label>
+          <div class="input-wrap">
+            <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input class="field" type="email" id="email" placeholder="joao@email.com" autocomplete="email">
+          </div>
+          <div class="field-msg" id="email-msg"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Telefone</label>
+          <div class="phone-wrap">
+            <select class="flag-select" aria-label="Pais">
+              <option value="+55">BR +55</option>
+              <option value="+1">US +1</option>
+              <option value="+351">PT +351</option>
+              <option value="+44">UK +44</option>
+            </select>
+            <div class="input-wrap" style="flex:1">
+              <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 15a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 4.17h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 12a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <input class="field" type="tel" placeholder="(11) 91234-5678">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-submit" type="button" onclick="goStep(2)">
+          <span>Continuar</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div class="form-footer">
+          <span class="trust-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>SSL 256-bit</span>
+          <span class="trust-sep"></span>
+          <span class="trust-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>LGPD</span>
+          <span class="trust-sep"></span>
+          <span class="trust-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Seguro</span>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div id="step2" class="step-pane" style="display:none">
+        <div class="form-group">
+          <label>Nome de usuario <span class="req">*</span></label>
+          <div class="input-wrap">
+            <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input class="field" type="text" id="username" placeholder="nexus_joao" oninput="checkUsername(this)" style="padding-right:70px">
+            <span class="input-suffix">@nexus</span>
+          </div>
+          <div class="field-msg" id="user-msg"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Senha <span class="req">*</span></label>
+          <div class="input-wrap password-wrap">
+            <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input class="field" type="password" id="password" placeholder="Minimo 8 caracteres" oninput="checkPassword(this)" style="padding-right:40px">
+            <button class="pw-toggle" type="button" onclick="togglePw('password',this)" aria-label="Mostrar senha">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="pw-strength" id="pw-strength" style="display:none">
+            <div class="pw-bars"><div class="pw-bar" id="bar1"></div><div class="pw-bar" id="bar2"></div><div class="pw-bar" id="bar3"></div><div class="pw-bar" id="bar4"></div></div>
+            <div class="pw-label" id="pw-label">Forca da senha</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Confirmar senha <span class="req">*</span></label>
+          <div class="input-wrap password-wrap">
+            <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input class="field" type="password" id="confirmPw" placeholder="Repita a senha" oninput="checkConfirm(this)" style="padding-right:40px">
+            <button class="pw-toggle" type="button" onclick="togglePw('confirmPw',this)" aria-label="Mostrar senha">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="field-msg" id="confirm-msg"></div>
+        </div>
+
+        <div class="form-group">
+          <label>CPF</label>
+          <div class="input-wrap">
+            <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            <input class="field" type="text" placeholder="000.000.000-00" oninput="maskCPF(this)">
+          </div>
+        </div>
+
+        <div style="display:flex;gap:.75rem">
+          <button class="btn-submit" type="button" style="flex:0 0 50px;width:50px;background:var(--glass);border:1px solid var(--glassborder);box-shadow:none" onclick="goStep(1)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="btn-submit" type="button" style="flex:1" onclick="goStep(3)">
+            <span>Continuar</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div id="step3" class="step-pane" style="display:none">
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="terms">
+            <span class="custom-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Politica de Privacidade</a> da NEXUS Technology.</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="newsletter" checked>
+            <span class="custom-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Quero receber ofertas exclusivas, novidades e drops antecipados por e-mail.</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="agecheck">
+            <span class="custom-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Confirmo que tenho 18 anos ou mais e sou responsavel por esta conta.</span>
+          </label>
+        </div>
+
+        <div style="background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.5rem">
+          <div style="font-family:var(--fm);font-size:.6rem;color:var(--v5);letter-spacing:.1em;margin-bottom:.75rem;text-transform:uppercase">&#x2B21; Resumo do cadastro</div>
+          <div id="summary" style="display:flex;flex-direction:column;gap:.45rem"></div>
+        </div>
+
+        <div style="display:flex;gap:.75rem">
+          <button class="btn-submit" type="button" style="flex:0 0 50px;width:50px;background:var(--glass);border:1px solid var(--glassborder);box-shadow:none" onclick="goStep(2)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="btn-submit" type="button" id="submitBtn" style="flex:1" onclick="submitForm()">
+            <span id="submitText">Criar Minha Conta</span>
+            <div class="btn-spinner" id="spinner"></div>
+            <svg id="submitIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </button>
+        </div>
+        <div class="form-footer">
+          <span class="trust-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>SSL 256-bit</span>
+          <span class="trust-sep"></span>
+          <span class="trust-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>LGPD</span>
+          <span class="trust-sep"></span>
+          <span class="trust-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Dados Protegidos</span>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div id="successScreen" class="success-screen">
+        <div class="success-ring">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h3>Conta <span style="background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Criada!</span></h3>
+        </div>
+        <p>Bem-vindo a NEXUS. Verifique seu e-mail para ativar a conta e ter acesso completo.</p>
+        <div class="success-code" id="successCode">NEXUS-XXXXXX</div>
+        <button class="btn-submit" style="width:100%;max-width:280px" onclick="window.location.href='index.html'">
+          Ir para a Loja
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const cur=document.getElementById('cur'),curT=document.getElementById('cur-t');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=(mx-6)+'px';cur.style.top=(my-6)+'px'});
+(function a(){tx+=(mx-tx)*.12;ty+=(my-ty)*.12;curT.style.left=(tx-16)+'px';curT.style.top=(ty-16)+'px';requestAnimationFrame(a)})();
+document.querySelectorAll('button,a,input,select,.benefit,.social-btn').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';cur.style.opacity='.6'});el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';cur.style.opacity='1'})});
+
+const pC=document.getElementById('particles');
+if(pC){for(let i=0;i<25;i++){const p=document.createElement('div');p.className='particle';p.style.cssText='left:'+Math.random()*100+'%;animation-duration:'+(9+Math.random()*14)+'s;animation-delay:'+(Math.random()*14)+'s;--dx:'+(Math.random()-.5)*2;pC.appendChild(p)}}
+
+let curStep=1;
+function goStep(n){
+  const prev=document.getElementById('step'+curStep);
+  const next=document.getElementById('step'+n);
+  if(prev)prev.style.display='none';
+  if(next){next.style.display='block';next.style.animation='none';next.offsetHeight;next.style.animation='fade-slide .4s ease'}
+  curStep=n;
+  updateSteps(n);
+  if(n===3)buildSummary();
+}
+function updateSteps(active){
+  document.querySelectorAll('.step').forEach(s=>{
+    const n=parseInt(s.dataset.step);
+    s.classList.remove('active','done');
+    if(n===active)s.classList.add('active');
+    else if(n<active)s.classList.add('done');
+    const dot=s.querySelector('.step-dot');
+    if(n<active)dot.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+    else dot.textContent=n;
+  });
+}
+function checkUsername(el){
+  const v=el.value,msg=document.getElementById('user-msg');
+  const taken=['nexus','admin','user'];
+  if(v.length>0&&v.length<3){el.className='field error';msg.textContent='Minimo 3 caracteres';msg.className='field-msg err'}
+  else if(v.length>=3&&taken.includes(v.toLowerCase())){el.className='field error';msg.textContent='Nome ja existe';msg.className='field-msg err'}
+  else if(v.length>=3){el.className='field success';msg.textContent='Disponivel';msg.className='field-msg ok'}
+  else{el.className='field';msg.textContent=''}
+}
+function checkPassword(el){
+  const v=el.value,s=document.getElementById('pw-strength'),lbl=document.getElementById('pw-label');
+  if(!v.length){s.style.display='none';return}
+  s.style.display='block';
+  let score=0;
+  if(v.length>=8)score++;if(/[A-Z]/.test(v))score++;if(/[0-9]/.test(v))score++;if(/[^A-Za-z0-9]/.test(v))score++;
+  const lvls=[['','','',''],['weak','','',''],['weak','fair','',''],['weak','fair','good',''],['weak','fair','good','strong']];
+  const labels=['','Fraca','Razoavel','Boa','Forte'];
+  const colors=[null,'#EF4444','#F59E0B','#8B5CF6','#10B981'];
+  ['bar1','bar2','bar3','bar4'].forEach((id,i)=>{document.getElementById(id).className='pw-bar '+(lvls[score][i]||'')});
+  lbl.textContent=labels[score]||'';lbl.style.color=colors[score]||'var(--g4)';
+}
+function checkConfirm(el){
+  const pw=document.getElementById('password').value,msg=document.getElementById('confirm-msg');
+  if(el.value&&el.value!==pw){el.className='field error';msg.textContent='Senhas nao coincidem';msg.className='field-msg err'}
+  else if(el.value&&el.value===pw){el.className='field success';msg.textContent='Senhas coincidem';msg.className='field-msg ok'}
+  else{el.className='field';msg.textContent=''}
+}
+function maskCPF(el){let v=el.value.replace(/\D/g,'');if(v.length<=11){v=v.replace(/(\d{3})(\d)/,'$1.$2');v=v.replace(/(\d{3})(\d)/,'$1.$2');v=v.replace(/(\d{3})(\d{1,2})$/,'$1-$2')}el.value=v}
+function togglePw(id,btn){const f=document.getElementById(id);const s=f.type==='text';f.type=s?'password':'text';btn.querySelector('svg').style.opacity=s?'1':'.5'}
+function buildSummary(){
+  const fn=document.getElementById('fname').value||'--';
+  const ln=document.getElementById('lname').value||'--';
+  const em=document.getElementById('email').value||'--';
+  const un=document.getElementById('username').value||'--';
+  document.getElementById('summary').innerHTML=[{label:'Nome',val:fn+' '+ln},{label:'E-mail',val:em},{label:'Usuario',val:'@'+un}].map(i=>'<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:var(--fm);font-size:.65rem;color:var(--g4);letter-spacing:.08em">'+i.label+'</span><span style="font-size:.8rem;color:var(--g2)">'+i.val+'</span></div>').join('');
+}
+function submitForm(){
+  const t=document.getElementById('terms'),ag=document.getElementById('agecheck');
+  if(!t.checked||!ag.checked){alert('Por favor aceite os termos e confirme sua idade.');return}
+  const btn=document.getElementById('submitBtn'),sp=document.getElementById('spinner'),tx2=document.getElementById('submitText'),ic=document.getElementById('submitIcon');
+  btn.disabled=true;sp.style.display='block';tx2.textContent='Criando conta...';ic.style.display='none';
+  setTimeout(()=>{
+    document.getElementById('step3').style.display='none';
+    document.getElementById('stepsEl').style.display='none';
+    document.getElementById('formHeader').style.display='none';
+    const ss=document.getElementById('successScreen');ss.style.display='flex';
+    document.getElementById('successCode').textContent='NEXUS-'+Math.random().toString(36).substr(2,6).toUpperCase();
+    document.querySelectorAll('.step').forEach(s=>{s.classList.add('done');s.classList.remove('active');s.querySelector('.step-dot').innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'});
+  },2200);
+}
+document.getElementById('email').addEventListener('blur',function(){
+  const re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/,msg=document.getElementById('email-msg');
+  if(this.value&&!re.test(this.value)){this.className='field error';msg.textContent='E-mail invalido';msg.className='field-msg err'}
+  else if(this.value&&re.test(this.value)){this.className='field success';msg.textContent='E-mail valido';msg.className='field-msg ok'}
+  else{this.className='field';msg.textContent=''}
+});
+</script>
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" stroke="#A855F7" stroke-width="1.2" fill="rgba(168,85,247,.15)"/>
+                        <path d="M7 4V10M4 5.5L10 8.5" stroke="#A855F7" stroke-width="1"/>
+                    </svg>
+                </div>
+                <a href="index.html">NEXUS</a>
+            </div>
+            <p class="footer-desc">Tecnologia do futuro, disponível agora. Curadoria de produtos premium para quem não aceita menos que o melhor.</p>
+            <div class="social-links">
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h5>Produtos</h5>
+            <div class="footer-links">
+                <a href="index.html#produtos">Smartwatches</a>
+                <a href="index.html#produtos">Earbuds</a>
+                <a href="index.html#produtos">Monitores</a>
+                <a href="index.html#produtos">Câmeras</a>
+                <a href="index.html#produtos">Acessórios</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h5>Empresa</h5>
+            <div class="footer-links">
+                <a href="about.html">Sobre Nós</a>
+                <a href="#">Blog</a>
+                <a href="careers.html">Carreiras</a>
+                <a href="partners.html">Parcerias</a>
+                <a href="press.html">Imprensa</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h5>Suporte</h5>
+            <div class="footer-links">
+                <a href="help.html">Central de Ajuda</a>
+                <a href="track.html">Rastrear Pedido</a>
+                <a href="returns.html">Devoluções</a>
+                <a href="warranty.html">Garantia</a>
+                <a href="contact.html">Contato</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 NEXUS Technology. Todos os direitos reservados.</p>
+        <div class="tech-badges">
+            <span class="tech-badge">SSL SECURE</span><span class="tech-badge">ISO 27001</span><span class="tech-badge">LGPD</span>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

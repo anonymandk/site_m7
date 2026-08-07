@@ -1,0 +1,9 @@
+[build]
+  publish = "frontend"
+  functions = "netlify/functions"
+  command = "echo Build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

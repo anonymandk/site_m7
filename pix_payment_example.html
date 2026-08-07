@@ -1,0 +1,94 @@
+# nShop QR Code Payment Integration Example
+# This example shows how to integrate the QR payment API into the nShop frontend.
+# Place this file in /home/darker/Documentos/vscode/ (or adapt as needed).
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>nShop - Pagamento com Pix</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        #qrcode { margin: 20px 0; }
+        .loading { color: #666; }
+        .error { color: red; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>nShop - Finalizar Compra</h1>
+    <div id="order-summary">
+        <p>Pedido: #12345</p>
+        <p>Total: R$ 10,50</p>
+    </div>
+    <button id="pay-button">Pagar com Pix</button>
+    <div id="payment-section" style="display:none;">
+        <h2>Pague via Pix</h2>
+        <div id="qrcode" class="loading">Carregando QR Code...</div>
+        <p id="error-message" class="error"></p>
+        <p>Depois de pagar, clique em <button id="confirm-button">Confirmar Pagamento</button></p>
+    </div>
+
+    <script>
+        // Configuration - adjust to your deployment
+        const API_BASE_URL = 'http://localhost:8000'; // Change to your API gateway URL
+        const API_KEY = 'your_api_key_here'; // In production, this should be stored securely on the backend, not exposed in frontend!
+        // For demonstration, we assume the API key is provided via a secure backend proxy.
+
+        document.getElementById('pay-button').addEventListener('click', async () => {
+            const paymentSection = document.getElementById('payment-section');
+            const qrDiv = document.getElementById('qrcode');
+            const errorDiv = document.getElementById('error-message');
+            const confirmButton = document.getElementById('confirm-button');
+
+            paymentSection.style.display = 'block';
+            qrDiv.textContent = 'Carregando QR Code...';
+            errorDiv.textContent = '';
+
+            try {
+                // In a real application, this request should go through your own backend
+                // which adds the API key and calls the payment API, then returns only the QR code image.
+                // For this example, we call the API directly (NOT RECOMMENDED FOR PRODUCTION).
+                const response = await fetch(`${API_BASE_URL}/generate_qr`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-KEY': API_KEY // <-- This exposes the key! Use a backend proxy.
+                    },
+                    body: JSON.stringify({
+                        amount: 10.50,
+                        merchant_id': 'nshop_merchant_001', // Replace with actual merchant ID from Inter
+                        description: 'Compra no nShop - Pedido #12345'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                // data.qrcode is base64 PNG
+                const img = document.createElement('img');
+                img.src = `data:image/png;base64,${data.qr_code}`;
+                img.alt = 'QR Code Pix';
+                qrDiv.innerHTML = ''; // clear loading text
+                qrDiv.appendChild(img);
+
+                // Store the payload (or transaction ID) to verify payment later
+                // In a real flow, you would store the transaction ID returned by the payment gateway.
+                qrDiv.dataset.payload = data.payload; // For demonstration only
+            } catch (err) {
+                console.error(err);
+                errorDiv.textContent = 'Falha ao gerar QR Code. Tente novamente.';
+                qrDiv.textContent = '';
+            }
+        });
+
+        // Simulate payment confirmation (in reality, you would poll a webhook or check payment status via your backend)
+        document.getElementById('confirm-button').addEventListener('click', () => {
+            alert('Pagamento confirmado! (Este é apenas um exemplo - implemente a verificação real via webhook ou consulta ao status do pagamento).');
+            // Here you would typically call your backend to check if the payment was confirmed.
+        });
+    </script>
+</body>
+</html>

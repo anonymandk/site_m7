@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "user_id": 2,
+    "user_name": "Ana Silva",
+    "user_email": "ana.silva@email.com",
+    "total_price": 3299.00,
+    "shipping_price": 0.00,
+    "discount_applied": 250.00,
+    "status": "delivered",
+    "payment_method": "pix",
+    "items": [
+      {
+        "product_id": 6,
+        "product_name": "NeuroLink Band 3",
+        "quantity": 1,
+        "unit_price": 3299.00,
+        "subtotal": 3299.00
+      }
+    ],
+    "shipping_address": "Avenida Paulista, 1000 - São Paulo, SP",
+    "created_at": "2025-05-20T10:15:00",
+    "completed_at": "2025-05-28T14:30:00"
+  },
+  {
+    "id": 2,
+    "user_id": 3,
+    "user_name": "Carlos Santos",
+    "user_email": "carlos.santos@email.com",
+    "total_price": 6890.00,
+    "shipping_price": 0.00,
+    "discount_applied": 0.00,
+    "status": "processing",
+    "payment_method": "credit_card",
+    "items": [
+      {
+        "product_id": 2,
+        "product_name": "AirPulse Neural Pro",
+        "quantity": 2,
+        "unit_price": 1189.00,
+        "subtotal": 2378.00
+      },
+      {
+        "product_id": 5,
+        "product_name": "FusionKey Mech Pro",
+        "quantity": 1,
+        "unit_price": 1890.00,
+        "subtotal": 1890.00
+      }
+    ],
+    "shipping_address": "Rua Oscar Freire, 500 - São Paulo, SP",
+    "created_at": "2025-06-01T16:20:00",
+    "completed_at": null
+  }
+]
+

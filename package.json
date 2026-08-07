@@ -1,0 +1,10 @@
+{
+  "name": "project_dropshiping",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "echo 'Start command'",
+    "dev": "echo 'Dev command'",
+    "build": "echo 'Build complete'"
+  }
+}

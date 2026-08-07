@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta — NEXUS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .account-container {
+            max-width: 1100px;
+            margin: 6rem auto 4rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 3rem;
+        }
+        .profile-card {
+            background: var(--glass);
+            border: 1px solid var(--glassborder);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            backdrop-filter: blur(24px);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        .profile-avatar {
+            width: 110px; height: 110px;
+            background: linear-gradient(135deg, var(--v2), var(--v3));
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: grid; place-items: center;
+            font-family: var(--font-display);
+            font-size: 2.5rem; font-weight: 800;
+            color: white;
+            box-shadow: var(--glow2);
+        }
+        .profile-info {
+            text-align: left;
+            margin-top: 2rem;
+            display: flex; flex-direction: column; gap: 1.2rem;
+        }
+        .info-item {
+            display: flex; flex-direction: column;
+            gap: .3rem;
+            border-bottom: 1px solid var(--glassborder);
+            padding-bottom: .6rem;
+        }
+        .info-label {
+            font-size: .7rem; color: var(--g3);
+            font-family: var(--font-mono); text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .info-value {
+            font-size: .95rem; color: var(--w); font-weight: 500;
+        }
+        .orders-section {
+            display: flex; flex-direction: column; gap: 2rem;
+        }
+        .orders-list {
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+        .order-card {
+            background: var(--glass);
+            border: 1px solid var(--glassborder);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all .3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+        }
+        .order-card:hover {
+            border-color: var(--v3);
+            background: rgba(139,92,246,0.08);
+            transform: translateX(8px);
+            box-shadow: 0 10px 30px -15px var(--v3);
+        }
+        .order-main { display: flex; flex-direction: column; gap: .3rem; }
+        .order-id { font-family: var(--font-mono); font-size: .8rem; color: var(--v5); }
+        .order-date { font-size: .75rem; color: var(--g3); }
+        .order-total { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; color: var(--w); }
+        .order-status {
+            font-size: .7rem; padding: .4rem .8rem;
+            border-radius: 20px; background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glassborder);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .status-pending { color: #F59E0B; border-color: #F59E0B55; }
+        .status-completed { color: #10B981; border-color: #10B98155; }
+
+        @media (max-width: 900px) {
+            .account-container { grid-template-columns: 1fr; }
+            .profile-card { position: static; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loading">
+    <div class="load-logo">NEXUS</div>
+    <div class="load-bar-wrap"><div class="load-bar"></div></div>
+    <div class="load-text">INICIALIZANDO SISTEMA...</div>
+</div>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- HEADER -->
+<div id="header-placeholder"></div>
+<script>
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+    });
+</script>
+
+<main class="account-container">
+    <aside class="profile-card fade-up">
+        <div class="profile-avatar" id="profile-avatar">?</div>
+        <h2 id="profile-name" style="font-family: var(--font-display); margin-bottom: 1rem; color: var(--w);">Carregando...</h2>
+        <div class="profile-info">
+            <div class="info-item">
+                <span class="info-label">E-mail</span>
+                <span class="info-value" id="profile-email">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">CPF</span>
+                <span class="info-value" id="profile-cpf">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Endereço</span>
+                <span class="info-value" id="profile-address">-</span>
+            </div>
+        </div>
+    </aside>
+
+    <section class="orders-section">
+        <h1 class="fade-up" style="font-family: var(--font-display); font-weight: 800; font-size: 2.5rem; margin-bottom: 2rem;">Meus <span style="background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Pedidos</span></h1>
+        <div class="orders-list" id="orders-list">
+            <!-- Orders injected by JS -->
+            <div class="order-card" style="justify-content: center; color: var(--g3);">
+                Nenhum pedido encontrado.
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" stroke="#A855F7" stroke-width="1.2" fill="rgba(168,85,247,.15)"/>
+                        <path d="M7 4V10M4 5.5L10 8.5" stroke="#A855F7" stroke-width="1"/>
+                    </svg>
+                </div>
+                <a href="index.html">NEXUS</a>
+            </div>
+            <p class="footer-desc">Tecnologia do futuro, disponível agora. Curadoria de produtos premium para quem não aceita menos que o melhor.</p>
+            <div class="social-links">
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h5>Produtos</h5>
+            <div class="footer-links">
+                <a href="index.html#produtos">Smartwatches</a>
+                <a href="index.html#produtos">Earbuds</a>
+                <a href="index.html#produtos">Monitores</a>
+                <a href="index.html#produtos">Câmeras</a>
+                <a href="index.html#produtos">Acessórios</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h5>Empresa</h5>
+            <div class="footer-links">
+                <a href="about.html">Sobre Nós</a>
+                <a href="#">Blog</a>
+                <a href="careers.html">Carreiras</a>
+                <a href="partners.html">Parcerias</a>
+                <a href="press.html">Imprensa</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h5>Suporte</h5>
+            <div class="footer-links">
+                <a href="help.html">Central de Ajuda</a>
+                <a href="track.html">Rastrear Pedido</a>
+                <a href="returns.html">Devoluções</a>
+                <a href="warranty.html">Garantia</a>
+                <a href="contact.html">Contato</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 NEXUS Technology. Todos os direitos reservados.</p>
+        <div class="tech-badges">
+            <span class="tech-badge">SSL SECURE</span><span class="tech-badge">ISO 27001</span><span class="tech-badge">LGPD</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const cursorTrail = document.getElementById('cursor-trail');
+    let mx=0,my=0,tx=0,ty=0;
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        cursor.style.left = (mx-6) + 'px';
+        cursor.style.top = (my-6) + 'px';
+    });
+    function animateCursor() {
+        tx += (mx - tx) * 0.12;
+        ty += (my - ty) * 0.12;
+        cursorTrail.style.left = (tx-16) + 'px';
+        cursorTrail.style.top = (ty-16) + 'px';
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    document.querySelectorAll('button,a,.product-card,.carousel-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; cursor.style.opacity = '.6'; });
+        el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; cursor.style.opacity = '1'; });
+    });
+
+    // Loading
+    window.addEventListener('load', () => {
+        const loading = document.getElementById('loading');
+        if(loading) {
+            loading.classList.add('hidden');
+            loading.style.opacity = '0';
+            loading.style.visibility = 'hidden';
+            loading.style.pointerEvents = 'none';
+        }
+    });
+
+    // Header Scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Animations
+    function initAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((e, i) => {
+                if(e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('visible'), i * 80);
+                }
+            });
+        }, {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
+        document.querySelectorAll('.fade-up,.fade-in').forEach(el => observer.observe(el));
+    }
+    initAnimations();
+
+    async function initAccount() {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      try {
+        const meRes = await fetch('/api/me', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!meRes.ok) throw new Error('Sessão expirada');
+        const { user } = await meRes.json();
+
+        document.getElementById('profile-name').textContent = user.name;
+        document.getElementById('profile-email').textContent = user.email;
+        document.getElementById('profile-cpf').textContent = user.cpf || 'Não informado';
+        document.getElementById('profile-address').textContent = user.address || 'Não informado';
+        document.getElementById('profile-avatar').textContent = user.name.charAt(0).toUpperCase();
+
+        const cta = document.querySelector('.cta-sm');
+        if (cta) {
+          const wrap = document.createElement('div');
+          wrap.style.display = 'flex'; wrap.style.gap = '0.6rem'; wrap.style.alignItems = 'center';
+          const name = document.createElement('div');
+          name.textContent = user.name;
+          name.style.fontWeight = '600';
+          name.style.color = 'var(--w)';
+          const logout = document.createElement('a');
+          logout.href = '#';
+          logout.textContent = 'Sair';
+          logout.style.color = 'var(--g3)';
+          logout.style.textDecoration = 'none';
+          logout.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await fetch('/api/logout', {
+              method: 'POST',
+              headers: { 'Authorization': `Bearer ${token}` }
+            });
+            localStorage.clear();
+            window.location.href = 'index.html';
+          });
+          wrap.appendChild(name); wrap.appendChild(logout);
+          cta.replaceWith(wrap);
+        }
+
+        const ordersRes = await fetch('/api/my-orders', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const { orders } = await ordersRes.json();
+
+        const list = document.getElementById('orders-list');
+        if (orders && orders.length > 0) {
+          list.innerHTML = orders.map(o => `
+            <div class="order-card fade-up" onclick="window.location.href='track.html?id=${o.id}'">
+              <div class="order-main">
+                <span class="order-id">#${o.id}</span>
+                <span class="order-date">${new Date(o.created_at).toLocaleDateString('pt-BR')}</span>
+              </div>
+              <div class="order-total">R$ ${o.total.toFixed(2)}</div>
+              <div class="order-status status-${o.status === 'pending_payment' ? 'pending' : 'completed'}">
+                ${o.status === 'pending_payment' ? 'Aguardando Pagamento' : 'Concluído'}
+              </div>
+            </div>
+          `).join('');
+          initAnimations();
+        }
+
+      } catch (e) {
+        console.error(e);
+        window.location.href = 'login.html';
+      }
+    }
+
+    initAccount();
+</script>
+</body>
+</html>

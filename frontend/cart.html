@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho — NEXUS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container-cart {
+            max-width: 1000px;
+            margin: 6rem auto 4rem;
+            padding: 0 2rem;
+        }
+        .cart-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .cart-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            background: var(--glass);
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--glassborder);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+        .cart-item:hover {
+            border-color: var(--v3);
+            background: rgba(139,92,246,0.05);
+            transform: scale(1.01);
+        }
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .cart-item .meta {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .cart-item .meta .name {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--w);
+            font-size: 1.2rem;
+        }
+        .cart-item .meta .price-qty {
+            color: var(--g3);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+        .cart-empty {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--g3);
+            background: var(--glass);
+            border: 1px solid var(--glassborder);
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            font-size: 1.2rem;
+        }
+        .summary-card {
+            margin-top: 3rem;
+            background: var(--glass);
+            border: 1px solid var(--glassborder);
+            padding: 2rem;
+            border-radius: 24px;
+            backdrop-filter: blur(24px);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 450px;
+            margin-left: auto;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-display);
+        }
+        .summary-row .label {
+            color: var(--g2);
+            font-size: 1.1rem;
+        }
+        .summary-row .value {
+            color: var(--w);
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        .btn-remove {
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .btn-remove:hover {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loading">
+    <div class="load-logo">NEXUS</div>
+    <div class="load-bar-wrap"><div class="load-bar"></div></div>
+    <div class="load-text">INICIALIZANDO SISTEMA...</div>
+</div>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- HEADER -->
+<div id="header-placeholder"></div>
+<script>
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+    });
+</script>
+
+<main class="container-cart">
+    <h1 class="fade-up" style="font-family: var(--font-display); font-weight: 800; margin-bottom: 3rem; font-size: 2.5rem;">Seu <span style="background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Carrinho</span></h1>
+
+    <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+        <div id="cart" class="cart-list" style="flex: 1; min-width: 300px;">
+            <!-- Items injected by JS -->
+        </div>
+
+        <div id="summary" class="summary-card fade-up">
+            <!-- Summary injected by JS -->
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" stroke="#A855F7" stroke-width="1.2" fill="rgba(168,85,247,.15)"/>
+                        <path d="M7 4V10M4 5.5L10 8.5" stroke="#A855F7" stroke-width="1"/>
+                    </svg>
+                </div>
+                <a href="index.html">NEXUS</a>
+            </div>
+            <p class="footer-desc">Tecnologia do futuro, disponível agora. Curadoria de produtos premium para quem não aceita menos que o melhor.</p>
+            <div class="social-links">
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h5>Produtos</h5>
+            <div class="footer-links">
+                <a href="index.html#produtos">Smartwatches</a>
+                <a href="index.html#produtos">Earbuds</a>
+                <a href="index.html#produtos">Monitores</a>
+                <a href="index.html#produtos">Câmeras</a>
+                <a href="index.html#produtos">Acessórios</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h5>Empresa</h5>
+            <div class="footer-links">
+                <a href="about.html">Sobre Nós</a>
+                <a href="#">Blog</a>
+                <a href="careers.html">Carreiras</a>
+                <a href="partners.html">Parcerias</a>
+                <a href="press.html">Imprensa</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h5>Suporte</h5>
+            <div class="footer-links">
+                <a href="help.html">Central de Ajuda</a>
+                <a href="track.html">Rastrear Pedido</a>
+                <a href="returns.html">Devoluções</a>
+                <a href="warranty.html">Garantia</a>
+                <a href="contact.html">Contato</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 NEXUS Technology. Todos os direitos reservados.</p>
+        <div class="tech-badges">
+            <span class="tech-badge">SSL SECURE</span><span class="tech-badge">ISO 27001</span><span class="tech-badge">LGPD</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const cursorTrail = document.getElementById('cursor-trail');
+    let mx=0,my=0,tx=0,ty=0;
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        cursor.style.left = (mx-6) + 'px';
+        cursor.style.top = (my-6) + 'px';
+    });
+    function animateCursor() {
+        tx += (mx - tx) * 0.12;
+        ty += (my - ty) * 0.12;
+        cursorTrail.style.left = (tx-16) + 'px';
+        cursorTrail.style.top = (ty-16) + 'px';
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    document.querySelectorAll('button,a,.product-card,.carousel-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; cursor.style.opacity = '.6'; });
+        el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; cursor.style.opacity = '1'; });
+    });
+
+    // Loading
+    window.addEventListener('load', () => {
+        const loading = document.getElementById('loading');
+        if(loading) {
+            loading.classList.add('hidden');
+            loading.style.opacity = '0';
+            loading.style.visibility = 'hidden';
+            loading.style.pointerEvents = 'none';
+        }
+    });
+
+    // Header Scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Animations
+    function initAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((e, i) => {
+                if(e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('visible'), i * 80);
+                }
+            });
+        }, {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
+        document.querySelectorAll('.fade-up,.fade-in').forEach(el => observer.observe(el));
+    }
+    initAnimations();
+
+    async function fetchProductsMap(){
+        try{
+            const res = await fetch('/api/products');
+            if(!res.ok) return {};
+            const data = await res.json();
+            const map = {};
+            (data.products||[]).forEach(p=>map[p.id]=p);
+            return map;
+        }catch(e){return {}}
+    }
+
+    async function loadCart(){
+        const token = localStorage.getItem('access_token');
+        if(!token) return [];
+        try {
+            const res = await fetch('/api/cart', { headers: {'Authorization': `Bearer ${token}`} });
+            if(!res.ok) return [];
+            const {items} = await res.json();
+            return items;
+        } catch(e) { return []; }
+    }
+
+    async function renderCart(){
+        const cartEl = document.getElementById('cart');
+        const summaryEl = document.getElementById('summary');
+        const token = localStorage.getItem('access_token');
+        if(!token) {
+            cartEl.innerHTML = '<div class="cart-empty fade-up">Você precisa de login para ver o carrinho. <br><br><a href="login.html" style="color:var(--v3); font-weight:700; text-decoration:underline;">Entrar agora</a></div>';
+            summaryEl.innerHTML='';
+            return;
+        }
+        const cart = await loadCart();
+        const products = await fetchProductsMap();
+        cartEl.innerHTML = '';
+        if(!cart.length){
+            cartEl.innerHTML = '<div class="cart-empty fade-up">Seu carrinho está vazio no momento. <br><br><a href="index.html" style="color:var(--v3); font-weight:700; text-decoration:underline;">Explorar Coleção</a></div>';
+            summaryEl.innerHTML='';
+            return;
+        }
+        let total = 0;
+        cart.forEach(item=>{
+            const p = products[item.product_id] || {name:'Produto desconhecido',price:0,image:'/static/images/products/default.svg'};
+            const subtotal = (p.price||0) * (item.quantity||1);
+            total += subtotal;
+            const div = document.createElement('div'); div.className='cart-item fade-up';
+            div.innerHTML = `
+                <img src="${p.image||'/static/images/products/default.svg'}" alt="${p.name}">
+                <div class="meta">
+                    <div class="name">${p.name}</div>
+                    <div class="price-qty">R$ ${ (p.price||0).toFixed(2) } x ${item.quantity}</div>
+                </div>
+                <div>
+                    <button class="btn-remove" data-id="${item.product_id}" data-action="remove">Remover</button>
+                </div>
+            `;
+            cartEl.appendChild(div);
+        });
+        initAnimations();
+
+        summaryEl.innerHTML = `
+            <div class="summary-row">
+                <span class="label">Subtotal</span>
+                <span class="value">R$ ${total.toFixed(2)}</span>
+            </div>
+            <div class="summary-row">
+                <span class="label">Frete</span>
+                <span class="value" style="color:var(--v3)">Grátis</span>
+            </div>
+            <div style="height:1px; background:var(--glassborder); margin:1rem 0;"></div>
+            <div class="summary-row">
+                <span class="label" style="font-size:1.2rem; font-weight:700; color:var(--w)">Total</span>
+                <span class="value" style="font-size:1.8rem; color:var(--v3)">R$ ${total.toFixed(2)}</span>
+            </div>
+            <div style="margin-top:1rem">
+                <a href="#" id="checkoutBtn" class="btn-primary" style="display:block; text-align:center; text-decoration:none; font-weight:700;">Finalizar Compra</a>
+            </div>
+        `;
+
+        cartEl.querySelectorAll('[data-action="remove"]').forEach(btn=>{
+            btn.addEventListener('click', async e=>{
+                const id = btn.getAttribute('data-id');
+                try {
+                    const res = await fetch(`/api/cart/${id}`, {
+                        method: 'DELETE',
+                        headers: {'Authorization': `Bearer ${token}`}
+                    });
+                    if(res.ok) renderCart();
+                } catch(e) { alert('Erro ao remover item'); }
+            })
+        });
+
+        document.getElementById('checkoutBtn').addEventListener('click', async e=>{
+            e.preventDefault();
+            const access = localStorage.getItem('access_token');
+            const user = JSON.parse(localStorage.getItem('user')||'null');
+            if(!access || !user){ if(confirm('Sessão expirada. Fazer login agora?')) location.href='login.html'; return }
+
+            const cartItems = await loadCart();
+            if(!cartItems.length) { alert('Carrinho vazio!'); return; }
+
+            const items = cartItems.map(it=>({id:it.product_id, qty: it.quantity}));
+            const payload = { items: items, customer: { name: user.name, email: user.email, cpf: user.cpf || '', address: user.address || '', zip: user.zip || '' }, payment: 'pix' };
+            try{
+                const res = await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json','Authorization': 'Bearer '+access},body:JSON.stringify(payload)});
+                const json = await res.json();
+                if(!res.ok){ alert('Erro ao criar pedido: '+(json.detail||json.error||'')); return }
+                alert('Pedido criado com sucesso! ID: '+ (json.order_id || json.id));
+                window.location.href = '/';
+            }catch(err){alert('Erro de rede ao enviar pedido')}
+        });
+    }
+
+    renderCart();
+</script>
+</body>
+</html>
