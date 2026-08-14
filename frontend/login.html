@@ -3,119 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS — Entrar</title>
+<title>M7 Cheats — Entrar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --v:#8B5CF6;--v2:#7C3AED;--v3:#A855F7;--v4:#6D28D9;--v5:#C4B5FD;
-  --b:#050505;--b2:#0A0A0A;--b3:#111111;--b4:#1A1A1A;
-  --w:#FFFFFF;--g1:#E5E7EB;--g2:#9CA3AF;--g3:#6B7280;--g4:#374151;
-  --glow:0 0 30px rgba(139,92,246,.4),0 0 60px rgba(139,92,246,.2);
-  --glow2:0 0 15px rgba(139,92,246,.6),0 0 30px rgba(139,92,246,.3);
-  --glass:rgba(255,255,255,.04);
-  --glassborder:rgba(255,255,255,.08);
-  --fd:'Syne',sans-serif;
-  --fb:'DM Sans',sans-serif;
-  --fm:'JetBrains Mono',monospace;
-}
-html{overflow-x:hidden}
-body{background:var(--b);color:var(--w);font-family:var(--fb);min-height:100vh;overflow-x:hidden;cursor:none;display:flex;flex-direction:column}
-#cur{position:fixed;width:12px;height:12px;background:var(--v3);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .15s ease;mix-blend-mode:screen;box-shadow:var(--glow2)}
-#cur-t{position:fixed;width:32px;height:32px;border:1px solid rgba(139,92,246,.35);border-radius:50%;pointer-events:none;z-index:9998;transition:left .09s ease,top .09s ease}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--b)}
-::-webkit-scrollbar-thumb{background:var(--v2);border-radius:2px}
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
-header{position:fixed;top:0;left:0;right:0;z-index:100;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.5rem,5vw,4rem);background:rgba(5,5,5,.75);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--glassborder)}
-.logo{font-family:var(--fd);font-weight:800;font-size:1.35rem;letter-spacing:.15em;background:linear-gradient(135deg,var(--w) 30%,var(--v3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:flex;align-items:center;gap:.5rem;text-decoration:none}
-.logo-icon{width:26px;height:26px;border:1.5px solid var(--v);border-radius:6px;display:grid;place-items:center;position:relative;overflow:hidden;flex-shrink:0}
-.logo-icon::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--v4),var(--v3));opacity:.3}
-.logo-icon svg{position:relative;z-index:1}
-.header-link{font-family:var(--fb);font-size:.82rem;color:var(--g3);text-decoration:none;display:flex;align-items:center;gap:.4rem;transition:color .2s}
-.header-link:hover{color:var(--v5)}
-.page{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;position:relative;z-index:1}
-.left-panel{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:8rem clamp(2rem,5vw,5rem) 4rem}
-.left-bg{position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 30% 50%,rgba(109,40,217,.18) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 80% 10%,rgba(168,85,247,.08) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 10% 90%,rgba(124,58,237,.1) 0%,transparent 60%),var(--b)}
-.left-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(139,92,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,.05) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse at 40% 50%,black 0%,transparent 70%)}
-.left-panel::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(139,92,246,.3) 40%,rgba(168,85,247,.4) 60%,transparent)}
-.left-content{position:relative;z-index:2}
-.panel-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);border-radius:20px;padding:.3rem .9rem;margin-bottom:1.8rem;font-family:var(--fm);font-size:.65rem;color:var(--v5);letter-spacing:.12em;text-transform:uppercase}
-.panel-tag::before{content:'';width:5px;height:5px;background:var(--v3);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(168,85,247,.4)}50%{box-shadow:0 0 0 5px rgba(168,85,247,0)}}
-.panel-title{font-family:var(--fd);font-weight:800;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;letter-spacing:-.025em;margin-bottom:1rem}
-.panel-title .accent{background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.panel-sub{font-size:.9rem;color:var(--g3);line-height:1.7;max-width:380px;margin-bottom:3rem}
-.benefits{display:flex;flex-direction:column;gap:1rem}
-.benefit{display:flex;align-items:center;gap:.85rem;padding:.85rem 1.1rem;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:14px;transition:all .3s}
-.benefit:hover{background:rgba(139,92,246,.06);border-color:rgba(139,92,246,.2);transform:translateX(4px)}
-.benefit-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(124,58,237,.15));border:1px solid rgba(139,92,246,.2);display:grid;place-items:center;flex-shrink:0}
-.benefit-icon svg{filter:drop-shadow(0 0 5px rgba(168,85,247,.5))}
-.benefit-text h5{font-family:var(--fd);font-size:.82rem;font-weight:600;margin-bottom:.1rem}
-.benefit-text p{font-size:.72rem;color:var(--g3)}
-.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.particle{position:absolute;width:2px;height:2px;background:var(--v3);border-radius:50%;animation:fp linear infinite;opacity:0}
-@keyframes fp{0%{transform:translateY(100%) translateX(0);opacity:0}10%{opacity:.5}90%{opacity:.2}100%{transform:translateY(-10%) translateX(calc(var(--dx)*80px));opacity:0}}
-.right-panel{display:flex;align-items:center;justify-content:center;padding:8rem clamp(1.5rem,5vw,5rem) 4rem;position:relative}
-.right-panel::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(139,92,246,.05) 0%,transparent 70%)}
-.form-card{width:100%;max-width:420px;position:relative;z-index:2}
-.form-header{margin-bottom:2rem}
-.form-header h2{font-family:var(--fd);font-weight:800;font-size:1.7rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:.4rem}
-.form-header h2 span{background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.form-header p{font-size:.85rem;color:var(--g3)}
-.form-header p a{color:var(--v5);text-decoration:none;transition:color .2s}
-.form-header p a:hover{color:var(--w)}
-.form-group{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
-.form-group label{font-family:var(--fm);font-size:.65rem;color:var(--g3);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
-.input-wrap{position:relative}
-.input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--g4);pointer-events:none;transition:color .3s}
-.field{width:100%;background:rgba(10,10,10,.8);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:.8rem 1rem .8rem 2.7rem;color:var(--w);font-family:var(--fb);font-size:.88rem;outline:none;transition:all .3s;-webkit-appearance:none}
-.field::placeholder{color:var(--g4)}
-.field:hover{border-color:rgba(255,255,255,.12)}
-.field:focus{border-color:rgba(139,92,246,.55);background:rgba(139,92,246,.04);box-shadow:0 0 0 3px rgba(139,92,246,.1),0 0 20px rgba(139,92,246,.05)}
-.input-wrap:focus-within .input-icon{color:var(--v5)}
-.password-wrap .pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--g4);cursor:pointer;display:grid;place-items:center;transition:color .2s;padding:0}
-.password-wrap .pw-toggle:hover{color:var(--v5)}
-.checkbox-group{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.5rem;margin-top:1.2rem}
-.checkbox-label{display:flex;align-items:flex-start;gap:.7rem;cursor:pointer;font-size:.8rem;color:var(--g3);line-height:1.5}
-.checkbox-label input[type=checkbox]{display:none}
-.custom-check{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(255,255,255,.12);background:rgba(10,10,10,.8);flex-shrink:0;margin-top:1px;display:grid;place-items:center;transition:all .3s}
-.checkbox-label input:checked~.custom-check{background:linear-gradient(135deg,var(--v2),var(--v3));border-color:transparent;box-shadow:0 0 0 3px rgba(139,92,246,.15)}
-.custom-check svg{opacity:0;transition:opacity .2s}
-.checkbox-label input:checked~.custom-check svg{opacity:1}
-.checkbox-label a{color:var(--v5);text-decoration:none}
-.checkbox-label a:hover{color:var(--w)}
-.btn-submit{width:100%;background:linear-gradient(135deg,var(--v2),var(--v3));border:none;border-radius:14px;padding:1rem 2rem;color:var(--w);font-family:var(--fd);font-size:.95rem;font-weight:700;letter-spacing:.06em;cursor:pointer;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 30px rgba(124,58,237,.35);display:flex;align-items:center;justify-content:center;gap:.7rem}
-.btn-submit::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);transition:left .5s}
-.btn-submit:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 15px 45px rgba(124,58,237,.5),0 0 60px rgba(168,85,247,.2)}
-.btn-submit:hover::before{left:100%}
-.btn-submit:active{transform:translateY(-1px) scale(.99)}
-.btn-spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite;display:none}
-@keyframes spin{to{transform:rotate(360deg)}}
-.form-footer{margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--glassborder);display:flex;align-items:center;justify-content:center;gap:.75rem;font-size:.75rem;color:var(--g4)}
-.trust-sep{width:3px;height:3px;background:var(--g4);border-radius:50%;opacity:.3}
-.field-msg{font-family:var(--fm);font-size:.62rem;margin-top:.3rem;letter-spacing:.04em}
-.field-msg.err{color:#EF4444}
-.field-msg.ok{color:#10B981}
-.glow-line{height:1px;background:linear-gradient(90deg,transparent,var(--v),var(--v3),transparent);opacity:.3;position:relative;z-index:1}
-@media(max-width:900px){.page{grid-template-columns:1fr}.left-panel{display:none}.right-panel{padding-top:6rem}}
-@media(max-width:480px){header{padding:0 1.25rem}}
-</style>
+  <link rel="stylesheet" href="m7-community.css">
 </head>
 <body>
 
 <div id="cur"></div>
 <div id="cur-t"></div>
-
 <div id="header-placeholder"></div>
 <script>
-  fetch('header.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('header-placeholder').innerHTML = data;
-    });
+fetch("header.html")
+  .then(response => response.text())
+  .then(data => { document.getElementById("header-placeholder").innerHTML = data; })
+  .catch(() => {});
 </script>
 
 <div class="glow-line"></div>
@@ -245,67 +148,41 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     localStorage.setItem('access_token', json.access_token);
     localStorage.setItem('refresh_token', json.refresh_token);
     localStorage.setItem('user', JSON.stringify(json.user));
-    window.location.href = '/';
+    window.location.href = 'index.html';
   }catch(err){ alert('Erro de rede'); btn.disabled=false; txt.style.display='block'; spin.style.display='none'; }
 });
 </script>
 <footer>
-    <div class="footer-grid">
-        <div class="footer-brand">
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" stroke="#A855F7" stroke-width="1.2" fill="rgba(168,85,247,.15)"/>
-                        <path d="M7 4V10M4 5.5L10 8.5" stroke="#A855F7" stroke-width="1"/>
-                    </svg>
-                </div>
-                <a href="index.html">NEXUS</a>
-            </div>
-            <p class="footer-desc">Tecnologia do futuro, disponível agora. Curadoria de produtos premium para quem não aceita menos que o melhor.</p>
-            <div class="social-links">
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h5>Produtos</h5>
-            <div class="footer-links">
-                <a href="index.html#produtos">Smartwatches</a>
-                <a href="index.html#produtos">Earbuds</a>
-                <a href="index.html#produtos">Monitores</a>
-                <a href="index.html#produtos">Câmeras</a>
-                <a href="index.html#produtos">Acessórios</a>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h5>Empresa</h5>
-            <div class="footer-links">
-                <a href="about.html">Sobre Nós</a>
-                <a href="#">Blog</a>
-                <a href="careers.html">Carreiras</a>
-                <a href="partners.html">Parcerias</a>
-                <a href="press.html">Imprensa</a>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h5>Suporte</h5>
-            <div class="footer-links">
-                <a href="help.html">Central de Ajuda</a>
-                <a href="track.html">Rastrear Pedido</a>
-                <a href="returns.html">Devoluções</a>
-                <a href="warranty.html">Garantia</a>
-                <a href="contact.html">Contato</a>
-            </div>
-        </div>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo"><div class="logo-icon">M7</div><a href="{{ url_for('index') if 'index' in url_for else 'index.html' }}">M7</a></div>
+      <p class="footer-desc">M7 Cheats: plataforma para acesso às licenças, recursos, atualizações, documentação e suporte da comunidade.</p>
+      <div class="social-links">
+        <a class="social-link" href="#" aria-label="Discord">DS</a>
+        <a class="social-link" href="#" aria-label="Instagram">IG</a>
+        <a class="social-link" href="#" aria-label="YouTube">YT</a>
+      </div>
     </div>
-    <div class="footer-bottom">
-        <p>© 2025 NEXUS Technology. Todos os direitos reservados.</p>
-        <div class="tech-badges">
-            <span class="tech-badge">SSL SECURE</span><span class="tech-badge">ISO 27001</span><span class="tech-badge">LGPD</span>
-        </div>
-    </div>
+    <div class="footer-col"><h5>M7 Cheats</h5><div class="footer-links">
+      <a href="{{ url_for('index') }}">Início</a>
+      <a href="{{ url_for('account') }}">Conta</a>
+      <a href="{{ url_for('technical') }}">Documentação</a>
+      <a href="{{ url_for('help_page') }}">Central de Ajuda</a>
+    </div></div>
+    <div class="footer-col"><h5>Plataforma</h5><div class="footer-links">
+      <a href="{{ url_for('cart') }}">Licenças</a>
+      <a href="{{ url_for('payment') }}">Pagamento</a>
+      <a href="{{ url_for('partners') }}">Parceiros</a>
+      <a href="{{ url_for('about') }}">Sobre a M7</a>
+    </div></div>
+    <div class="footer-col"><h5>Suporte</h5><div class="footer-links">
+      <a href="{{ url_for('contact') }}">Contato</a>
+      <a href="{{ url_for('technical') }}">Suporte Técnico</a>
+      <a href="{{ url_for('warranty') }}">Licença e Cobertura</a>
+      <a href="{{ url_for('returns') }}">Cancelamento</a>
+    </div></div>
+  </div>
+  <div class="footer-bottom"><p>© {{ current_year if current_year else 2026 }} M7 Cheats. Todos os direitos reservados.</p><div class="tech-badges"><span class="tech-badge">M7 CORE</span><span class="tech-badge">SECURE</span><span class="tech-badge">24/7</span></div></div>
 </footer>
 </body>
 </html>

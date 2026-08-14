@@ -1,2282 +1,769 @@
-Code (html)
-html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-NEXUS — Tecnologia do Futuro
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050b16">
+  <title>M7 Cheats — Plataforma</title>
+  <meta name="description" content="M7 Cheats — plataforma da comunidade para recursos, atualizações, suporte e gerenciamento da sua conta.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#030811;
+      --bg2:#06101d;
+      --panel:#071321;
+      --panel2:#0a1726;
+      --line:rgba(89,151,255,.18);
+      --line2:rgba(255,255,255,.08);
+      --blue:#0d7cff;
+      --blue2:#0064ea;
+      --cyan:#36a7ff;
+      --text:#f4f8ff;
+      --muted:#91a0b4;
+      --muted2:#63748a;
+      --green:#2bd67b;
+      --shadow:0 24px 80px rgba(0,0,0,.48);
+      --glow:0 0 28px rgba(13,124,255,.28);
+      --radius:14px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:
+        radial-gradient(circle at 62% 25%,rgba(0,111,255,.10),transparent 30%),
+        radial-gradient(circle at 12% 75%,rgba(0,80,190,.07),transparent 28%),
+        var(--bg);
+      color:var(--text);
+      font-family:Inter,Arial,sans-serif;
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.16;
+      background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+      background-size:72px 72px;
+      mask-image:linear-gradient(to bottom,black,transparent 85%);
+    }
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    button{border:0}
+    ::selection{background:#147eff;color:#fff}
+    ::-webkit-scrollbar{width:7px}
+    ::-webkit-scrollbar-track{background:#030811}
+    ::-webkit-scrollbar-thumb{background:#0b5fc8;border-radius:10px}
+
+    .container{width:min(1420px,calc(100% - 64px));margin:auto}
+
+    /* HEADER */
+    .header{
+      position:fixed;left:0;right:0;top:0;height:80px;z-index:100;
+      background:rgba(3,8,17,.78);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(88,146,230,.11);
+      transition:.3s ease;
+    }
+    .header.scrolled{background:rgba(3,8,17,.94);box-shadow:0 10px 40px rgba(0,0,0,.25)}
+    .header-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .brand{display:flex;align-items:center;min-width:150px}
+    .brand-mark{
+      font-family:"Space Grotesk",sans-serif;font-size:45px;font-weight:700;line-height:1;
+      font-style:italic;letter-spacing:-7px;
+      background:linear-gradient(135deg,#1586ff 15%,#fff 75%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      filter:drop-shadow(0 0 10px rgba(0,112,255,.3));
+    }
+    .brand small{
+      display:block;margin-left:11px;margin-top:15px;font-size:7px;letter-spacing:3px;color:#6c7c91;
+    }
+    nav{display:flex;align-items:center;gap:33px}
+    nav a{font-size:14px;color:#c1cbd8;position:relative;transition:.2s}
+    nav a:hover,nav a.active{color:#1b87ff}
+    nav a.active::after{
+      content:"";position:absolute;left:0;right:0;bottom:-25px;height:2px;
+      background:#1180ff;box-shadow:0 0 12px #1180ff;
+    }
+    .download{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      background:linear-gradient(135deg,#0c83ff,#075fe0);
+      color:white;font-weight:700;font-size:13px;padding:12px 20px;border-radius:7px;
+      box-shadow:0 7px 25px rgba(0,111,255,.27);cursor:pointer;transition:.25s;
+      white-space:nowrap;
+    }
+    .download:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,111,255,.42)}
+    .hamburger{display:none;background:transparent;color:white;font-size:25px;cursor:pointer}
+
+    /* HERO */
+    .hero{
+      min-height:800px;padding-top:80px;position:relative;overflow:hidden;
+      border-bottom:1px solid rgba(75,133,216,.12);
+    }
+    .hero::before{
+      content:"";position:absolute;width:780px;height:780px;left:31%;top:-70px;
+      background:radial-gradient(circle,rgba(0,119,255,.18),rgba(0,53,120,.05) 45%,transparent 70%);
+      filter:blur(10px);
+    }
+    .hero-grid{
+      min-height:720px;display:grid;grid-template-columns:41% 59%;align-items:center;position:relative;column-gap:36px;
+    }
+    .hero-copy{position:relative;z-index:5;padding-bottom:45px;padding-left:14px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(14,126,255,.6);
+      color:#1482ff;padding:7px 13px;border-radius:5px;font-weight:800;font-size:14px;letter-spacing:1.1px;
+      background:rgba(5,44,90,.22);box-shadow:0 0 18px rgba(0,103,255,.08);margin-bottom:20px;
+    }
+    .eyebrow svg{width:17px}
+    h1{
+      font-family:"Space Grotesk",sans-serif;font-size:clamp(47px,5.5vw,78px);
+      line-height:.96;letter-spacing:-3.5px;font-weight:700;margin-bottom:24px;
+      text-transform:uppercase;
+    }
+    h1 .blue{color:#096fff;text-shadow:0 0 30px rgba(0,106,255,.2)}
+    h1 .white{color:#f5f8fc}
+    .hero-copy p{max-width:530px;color:#aeb9c8;line-height:1.7;font-size:15px;margin-bottom:28px}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:45px}
+    .btn-secondary{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      color:#eef5ff;background:rgba(9,24,40,.82);border:1px solid #285078;border-radius:7px;
+      padding:13px 20px;font-weight:700;font-size:13px;cursor:pointer;transition:.25s;
+    }
+    .btn-secondary:hover{border-color:#0d7cff;background:#0b1e34;transform:translateY(-2px)}
+    .stats{display:flex;gap:35px}
+    .stat{display:flex;align-items:center;gap:10px}
+    .stat-icon{color:#0781ff;width:28px;height:28px}
+    .stat strong{display:block;color:#1483ff;font-size:22px;line-height:1.05}
+    .stat span{display:block;color:#8694a7;font-size:12px;margin-top:3px}
+
+    .hero-art{height:720px;position:relative;display:flex;align-items:flex-end;justify-content:flex-start;z-index:0;padding-left:18px}
+    .hero-person{
+      position:absolute;bottom:0;left:-120px;height:680px;width:min(520px,82%);
+      object-fit:cover;object-position:center top;
+      filter:saturate(1.08) contrast(1.05);
+      mix-blend-mode:screen;
+      mask-image:linear-gradient(to bottom,black 82%,transparent 100%);
+      -webkit-mask-image:linear-gradient(to bottom,black 82%,transparent 100%);
+      z-index:1;pointer-events:none;
+    }
+    .hero-person-glow{
+      position:absolute;left:-60px;bottom:70px;width:560px;height:530px;
+      background:radial-gradient(ellipse,rgba(0,113,255,.27),transparent 68%);
+      filter:blur(25px);z-index:0;
+    }
+
+    /* PRODUCT PANEL */
+    .product-panel{
+      position:absolute;right:-60px;top:40px;width:min(650px,64vw);z-index:3;
+      background:linear-gradient(145deg,rgba(7,19,33,.94),rgba(4,12,22,.96));
+      border:1px solid rgba(92,153,226,.23);border-radius:10px;box-shadow:var(--shadow);
+      overflow:hidden;backdrop-filter:blur(16px);
+    }
+    .product-top{height:64px;border-bottom:1px solid var(--line2);display:flex;align-items:center;padding:0 18px;gap:18px}
+    .product-logo{font-family:"Space Grotesk";font-size:31px;font-weight:700;font-style:italic;color:#0d7cff;letter-spacing:-3px}
+    .search{
+      width:220px;height:39px;display:flex;align-items:center;gap:9px;padding:0 11px;
+      border:1px solid rgba(110,140,175,.18);background:#07111e;border-radius:5px;color:#7e8ca0;
+    }
+    .search input{border:0;outline:0;background:transparent;color:#eaf2ff;width:100%;font-size:12px}
+    .product-tabs{display:flex;gap:28px;margin-left:auto;height:100%;align-items:center}
+    .product-tabs button{background:none;color:#c0cbd9;font-size:12px;cursor:pointer;height:100%;position:relative}
+    .product-tabs button.active{color:#fff}
+    .product-tabs button.active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#087cff;box-shadow:0 0 10px #087cff}
+    .product-body{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .product-col{display:flex;flex-direction:column;gap:12px}
+    .box{border:1px solid rgba(90,138,193,.15);border-radius:7px;background:rgba(4,13,23,.78);overflow:hidden}
+    .box-title{padding:12px 14px;border-bottom:1px solid rgba(90,138,193,.12);font-size:12px;font-weight:700;color:#edf5ff}
+    .box-body{padding:8px 12px 12px}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:31px;color:#aeb9c7;font-size:11px}
+    .check{
+      width:19px;height:19px;border-radius:4px;background:#086ee9;display:grid;place-items:center;color:#fff;
+      cursor:pointer;box-shadow:0 0 10px rgba(0,107,255,.12);flex:0 0 auto
+    }
+    .check.off{background:#0b1521;border:1px solid #263b50;color:transparent;box-shadow:none}
+    .key{border:1px solid #26394d;border-radius:4px;padding:3px 8px;color:#b7c4d4;background:#0b1624;font-size:10px}
+    .slider{height:4px;background:#102337;border-radius:10px;position:relative;margin:7px 0 13px}
+    .slider i{display:block;height:100%;width:65%;background:#0b7cff;border-radius:10px;box-shadow:0 0 10px rgba(0,124,255,.5)}
+    .slider i::after{content:"";position:absolute;left:65%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:#e8f2ff}
+    .wide-btn{width:100%;padding:9px;background:#091827;border:1px solid #19354e;color:#dfe8f4;border-radius:5px;font-size:11px;cursor:pointer}
+    .wide-btn:hover{border-color:#0c7dff;color:white}
+    .value{color:#dfe8f4}
+
+    /* SECTIONS */
+    .section{padding:50px 0 0}
+    .section-card{
+      border:1px solid rgba(82,137,202,.16);background:linear-gradient(145deg,#06101d,#050c16);
+      border-radius:10px;padding:27px 38px 38px;box-shadow:0 20px 70px rgba(0,0,0,.18)
+    }
+    .section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:20px}
+    .section-head h2{font-family:"Space Grotesk";font-size:29px;text-transform:uppercase;letter-spacing:-1px}
+    .section-head p{font-size:13px;color:#738398;margin-top:6px}
+    .blue-line{width:70px;height:2px;background:#087cff;box-shadow:0 0 12px #087cff;margin-top:10px}
+
+    .resource-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .resource{
+      min-height:125px;padding:20px;background:linear-gradient(145deg,#091728,#07111d);
+      border:1px solid rgba(84,139,202,.16);border-radius:8px;transition:.25s
+    }
+    .resource:hover{transform:translateY(-4px);border-color:rgba(10,125,255,.5);box-shadow:0 14px 35px rgba(0,65,140,.16)}
+    .resource-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:9px;border:1px solid rgba(7,124,255,.22);color:#0c80ff;background:rgba(0,100,230,.07);margin-bottom:14px}
+    .resource h3{font-size:14px;margin-bottom:6px}
+    .resource p{font-size:11px;line-height:1.55;color:#75869b}
+
+    .community{
+      margin-top:18px;display:grid;grid-template-columns:1.3fr .7fr;gap:18px
+    }
+    .community-box{
+      border:1px solid rgba(76,130,194,.15);border-radius:9px;padding:26px;background:#07111d
+    }
+    .community-box h3{font-family:"Space Grotesk";font-size:24px;margin-bottom:8px}
+    .community-box p{color:#8291a4;font-size:13px;line-height:1.65;max-width:620px}
+    .community-actions{display:flex;gap:10px;margin-top:18px}
+    .quote-list{display:grid;gap:10px}
+    .quote{padding:14px;border-left:2px solid #087cff;background:#091522;border-radius:4px}
+    .quote strong{font-size:12px}
+    .quote span{display:block;color:#78899e;font-size:11px;margin-top:5px}
+
+    footer{margin-top:70px;border-top:1px solid rgba(75,133,216,.12);padding:28px 0 42px;color:#607086}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .footer-brand{font-family:"Space Grotesk";font-size:27px;font-weight:700;font-style:italic;color:#0c7cff}
+    .footer-links{display:flex;gap:22px;font-size:12px}
+    .footer-links a:hover{color:#0c7cff}
+
+    /* TOAST / REVEAL */
+    .toast{
+      position:fixed;right:24px;bottom:24px;z-index:300;transform:translateY(30px);opacity:0;
+      background:#0b1a2b;border:1px solid #1b5a95;color:#e9f4ff;padding:13px 17px;border-radius:8px;
+      box-shadow:0 15px 50px rgba(0,0,0,.45);font-size:12px;transition:.3s
+    }
+    .toast.show{transform:translateY(0);opacity:1}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    @media(max-width:1150px){
+      nav{gap:20px}
+      .hero-grid{grid-template-columns:46% 54%}
+      .product-panel{width:66vw}
+      .hero-person{left:-5%}
+      .resource-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:900px){
+      .container{width:min(100% - 30px,700px)}
+      .header{height:68px}
+      nav,.header .download{display:none}
+      .hamburger{display:block}
+      .hero{min-height:auto;padding-top:68px}
+      .hero-grid{grid-template-columns:1fr;min-height:auto;padding:65px 0 20px}
+      .hero-copy{text-align:center;padding:0}
+      .hero-copy p{margin-left:auto;margin-right:auto}
+      .hero-actions,.stats{justify-content:center}
+      .hero-art{height:570px;margin-top:15px}
+      .product-panel{top:30px;right:0;width:100%}
+      .hero-person{height:500px;width:390px;left:50%;transform:translateX(-50%);bottom:0}
+      .community{grid-template-columns:1fr}
+    }
+    @media(max-width:620px){
+      h1{font-size:43px;letter-spacing:-2px}
+      .stats{display:grid;grid-template-columns:1fr 1fr;text-align:left;gap:18px}
+      .hero-art{height:510px}
+      .hero-person{height:430px;width:340px}
+      .product-top{height:56px;gap:10px}
+      .product-logo{font-size:26px}
+      .search{width:145px}
+      .product-tabs{display:none}
+      .product-body{grid-template-columns:1fr}
+      .product-col:last-child{display:none}
+      .section-card{padding:22px 16px 25px}
+      .resource-grid{grid-template-columns:1fr}
+      .section-head{display:block}
+      .footer-inner{flex-direction:column;align-items:flex-start}
+      .footer-links{flex-wrap:wrap}
+    }
+  </style>
+
+<style id="m7-blue-theme">
 :root{
---v:#8B5CF6;--v2:#7C3AED;--v3:#A855F7;--v4:#6D28D9;--v5:#C4B5FD;
---b:#050505;--b2:#0A0A0A;--b3:#111111;--b4:#1A1A1A;--b5:#222222;
---w:#FFFFFF;--g1:#E5E7EB;--g2:#9CA3AF;--g3:#6B7280;--g4:#374151;
---glow:0 0 30px rgba(139,92,246,0.4),0 0 60px rgba(139,92,246,0.2);
---glow2:0 0 15px rgba(139,92,246,0.6),0 0 30px rgba(139,92,246,0.3);
---glass:rgba(255,255,255,0.04);
---glassborder:rgba(255,255,255,0.08);
---font-display:'Syne',sans-serif;
---font-body:'DM Sans',sans-serif;
---font-mono:'JetBrains Mono',monospace;
+  --v:#0d7cff !important; --v2:#0064ea !important; --v3:#36a7ff !important;
+  --v4:#0756b8 !important; --v5:#a8dcff !important;
+  --glow:0 0 30px rgba(13,124,255,.42),0 0 60px rgba(13,124,255,.18) !important;
+  --glow2:0 0 15px rgba(13,124,255,.62),0 0 30px rgba(13,124,255,.28) !important;
 }
-html{scroll-behavior:smooth;overflow-x:hidden}
-body{
-background:var(--b);
-color:var(--w);
-font-family:var(--font-body);
-overflow-x:hidden;
-cursor:none;
-}
-
-/* Custom Cursor */
-#cursor{
-position:fixed;width:12px;height:12px;
-background:var(--v3);border-radius:50%;
-pointer-events:none;z-index:9999;
-transition:transform .15s ease,opacity .2s;
-mix-blend-mode:screen;
-box-shadow:var(--glow2);
-}
-#cursor-trail{
-position:fixed;width:32px;height:32px;
-border:1px solid rgba(139,92,246,.4);border-radius:50%;
-pointer-events:none;z-index:9998;
-transition:left .08s ease,top .08s ease,transform .2s ease;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--b)}
-::-webkit-scrollbar-thumb{background:var(--v2);border-radius:2px}
-
-/* Noise texture */
-body::before{
-content:'';
-position:fixed;inset:0;
-background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-pointer-events:none;z-index:0;opacity:.4;
-}
-
-/* === HEADER === */
-header{
-position:fixed;top:0;left:0;right:0;z-index:1000;
-padding:0 clamp(1rem,4vw,4rem);
-height:72px;display:flex;align-items:center;justify-content:space-between;
-background:rgba(5,5,5,.7);
-backdrop-filter:blur(24px) saturate(180%);
--webkit-backdrop-filter:blur(24px) saturate(180%);
-border-bottom:1px solid var(--glassborder);
-transition:all .4s ease;
-}
-header.scrolled{
-background:rgba(5,5,5,.92);
-border-bottom-color:rgba(139,92,246,.2);
-}
-
-.logo{
-font-family:var(--font-display);font-weight:800;font-size:1.4rem;
-letter-spacing:.15em;
-background:linear-gradient(135deg,var(--w) 30%,var(--v3));
--webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-display:flex;align-items:center;gap:.5rem;
-}
-.logo-icon{
-width:28px;height:28px;
-border:1.5px solid var(--v);border-radius:6px;
-display:grid;place-items:center;
-position:relative;overflow:hidden;
-}
-.logo-icon::before{
-content:'';position:absolute;inset:0;
-background:linear-gradient(135deg,var(--v4),var(--v3));opacity:.3;
-}
-.logo-icon svg{position:relative;z-index:1}
-
-nav{display:flex;gap:2rem;align-items:center}
-nav a{
-font-family:var(--font-body);font-size:.85rem;font-weight:400;letter-spacing:.06em;
-color:var(--g2);text-decoration:none;
-transition:color .2s,text-shadow .2s;
-position:relative;
-}
-nav a::after{
-content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;
-background:var(--v3);transform:scaleX(0);transition:transform .3s ease;
-}
-nav a:hover{color:var(--w);text-shadow:0 0 20px rgba(168,85,247,.6)}
-nav a:hover::after{transform:scaleX(1)}
-
-.header-actions{display:flex;gap:1rem;align-items:center}
-
-.search-bar{
-display:flex;align-items:center;gap:.5rem;
-background:var(--glass);border:1px solid var(--glassborder);
-border-radius:24px;padding:.4rem 1rem;
-transition:border-color .3s,box-shadow .3s;
-}
-.search-bar:focus-within{
-border-color:rgba(139,92,246,.5);
-box-shadow:0 0 0 3px rgba(139,92,246,.1);
-}
-.search-bar input{
-background:none;border:none;outline:none;
-color:var(--w);font-family:var(--font-body);font-size:.8rem;
-width:140px;
-}
-.search-bar input::placeholder{color:var(--g3)}
-.search-bar svg{color:var(--g3);flex-shrink:0}
-
-.cart-btn{
-position:relative;
-background:var(--glass);border:1px solid var(--glassborder);
-border-radius:12px;width:40px;height:40px;
-display:grid;place-items:center;cursor:pointer;
-transition:all .3s;
-}
-.cart-btn:hover{
-border-color:rgba(139,92,246,.5);
-box-shadow:var(--glow);
-}
-.cart-badge{
-position:absolute;top:-4px;right:-4px;
-width:16px;height:16px;background:var(--v3);border-radius:50%;
-font-size:.6rem;font-weight:700;display:grid;place-items:center;
-animation:pulse 2s infinite;
-}
-@keyframes pulse{
-0%,100%{box-shadow:0 0 0 0 rgba(168,85,247,.4)}
-50%{box-shadow:0 0 0 6px rgba(168,85,247,0)}
-}
-
-.cta-sm{
-background:linear-gradient(135deg,var(--v2),var(--v));
-border:none;border-radius:10px;
-padding:.45rem 1.2rem;color:var(--w);
-font-family:var(--font-display);font-size:.8rem;font-weight:600;letter-spacing:.04em;
-cursor:pointer;transition:all .3s;
-box-shadow:0 4px 15px rgba(124,58,237,.3);
-}
-.cta-sm:hover{
-transform:translateY(-1px);
-box-shadow:0 6px 25px rgba(124,58,237,.5);
-}
-
-/* === HERO === */
-.hero{
-min-height:100vh;
-display:grid;grid-template-columns:1fr 1fr;align-items:center;
-padding:120px clamp(1rem,6vw,6rem) 80px;
-position:relative;overflow:hidden;gap:2rem;
-}
-
-/* Animated gradient bg */
-.hero-bg{
-position:absolute;inset:0;
-background:
-radial-gradient(ellipse 80% 80% at 60% 50%,rgba(109,40,217,.12) 0%,transparent 70%),
-radial-gradient(ellipse 50% 60% at 80% 20%,rgba(139,92,246,.08) 0%,transparent 60%),
-radial-gradient(ellipse 40% 40% at 10% 80%,rgba(168,85,247,.06) 0%,transparent 60%),
-var(--b);
-}
-
-/* Grid lines */
-.hero-grid{
-position:absolute;inset:0;
-background-image:
-linear-gradient(rgba(139,92,246,.04) 1px,transparent 1px),
-linear-gradient(90deg,rgba(139,92,246,.04) 1px,transparent 1px);
-background-size:60px 60px;
-mask-image:radial-gradient(ellipse at 60% 50%,black 0%,transparent 70%);
-}
-
-.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.particle{
-position:absolute;width:2px;height:2px;background:var(--v3);border-radius:50%;
-animation:float-particle linear infinite;opacity:0;
-}
-@keyframes float-particle{
-0%{transform:translateY(100vh) translateX(0);opacity:0}
-10%{opacity:.6}
-90%{opacity:.3}
-100%{transform:translateY(-10vh) translateX(calc(var(--dx)*100px));opacity:0}
-}
-
-.hero-content{position:relative;z-index:2}
-.hero-tag{
-display:inline-flex;align-items:center;gap:.5rem;
-background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);
-border-radius:20px;padding:.35rem 1rem;margin-bottom:1.5rem;
-font-family:var(--font-mono);font-size:.7rem;color:var(--v5);letter-spacing:.1em;
-}
-.hero-tag::before{
-content:'';width:6px;height:6px;background:var(--v3);border-radius:50%;
-animation:pulse 2s infinite;
-}
-
-.hero-title{
-font-family:var(--font-display);font-weight:800;
-font-size:clamp(2.5rem,5.5vw,4.2rem);line-height:1.05;
-letter-spacing:-.02em;margin-bottom:1.2rem;
-}
-.hero-title .line2{
-background:linear-gradient(135deg,var(--v3),var(--v5),var(--v));
--webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-title .line3{
-color:var(--g2);font-weight:400;font-size:.7em;
-display:block;margin-top:.3rem;letter-spacing:.02em;
-}
-
-.hero-sub{
-font-size:1rem;color:var(--g2);line-height:1.7;
-max-width:480px;margin-bottom:2.5rem;
-font-weight:300;
-}
-
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
-
-.btn-primary{
-display:inline-flex;align-items:center;gap:.6rem;
-background:linear-gradient(135deg,var(--v2),var(--v3));
-border:none;border-radius:14px;
-padding:.85rem 2rem;color:var(--w);
-font-family:var(--font-display);font-size:.9rem;font-weight:600;letter-spacing:.04em;
-cursor:pointer;position:relative;overflow:hidden;
-transition:all .4s cubic-bezier(.34,1.56,.64,1);
-box-shadow:0 8px 30px rgba(124,58,237,.35);
-}
-.btn-primary::before{
-content:'';position:absolute;inset:0;
-background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);
-opacity:0;transition:opacity .3s;
-}
-.btn-primary:hover{
-transform:translateY(-3px) scale(1.02);
-box-shadow:0 15px 45px rgba(124,58,237,.5),0 0 60px rgba(168,85,247,.2);
-}
-.btn-primary:hover::before{opacity:1}
-
-.btn-secondary{
-display:inline-flex;align-items:center;gap:.6rem;
-background:var(--glass);
-border:1px solid var(--glassborder);border-radius:14px;
-padding:.85rem 2rem;color:var(--w);
-font-family:var(--font-display);font-size:.9rem;font-weight:600;letter-spacing:.04em;
-cursor:pointer;
-transition:all .3s;
-backdrop-filter:blur(12px);
-}
-.btn-secondary:hover{
-border-color:rgba(139,92,246,.5);
-background:rgba(139,92,246,.08);
-transform:translateY(-2px);
-box-shadow:0 8px 25px rgba(139,92,246,.2);
-}
-
-.hero-stats{
-display:flex;gap:2.5rem;
-border-top:1px solid var(--glassborder);
-padding-top:1.5rem;
-}
-.stat{display:flex;flex-direction:column;gap:.25rem}
-.stat-num{
-font-family:var(--font-display);font-size:1.6rem;font-weight:700;
-background:linear-gradient(135deg,var(--w),var(--v5));
--webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.stat-label{font-size:.72rem;color:var(--g3);letter-spacing:.06em;text-transform:uppercase}
-
-/* Hero visual */
-.hero-visual{
-position:relative;z-index:2;
-display:flex;align-items:center;justify-content:center;
-min-height:500px;
-}
-
-.hero-device{
-position:relative;
-animation:float-device 6s ease-in-out infinite;
-filter:drop-shadow(0 40px 80px rgba(139,92,246,.4));
-}
-@keyframes float-device{
-0%,100%{transform:translateY(0) rotateY(0deg)}
-33%{transform:translateY(-20px) rotateY(5deg)}
-66%{transform:translateY(-10px) rotateY(-3deg)}
-}
-
-.device-glow{
-position:absolute;inset:-30%;
-background:radial-gradient(ellipse,rgba(139,92,246,.3) 0%,transparent 70%);
-border-radius:50%;
-animation:pulse-glow 3s ease-in-out infinite;
-}
-@keyframes pulse-glow{
-0%,100%{opacity:.6;transform:scale(1)}
-50%{opacity:1;transform:scale(1.1)}
-}
-
-/* The 3D device SVG */
-.device-svg{
-width:100%;max-width:460px;height:auto;
-position:relative;z-index:1;
-}
-
-/* Orbiting rings */
-.orbit{
-position:absolute;
-border-radius:50%;
-border:1px solid rgba(139,92,246,.15);
-animation:rotate-orbit linear infinite;
-top:50%;left:50%;transform-origin:center;
-}
-.orbit-1{
-width:320px;height:320px;
-margin-left:-160px;margin-top:-160px;
-border-color:rgba(139,92,246,.2);
-animation-duration:15s;
-}
-.orbit-2{
-width:440px;height:440px;
-margin-left:-220px;margin-top:-220px;
-border-style:dashed;
-animation-duration:22s;animation-direction:reverse;
-}
-.orbit-3{
-width:560px;height:560px;
-margin-left:-280px;margin-top:-280px;
-animation-duration:30s;
-}
-@keyframes rotate-orbit{
-from{transform:rotate(0deg)}
-to{transform:rotate(360deg)}
-}
-.orbit-dot{
-position:absolute;width:6px;height:6px;
-background:var(--v3);border-radius:50%;
-box-shadow:0 0 10px var(--v3);
-top:-3px;left:50%;margin-left:-3px;
-}
-
-/* Hero badges */
-.badge-float{
-position:absolute;
-background:rgba(5,5,5,.85);
-backdrop-filter:blur(16px);
-border:1px solid var(--glassborder);
-border-radius:14px;padding:.7rem 1rem;
-display:flex;align-items:center;gap:.6rem;
-animation:float-badge ease-in-out infinite alternate;
-box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 0 1px rgba(139,92,246,.1);
-}
-.badge-float:nth-child(1){
-top:10%;right:-10%;animation-duration:3.5s;
-}
-.badge-float:nth-child(2){
-bottom:15%;left:-10%;animation-duration:4.5s;animation-delay:.5s;
-}
-@keyframes float-badge{
-from{transform:translateY(0)}
-to{transform:translateY(-12px)}
-}
-.badge-icon{
-width:32px;height:32px;border-radius:8px;
-background:linear-gradient(135deg,var(--v4),var(--v));
-display:grid;place-items:center;flex-shrink:0;
-}
-.badge-text{display:flex;flex-direction:column}
-.badge-text strong{font-size:.8rem;font-weight:600;font-family:var(--font-display)}
-.badge-text span{font-size:.65rem;color:var(--g3)}
-
-/* Stars */
-.stars{display:flex;gap:2px}
-.star{color:#F59E0B;font-size:.75rem}
-
-/* === FEATURES BAR === */
-.features-bar{
-display:grid;grid-template-columns:repeat(4,1fr);
-gap:1px;background:var(--glassborder);
-border-top:1px solid var(--glassborder);
-border-bottom:1px solid var(--glassborder);
-position:relative;z-index:2;
-}
-.feature-item{
-background:var(--b2);
-padding:1.5rem 2rem;
-display:flex;align-items:center;gap:1rem;
-transition:background .3s;
-}
-.feature-item:hover{
-background:rgba(139,92,246,.06);
-}
-.feature-icon{
-width:44px;height:44px;border-radius:12px;
-background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(124,58,237,.1));
-border:1px solid rgba(139,92,246,.2);
-display:grid;place-items:center;flex-shrink:0;
-}
-.feature-icon svg{
-filter:drop-shadow(0 0 6px rgba(168,85,247,.6));
-}
-.feature-text h4{font-family:var(--font-display);font-size:.85rem;font-weight:600;margin-bottom:.15rem}
-.feature-text p{font-size:.72rem;color:var(--g3)}
-
-/* === SECTION HEADER === */
-.section{
-padding:clamp(4rem,8vw,8rem) clamp(1rem,6vw,6rem);
-position:relative;
-}
-.section-header{
-text-align:center;margin-bottom:clamp(3rem,5vw,5rem);
-}
-.section-tag{
-display:inline-flex;align-items:center;gap:.5rem;
-background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);
-border-radius:20px;padding:.3rem .9rem;margin-bottom:1rem;
-font-family:var(--font-mono);font-size:.68rem;color:var(--v5);letter-spacing:.12em;
-text-transform:uppercase;
-}
-.section-title{
-font-family:var(--font-display);font-weight:800;
-font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.1;
-letter-spacing:-.02em;margin-bottom:.8rem;
-}
-.section-title span{
-background:linear-gradient(135deg,var(--v3),var(--v5));
--webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.section-sub{font-size:.95rem;color:var(--g3);max-width:540px;margin:0 auto;line-height:1.7}
-
-/* === PRODUCT GRID === */
-.products-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-gap:1.5rem;
-}
-
-/* ===== FIXED PRODUCT CARD CSS ===== */
-.product-card{
-  background:linear-gradient(135deg,rgba(17,17,17,.9),rgba(10,10,10,.95));
-  border:1px solid var(--glassborder);
-  border-radius:20px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:all .4s cubic-bezier(.34,1.56,.64,1);
-  position:relative;
-  /* REMOVED: group:true (invalid) and ddd} (typo) */
-}
-
-/* Gradient overlay pseudo-element */
-.product-card::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,rgba(139,92,246,0.06),transparent 60%);
-  opacity:0;
-  transition:opacity .4s;
-  border-radius:20px;
-  z-index:0;
-}
-
-/* Show overlay on hover - works with or without parent .group class */
-.group:hover .product-card::before,
-.product-card:hover::before{
-  opacity:1;
-}
-
-.product-card:hover{
-  transform:translateY(-8px) scale(1.02);
-  border-color:rgba(139,92,246,.4);
-  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(139,92,246,.2),var(--glow);
-}
-
-.product-img{
-  height:220px;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,rgba(17,17,17,1),rgba(26,26,26,1));
-  position:relative;overflow:hidden;
-}
-.product-img::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:60px;
-  background:linear-gradient(to top,rgba(10,10,10,.9),transparent);
-}
-
-.product-img-inner{
-  transition:transform .6s cubic-bezier(.34,1.56,.64,1);
-  position:relative;z-index:1;
-}
-.product-card:hover .product-img-inner{
-  transform:scale(1.08) rotateY(8deg) rotateX(-4deg);
-  filter:drop-shadow(0 20px 40px rgba(139,92,246,.4));
-}
-
-.product-glow-ring{
-  position:absolute;
-  width:200px;height:200px;
-  border-radius:50%;
-  background:radial-gradient(ellipse,rgba(139,92,246,.15) 0%,transparent 70%);
-  opacity:0;transition:opacity .4s;
-}
-.product-card:hover .product-glow-ring{opacity:1}
-
-.badge-discount{
-  position:absolute;top:12px;right:12px;
-  background:linear-gradient(135deg,var(--v2),var(--v3));
-  border-radius:8px;padding:.25rem .65rem;
-  font-family:var(--font-display);font-size:.7rem;font-weight:700;
-  letter-spacing:.04em;z-index:2;
-  box-shadow:0 4px 12px rgba(124,58,237,.4);
-}
-.badge-new{
-  background:linear-gradient(135deg,#059669,#10B981);
-  box-shadow:0 4px 12px rgba(5,150,105,.4);
-}
-
-.product-info{padding:1.2rem;position:relative;z-index:1}
-.product-cat{
-  font-size:.65rem;color:var(--v5);letter-spacing:.12em;
-  text-transform:uppercase;font-family:var(--font-mono);margin-bottom:.4rem;
-}
-.product-name{
-  font-family:var(--font-display);font-size:1rem;font-weight:700;
-  line-height:1.3;margin-bottom:.5rem;
-}
-.product-rating{
-  display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;
-}
-.product-rating .stars{gap:1px}
-.product-rating span{font-size:.72rem;color:var(--g3)}
-
-.product-price-row{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:.8rem;
-}
-.product-price{
-  display:flex;flex-direction:column;
-}
-.price-current{
-  font-family:var(--font-display);font-size:1.3rem;font-weight:700;
-  background:linear-gradient(135deg,var(--w),var(--v5));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.price-old{
-  font-size:.75rem;color:var(--g3);text-decoration:line-through;
-}
-.price-installment{
-  font-size:.7rem;color:var(--g2);margin-top:.1rem;
-}
-
-.btn-buy{
-  width:100%;
-  background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(139,92,246,.1));
-  border:1px solid rgba(139,92,246,.3);border-radius:12px;
-  padding:.75rem;color:var(--w);
-  font-family:var(--font-display);font-size:.8rem;font-weight:600;letter-spacing:.06em;
-  cursor:pointer;position:relative;overflow:hidden;
-  transition:all .3s;display:flex;align-items:center;justify-content:center;gap:.5rem;
-}
-.btn-buy::before{
-  content:'';position:absolute;top:0;left:-100%;
-  width:100%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);
-  transition:left .5s;
-}
-.btn-buy:hover{
-  background:linear-gradient(135deg,var(--v2),var(--v3));
-  border-color:transparent;
-  box-shadow:0 8px 25px rgba(124,58,237,.4);
-  transform:translateY(-1px);
-}
-.btn-buy:hover::before{left:100%}
-
-/* === TRENDING / CAROUSEL === */
-.carousel-wrap{
-  overflow:hidden;position:relative;
-}
-.carousel-track{
-  display:flex;gap:1.5rem;
-  transition:transform .6s cubic-bezier(.25,.46,.45,.94);
-  will-change:transform;
-}
-.carousel-item{
-  min-width:280px;flex-shrink:0;
-}
-
-.carousel-nav{
-  display:flex;justify-content:center;gap:1rem;margin-top:2rem;
-}
-.carousel-btn{
-  width:44px;height:44px;
-  background:var(--glass);border:1px solid var(--glassborder);
-  border-radius:50%;display:grid;place-items:center;cursor:pointer;
-  transition:all .3s;
-}
-.carousel-btn:hover{
-  border-color:rgba(139,92,246,.5);
-  background:rgba(139,92,246,.1);
-  box-shadow:var(--glow);
-}
-
-/* === TECH SECTION === */
-.tech-section{
-  background:linear-gradient(135deg,rgba(109,40,217,.06),transparent 60%);
-  border-top:1px solid var(--glassborder);
-  border-bottom:1px solid var(--glassborder);
-}
-
-.tech-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
-}
-.tech-visual{
-  position:relative;height:500px;display:flex;align-items:center;justify-content:center;
-}
-
-/* Holographic rings */
-.holo-ring{
-  position:absolute;
-  border-radius:50%;border:1px solid;
-  animation:holo-rotate linear infinite;
-}
-.holo-ring:nth-child(1){
-  width:200px;height:200px;
-  border-color:rgba(139,92,246,.4);
-  animation-duration:8s;
-}
-.holo-ring:nth-child(2){
-  width:280px;height:280px;
-  border-color:rgba(168,85,247,.25);
-  animation-duration:12s;animation-direction:reverse;
-  border-style:dashed;
-}
-.holo-ring:nth-child(3){
-  width:360px;height:360px;
-  border-color:rgba(196,181,253,.15);
-  animation-duration:18s;
-}
-@keyframes holo-rotate{
-  from{transform:rotate(0)}
-  to{transform:rotate(360deg)}
-}
-
-.holo-center{
-  width:120px;height:120px;
-  background:linear-gradient(135deg,var(--v4),var(--v3));
-  border-radius:24px;
-  display:grid;place-items:center;
-  position:relative;z-index:2;
-  box-shadow:var(--glow),0 20px 60px rgba(124,58,237,.3);
-  animation:float-device 5s ease-in-out infinite;
-}
-
-.tech-nodes{position:absolute;inset:0}
-.tech-node{
-  position:absolute;
-  background:rgba(5,5,5,.9);border:1px solid rgba(139,92,246,.3);
-  border-radius:10px;padding:.5rem .75rem;
-  font-family:var(--font-mono);font-size:.62rem;color:var(--v5);
-  animation:float-badge ease-in-out infinite alternate;
-}
-
-.tech-content h2{
-  font-family:var(--font-display);font-weight:800;
-  font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.1;
-  letter-spacing:-.02em;margin-bottom:1.2rem;
-}
-.tech-list{list-style:none;display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
-.tech-list li{
-  display:flex;align-items:flex-start;gap:.75rem;
-  font-size:.9rem;color:var(--g2);line-height:1.6;
-}
-.tech-list li::before{
-  content:'';
-  width:20px;height:20px;
-  background:linear-gradient(135deg,var(--v2),var(--v3));
-  border-radius:6px;flex-shrink:0;margin-top:2px;
-  display:grid;place-items:center;
-}
-
-.progress-bars{display:flex;flex-direction:column;gap:1rem}
-.prog-item{display:flex;flex-direction:column;gap:.5rem}
-.prog-label{
-  display:flex;justify-content:space-between;
-  font-size:.75rem;font-family:var(--font-mono);
-  color:var(--g3);
-}
-.prog-track{
-  height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;
-}
-.prog-fill{
-  height:100%;border-radius:3px;
-  background:linear-gradient(90deg,var(--v2),var(--v3),var(--v5));
-  animation:fill-bar 2s ease-out forwards;
-  transform-origin:left;transform:scaleX(0);
-  box-shadow:0 0 10px rgba(168,85,247,.5);
-}
-@keyframes fill-bar{
-  to{transform:scaleX(1)}
-}
-
-/* === TESTIMONIALS === */
-.reviews-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
-}
-.review-card{
-  background:linear-gradient(135deg,rgba(17,17,17,.8),rgba(10,10,10,.9));
-  border:1px solid var(--glassborder);border-radius:16px;
-  padding:1.5rem;
-  transition:all .3s;
-}
-.review-card:hover{
-  border-color:rgba(139,92,246,.3);
-  box-shadow:0 8px 30px rgba(0,0,0,.3),0 0 0 1px rgba(139,92,246,.1);
-}
-.review-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
-.reviewer-avatar{
-  width:40px;height:40px;border-radius:50%;
-  background:linear-gradient(135deg,var(--v4),var(--v3));
-  display:grid;place-items:center;
-  font-family:var(--font-display);font-size:.85rem;font-weight:700;
-  flex-shrink:0;
-}
-.reviewer-name{font-family:var(--font-display);font-size:.85rem;font-weight:600}
-.reviewer-badge{
-  font-size:.6rem;color:var(--v5);font-family:var(--font-mono);
-  letter-spacing:.08em;
-}
-.review-text{
-  font-size:.85rem;color:var(--g2);line-height:1.7;margin-bottom:1rem;
-}
-.review-footer{
-  display:flex;justify-content:space-between;align-items:center;
-  border-top:1px solid var(--glassborder);padding-top:.75rem;
-}
-.review-product{font-size:.7rem;color:var(--g3);font-family:var(--font-mono)}
-.verified{
-  font-size:.65rem;color:#10B981;
-  display:flex;align-items:center;gap:.3rem;
-}
-
-/* === NEWSLETTER === */
-.newsletter-section{
-  background:linear-gradient(135deg,rgba(109,40,217,.1),rgba(139,92,246,.05));
-  border-radius:24px;margin:0 clamp(1rem,4vw,4rem);
-  padding:clamp(2.5rem,5vw,5rem);
-  border:1px solid rgba(139,92,246,.2);
-  position:relative;overflow:hidden;
-}
-.newsletter-section::before{
-  content:'';position:absolute;top:-50%;left:-20%;
-  width:500px;height:500px;
-  background:radial-gradient(ellipse,rgba(139,92,246,.15) 0%,transparent 70%);
-  pointer-events:none;
-}
-.newsletter-inner{
-  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;
-  position:relative;z-index:1;
-}
-.newsletter-form{display:flex;gap:1rem}
-.newsletter-input{
-  flex:1;
-  background:rgba(0,0,0,.4);
-  border:1px solid var(--glassborder);border-radius:12px;
-  padding:.85rem 1.2rem;color:var(--w);
-  font-family:var(--font-body);font-size:.9rem;
-  outline:none;transition:border-color .3s,box-shadow .3s;
-}
-.newsletter-input::placeholder{color:var(--g3)}
-.newsletter-input:focus{
-  border-color:rgba(139,92,246,.5);
-  box-shadow:0 0 0 3px rgba(139,92,246,.1);
-}
-
-/* === FOOTER === */
-footer{
-  background:var(--b2);
-  border-top:1px solid var(--glassborder);
-  padding:clamp(3rem,6vw,6rem) clamp(1rem,6vw,6rem) 2rem;
-}
-.footer-grid{
-  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;
-}
-.footer-brand{
-display:flex;flex-direction:column;gap:1rem;
-}
-.footer-desc{
-font-size:.85rem;color:var(--g3);line-height:1.7;max-width:280px;
-}
-.social-links{display:flex;gap:.75rem}
-.social-link{
-width:36px;height:36px;
-background:var(--glass);border:1px solid var(--glassborder);
-border-radius:8px;display:grid;place-items:center;
-transition:all .3s;text-decoration:none;
-}
-.social-link:hover{
-border-color:rgba(139,92,246,.5);
-background:rgba(139,92,246,.1);
-box-shadow:0 4px 15px rgba(139,92,246,.2);
-}
-.footer-col h5{
-font-family:var(--font-display);font-size:.85rem;font-weight:600;
-letter-spacing:.06em;margin-bottom:1.2rem;color:var(--g1);
-}
-.footer-links{display:flex;flex-direction:column;gap:.65rem}
-.footer-links a{
-font-size:.82rem;color:var(--g3);text-decoration:none;
-transition:color .2s;
-}
-.footer-links a:hover{color:var(--v5)}
-.footer-bottom{
-border-top:1px solid var(--glassborder);padding-top:1.5rem;
-display:flex;justify-content:space-between;align-items:center;
-}
-.footer-bottom p{font-size:.75rem;color:var(--g4)}
-.footer-bottom .tech-badges{display:flex;gap:.75rem}
-.tech-badge{
-font-family:var(--font-mono);font-size:.6rem;color:var(--g3);
-background:var(--glass);border:1px solid var(--glassborder);
-border-radius:6px;padding:.2rem .6rem;
-}
-
-/* === FLOATING NAV === */
-.float-nav{
-position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);
-background:rgba(5,5,5,.85);backdrop-filter:blur(24px);
-border:1px solid var(--glassborder);border-radius:20px;
-padding:.5rem;display:flex;gap:.25rem;z-index:999;
-box-shadow:0 8px 40px rgba(0,0,0,.5),0 0 0 1px rgba(139,92,246,.1);
-}
-.float-nav-item{
-padding:.5rem 1rem;border-radius:14px;
-font-size:.75rem;font-family:var(--font-display);font-weight:600;letter-spacing:.04em;
-color:var(--g3);cursor:pointer;transition:all .3s;
-white-space:nowrap;
-}
-.float-nav-item:hover,.float-nav-item.active{
-background:rgba(139,92,246,.15);
-color:var(--v5);
-}
-.float-nav-item.active{
-background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(139,92,246,.15));
-border:1px solid rgba(139,92,246,.3);
-}
-
-/* === LOADING SCREEN === */
 #loading{
-position:fixed;inset:0;background:var(--b);z-index:10000;
-display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
-transition:opacity .6s ease, visibility .6s ease;
+  position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 42%,rgba(0,102,255,.18),transparent 38%),#030811;
+  transition:opacity .65s ease, visibility .65s ease;
 }
-#loading.hidden{opacity:0;visibility:hidden}
-.load-logo{
-font-family:var(--font-display);font-weight:800;font-size:2rem;
-letter-spacing:.2em;
-background:linear-gradient(135deg,var(--v3),var(--v5));
--webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.load-bar-wrap{
-width:200px;height:2px;background:rgba(255,255,255,.06);border-radius:1px;overflow:hidden;
-}
-.load-bar{
-height:100%;background:linear-gradient(90deg,var(--v2),var(--v3));
-animation:load-progress 2s ease-out forwards;
-}
-@keyframes load-progress{
-from{width:0}
-to{width:100%}
-}
-.load-text{
-font-family:var(--font-mono);font-size:.65rem;color:var(--g3);letter-spacing:.15em;
-animation:blink .8s ease infinite alternate;
-}
-@keyframes blink{from{opacity:.3}to{opacity:1}}
-
-/* Entrance animations */
-.fade-up{
-opacity:0;transform:translateY(30px);
-transition:opacity .8s ease,transform .8s ease;
-}
-.fade-up.visible{opacity:1;transform:translateY(0)}
-
-.fade-in{opacity:0;transition:opacity .8s ease}
-.fade-in.visible{opacity:1}
-
-/* === MOBILE === */
-@media(max-width:900px){
-.hero{grid-template-columns:1fr;padding-top:100px}
-.hero-visual{display:none}
-.features-bar{grid-template-columns:1fr 1fr}
-.tech-grid{grid-template-columns:1fr}
-.tech-visual{height:300px}
-.reviews-grid{grid-template-columns:1fr}
-.newsletter-inner{grid-template-columns:1fr}
-.newsletter-form{flex-direction:column}
-.footer-grid{grid-template-columns:1fr 1fr}
-nav{display:none}
-}
-@media(max-width:600px){
-.hero-stats{flex-wrap:wrap;gap:1.5rem}
-.features-bar{grid-template-columns:1fr}
-.footer-grid{grid-template-columns:1fr}
-.float-nav{display:none}
-}
-
-/* ACCENT GLOW LINE */
-.glow-line{
-height:1px;background:linear-gradient(90deg,transparent,var(--v),var(--v3),transparent);
-opacity:.4;
-}
+#loading.hidden{opacity:0;visibility:hidden;pointer-events:none}
+#loading .load-logo{font-family:'Syne',sans-serif;font-size:clamp(4rem,10vw,7rem);font-weight:800;letter-spacing:-.08em;line-height:1;
+  background:linear-gradient(135deg,#fff 20%,#0d7cff 55%,#36a7ff 88%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 26px rgba(13,124,255,.48));margin-bottom:2rem}
+#loading .load-bar-wrap{width:min(360px,72vw);height:3px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden;border:1px solid rgba(54,167,255,.16)}
+#loading .load-bar{height:100%;width:0;background:linear-gradient(90deg,#0064ea,#36a7ff);box-shadow:0 0 16px rgba(54,167,255,.65);animation:m7Loading 2s cubic-bezier(.2,.8,.2,1) forwards}
+#loading .load-text{margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.22em;color:#8ebcff}
+#loading .load-sub{margin-top:.45rem;font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.14em;color:#50657f}
+@keyframes m7Loading{0%{width:0}35%{width:48%}70%{width:76%}100%{width:100%}}
+.m7-page-card{border-color:rgba(13,124,255,.18)!important;box-shadow:0 18px 55px rgba(0,55,140,.14)}
 </style>
+
+  <link rel="stylesheet" href="m7-community.css">
 </head>
+
 <body>
 
-<!-- Loading Screen -->
-<div id="loading">
-  <div class="load-logo">NEXUS</div>
+<!-- M7 system boot -->
+<div id="loading" aria-live="polite" aria-label="Carregando a plataforma M7">
+  <div class="load-logo">M7</div>
   <div class="load-bar-wrap"><div class="load-bar"></div></div>
   <div class="load-text">INICIALIZANDO SISTEMA...</div>
+  <div class="load-sub">CARREGANDO PLATAFORMA M7</div>
 </div>
 
-<!-- Custom Cursor -->
-<div id="cursor"></div>
-<div id="cursor-trail"></div>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="{{ url_for('index') }}" class="brand" aria-label="M7 Cheats">
+        <span class="brand-mark">M7</span>
+        <small>COMMUNITY</small>
+      </a>
 
-<!-- HEADER -->
-<div id="header-placeholder"></div>
-<script>
-  fetch('header.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('header-placeholder').innerHTML = data;
-    });
-</script>
+      <nav>
+        <a href="{{ url_for('index') }}" class="active">Início</a>
+        <a href="{{ url_for('about') }}">Sobre</a>
+        <a href="{{ url_for('account') }}">Conta</a>
+        <a href="{{ url_for('partners') }}">Parceiros</a>
+        <a href="{{ url_for('technical') }}">Recursos e docs</a>
+        <a href="{{ url_for('help_page') }}">Ajuda</a>
+        <a href="{{ url_for('contact') }}">Contato</a>
+      </nav>
 
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="particles" id="particles"></div>
-
-  <div class="hero-content fade-up">
-    <div class="hero-tag">⬡ NOVA COLEÇÃO 2025 ·&nbsp; TECNOLOGIA AVANÇADA</div>
-    <h1 class="hero-title">
-      O Futuro Está<br>
-      <span class="line2">Disponível Agora</span>
-      <span class="line3">Produtos de tecnologia premium para o mundo de amanhã</span>
-    </h1>
-    <p class="hero-sub">Descubra gadgets exclusivos, wearables inteligentes e dispositivos de última geração. Curadoria dos melhores produtos de tecnologia do mundo.</p>
-    <div class="hero-ctas">
-      <button class="btn-primary" onclick="document.getElementById('produtos').scrollIntoView({behavior:'smooth'})">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        Explorar Produtos
-      </button>
-      <button class="btn-secondary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Ver Ofertas
-      </button>
-    </div>
-    <div class="hero-stats">
-      <div class="stat">
-        <span class="stat-num" data-count="12847">0</span>
-        <span class="stat-label">Clientes Ativos</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num" data-count="4.9">0</span>
-        <span class="stat-label">Avaliação Média</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num" data-count="380">0</span>
-        <span class="stat-label">Produtos Premium</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num" data-count="48">0</span>
-        <span class="stat-label">Horas de Entrega</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-visual fade-in">
-    <div class="orbit orbit-1"><div class="orbit-dot"></div></div>
-    <div class="orbit orbit-2"><div class="orbit-dot"></div></div>
-    <div class="orbit orbit-3"><div class="orbit-dot"></div></div>
-    <div class="device-glow"></div>
-    <div class="hero-device">
-      <!-- Premium device SVG -->
-      <svg class="device-svg" viewBox="0 0 460 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#1a1a2e"/>
-            <stop offset="50%" stop-color="#16213e"/>
-            <stop offset="100%" stop-color="#0f3460"/>
-          </linearGradient>
-          <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#7C3AED"/>
-            <stop offset="50%" stop-color="#8B5CF6"/>
-            <stop offset="100%" stop-color="#A855F7"/>
-          </linearGradient>
-          <linearGradient id="metalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#3a3a4a"/>
-            <stop offset="50%" stop-color="#5a5a6a"/>
-            <stop offset="100%" stop-color="#2a2a3a"/>
-          </linearGradient>
-          <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#A855F7" stop-opacity="0"/>
-          </linearGradient>
-          <filter id="glow-filter">
-            <feGaussianBlur stdDeviation="8" result="blur"/>
-            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <filter id="soft-glow">
-            <feGaussianBlur stdDeviation="4" result="blur"/>
-            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <radialGradient id="reflectGrad" cx="30%" cy="20%" r="60%">
-            <stop offset="0%" stop-color="rgba(255,255,255,0.12)"/>
-            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-          </radialGradient>
-        </defs>
-
-        <!-- Shadow/ground reflection -->
-        <ellipse cx="230" cy="480" rx="140" ry="20" fill="url(#glowGrad)" opacity="0.5"/>
-
-        <!-- Main device body -->
-        <rect x="60" y="60" width="340" height="360" rx="28" fill="url(#bodyGrad)"/>
-        <!-- metallic edge -->
-        <rect x="60" y="60" width="340" height="360" rx="28" fill="none" stroke="url(#metalGrad)" stroke-width="2"/>
-
-        <!-- Screen bezel -->
-        <rect x="78" y="80" width="304" height="322" rx="20" fill="#080810"/>
-
-        <!-- Screen content -->
-        <rect x="86" y="88" width="288" height="306" rx="16" fill="#0a0a1a"/>
-        <rect x="86" y="88" width="288" height="306" rx="16" fill="url(#screenGrad)" opacity="0.08"/>
-
-        <!-- UI on screen -->
-        <!-- Header bar -->
-        <rect x="86" y="88" width="288" height="36" rx="16" fill="rgba(139,92,246,0.12)"/>
-        <rect x="86" y="108" width="288" height="16" fill="rgba(139,92,246,0.12)"/>
-        <circle cx="108" cy="106" r="8" fill="rgba(139,92,246,0.3)"/>
-        <rect x="122" y="100" width="80" height="12" rx="4" fill="rgba(255,255,255,0.1)"/>
-        <rect x="330" y="100" width="36" height="12" rx="6" fill="rgba(139,92,246,0.4)"/>
-
-        <!-- Card elements -->
-        <rect x="98" y="138" width="126" height="100" rx="10" fill="rgba(139,92,246,0.12)" stroke="rgba(139,92,246,0.2)" stroke-width="1"/>
-        <rect x="250" y="138" width="112" height="100" rx="10" fill="rgba(168,85,247,0.1)" stroke="rgba(168,85,247,0.2)" stroke-width="1"/>
-
-        <rect x="110" y="150" width="40" height="40" rx="8" fill="rgba(139,92,246,0.3)"/>
-        <rect x="110" y="200" width="70" height="8" rx="3" fill="rgba(255,255,255,0.12)"/>
-        <rect x="110" y="214" width="50" height="6" rx="2" fill="rgba(139,92,246,0.4)"/>
-
-        <rect x="262" y="150" width="40" height="40" rx="8" fill="rgba(168,85,247,0.3)"/>
-        <rect x="262" y="200" width="70" height="8" rx="3" fill="rgba(255,255,255,0.12)"/>
-        <rect x="262" y="214" width="50" height="6" rx="2" fill="rgba(168,85,247,0.4)"/>
-
-        <!-- Chart/graph area -->
-        <rect x="98" y="252" width="264" height="80" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(139,92,246,0.15)" stroke-width="1"/>
-        <!-- Chart bars -->
-        <rect x="116" y="294" width="16" height="28" rx="3" fill="rgba(139,92,246,0.4)"/>
-        <rect x="140" y="282" width="16" height="40" rx="3" fill="rgba(168,85,247,0.5)"/>
-        <rect x="164" y="272" width="16" height="50" rx="3" fill="rgba(139,92,246,0.6)"/>
-        <rect x="188" y="285" width="16" height="37" rx="3" fill="rgba(168,85,247,0.45)"/>
-        <rect x="212" y="276" width="16" height="46" rx="3" fill="rgba(139,92,246,0.55)"/>
-        <rect x="236" y="265" width="16" height="57" rx="3" fill="rgba(168,85,247,0.7)" filter="url(#soft-glow)"/>
-        <rect x="260" y="278" width="16" height="44" rx="3" fill="rgba(139,92,246,0.5)"/>
-        <rect x="284" y="260" width="16" height="62" rx="3" fill="rgba(196,181,253,0.7)" filter="url(#soft-glow)"/>
-        <rect x="308" y="270" width="16" height="52" rx="3" fill="rgba(139,92,246,0.6)"/>
-
-        <!-- Bottom stats row -->
-        <rect x="98" y="344" width="80" height="38" rx="8" fill="rgba(139,92,246,0.1)" stroke="rgba(139,92,246,0.15)" stroke-width="1"/>
-        <rect x="190" y="344" width="80" height="38" rx="8" fill="rgba(139,92,246,0.1)" stroke="rgba(139,92,246,0.15)" stroke-width="1"/>
-        <rect x="282" y="344" width="80" height="38" rx="8" fill="rgba(139,92,246,0.1)" stroke="rgba(139,92,246,0.15)" stroke-width="1"/>
-        <rect x="108" y="352" width="45" height="7" rx="2" fill="rgba(255,255,255,0.15)"/>
-        <rect x="108" y="365" width="30" height="6" rx="2" fill="rgba(139,92,246,0.5)"/>
-        <rect x="200" y="352" width="45" height="7" rx="2" fill="rgba(255,255,255,0.15)"/>
-        <rect x="200" y="365" width="30" height="6" rx="2" fill="rgba(168,85,247,0.5)"/>
-        <rect x="292" y="352" width="45" height="7" rx="2" fill="rgba(255,255,255,0.15)"/>
-        <rect x="292" y="365" width="30" height="6" rx="2" fill="rgba(196,181,253,0.5)"/>
-
-        <!-- Screen reflection -->
-        <rect x="86" y="88" width="288" height="306" rx="16" fill="url(#reflectGrad)"/>
-
-        <!-- Purple glow accent edges -->
-        <rect x="86" y="88" width="288" height="306" rx="16" fill="none" stroke="url(#screenGrad)" stroke-width="1.5" opacity="0.6" filter="url(#soft-glow)"/>
-
-        <!-- Camera/sensors top -->
-        <circle cx="230" cy="72" r="4" fill="#111" stroke="rgba(139,92,246,0.3)" stroke-width="1"/>
-        <circle cx="230" cy="72" r="1.5" fill="rgba(139,92,246,0.5)"/>
-        <!-- Speaker grill -->
-        <line x1="210" y1="440" x2="250" y2="440" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-linecap="round" stroke-dasharray="3,3"/>
-
-        <!-- Side buttons -->
-        <rect x="398" y="140" width="6" height="50" rx="3" fill="url(#metalGrad)"/>
-        <rect x="398" y="200" width="6" height="30" rx="3" fill="url(#metalGrad)"/>
-        <rect x="56" y="160" width="6" height="40" rx="3" fill="url(#metalGrad)"/>
-
-        <!-- Bottom connector -->
-        <rect x="205" y="418" width="50" height="6" rx="3" fill="rgba(139,92,246,0.3)"/>
-
-        <!-- Subtle purple glow emanating from screen -->
-        <rect x="86" y="88" width="288" height="306" rx="16" fill="rgba(139,92,246,0.04)"/>
-
-        <!-- Glowing corner accents -->
-        <path d="M86 104 L86 88 L102 88" stroke="rgba(168,85,247,0.7)" stroke-width="2" fill="none" filter="url(#soft-glow)"/>
-        <path d="M374 104 L374 88 L358 88" stroke="rgba(168,85,247,0.7)" stroke-width="2" fill="none" filter="url(#soft-glow)"/>
-        <path d="M86 378 L86 394 L102 394" stroke="rgba(168,85,247,0.7)" stroke-width="2" fill="none" filter="url(#soft-glow)"/>
-        <path d="M374 378 L374 394 L358 394" stroke="rgba(168,85,247,0.7)" stroke-width="2" fill="none" filter="url(#soft-glow)"/>
-      </svg>
-    </div>
-
-    <!-- Floating info badges -->
-    <div class="badge-float" style="top:8%;right:-5%">
-      <div class="badge-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      </div>
-      <div class="badge-text">
-        <strong>IA Integrada</strong>
-        <span>Processamento Neural</span>
-      </div>
-    </div>
-
-    <div class="badge-float" style="bottom:12%;left:-5%">
-      <div class="badge-icon" style="background:linear-gradient(135deg,#059669,#10B981)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div class="badge-text">
-        <strong>4.9★ Avaliado</strong>
-        <div class="stars">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
-          <span class="star">★</span><span class="star">★</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- FEATURES BAR -->
-<div class="features-bar" id="destaques">
-  <div class="feature-item">
-    <div class="feature-icon">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </div>
-    <div class="feature-text">
-      <h4>Entrega Expressa</h4>
-      <p>Em até 48 horas</p>
-    </div>
-  </div>
-  <div class="feature-item">
-    <div class="feature-icon">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    </div>
-    <div class="feature-text">
-      <h4>Garantia Total</h4>
-      <p>12 meses de cobertura</p>
-    </div>
-  </div>
-  <div class="feature-item">
-    <div class="feature-icon">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-    </div>
-    <div class="feature-text">
-      <h4>Pagamento Seguro</h4>
-      <p>SSL + Criptografia 256bit</p>
-    </div>
-  </div>
-  <div class="feature-item">
-    <div class="feature-icon">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 15a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 4.17h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 12a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    </div>
-    <div class="feature-text">
-      <h4>Suporte 24/7</h4>
-      <p>Assistência humana real</p>
-    </div>
-  </div>
-</div>
-
-<!-- PRODUCTS GRID -->
-<section class="section" id="produtos">
-  <div class="section-header fade-up">
-    <div class="section-tag">// CATÁLOGO</div>
-    <h2 class="section-title">Produtos em <span>Destaque</span></h2>
-    <p class="section-sub">Gadgets selecionados com a mais alta tecnologia disponível. Cada produto é curado pela nossa equipe de especialistas.</p>
-  </div>
-
-  <div class="products-grid" id="products-grid">
-    <!-- Product cards injected by JS -->
-  </div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- TRENDING CAROUSEL -->
-<section class="section">
-  <div class="section-header fade-up">
-    <div class="section-tag">// EM ALTA</div>
-    <h2 class="section-title">Mais <span>Vendidos</span></h2>
-    <p class="section-sub">Os produtos mais desejados da semana. Estoque limitado.</p>
-  </div>
-  <div class="carousel-wrap">
-    <div class="carousel-track" id="carousel"></div>
-  </div>
-  <div class="carousel-nav">
-    <button class="carousel-btn" onclick="moveCarousel(-1)">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <button class="carousel-btn" onclick="moveCarousel(1)">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
-  </div>
-</section>
-
-<!-- TECH SECTION -->
-<section class="section tech-section" id="tecnologia">
-  <div class="tech-grid">
-    <div class="tech-visual fade-in">
-      <div class="holo-ring"><div class="orbit-dot"></div></div>
-      <div class="holo-ring"><div class="orbit-dot" style="background:#7C3AED;box-shadow:0 0 10px #7C3AED"></div></div>
-      <div class="holo-ring"></div>
-      <div class="holo-center">
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
-          <path d="M25 5L45 15V35L25 45L5 35V15L25 5Z" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
-          <path d="M25 15L35 20V30L25 35L15 30V20L25 15Z" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-          <circle cx="25" cy="25" r="4" fill="white" opacity="0.8"/>
-          <line x1="25" y1="15" x2="25" y2="35" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-          <line x1="15" y1="20" x2="35" y2="30" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-          <line x1="35" y1="20" x2="15" y2="30" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      <a class="download" href="{{ url_for('login') }}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/>
         </svg>
-      </div>
-      <div class="tech-nodes">
-        <div class="tech-node" style="top:12%;left:5%;animation-duration:3s">AI_CORE v3.2</div>
-        <div class="tech-node" style="top:20%;right:5%;animation-duration:4s;animation-delay:.5s">NEURAL_NET</div>
-        <div class="tech-node" style="bottom:25%;left:8%;animation-duration:3.5s;animation-delay:1s">QUANTUM_IO</div>
-        <div class="tech-node" style="bottom:18%;right:8%;animation-duration:4.5s;animation-delay:1.5s">HOLOGRAPHIC</div>
-        <div class="tech-node" style="top:50%;left:0%;animation-duration:5s;animation-delay:2s">MESH_CONNECT</div>
-      </div>
+        ENTRAR
+      </a>
+      <button class="hamburger" id="menuBtn" aria-label="Abrir menu">☰</button>
     </div>
+  </header>
 
-    <div class="tech-content fade-up">
-      <div class="section-tag">// TECNOLOGIA</div>
-      <h2>Onde Inovação<br><span style="background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Encontra Design</span></h2>
-      <p style="color:var(--g2);margin-bottom:1.5rem;line-height:1.7">Cada produto em nosso catálogo passa por um rigoroso processo de curadoria tecnológica. Trabalhamos apenas com fabricantes que empurram os limites do que é possível.</p>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 12h16M12 4v16"/><circle cx="12" cy="12" r="9"/>
+            </svg>
+            M7 CHEATS
+          </div>
 
-      <ul class="tech-list">
-        <li>Inteligência Artificial embarcada para experiência personalizada</li>
-        <li>Conectividade de próxima geração — WiFi 7, Bluetooth 5.4, UWB</li>
-        <li>Materiais premium: titânio, alumínio aeroespacial e vidro cerâmico</li>
-        <li>Bateria de estado sólido com carregamento em 15 minutos</li>
-      </ul>
+          <h1>
+            <span class="white">M7</span><br>
+            <span class="blue">PLATAFORMA.</span><br>
+            <span class="white">TUDO EM UM SÓ LUGAR.</span>
+          </h1>
 
-      <div class="progress-bars">
-        <div class="prog-item">
-          <div class="prog-label"><span>Performance</span><span>98%</span></div>
-          <div class="prog-track"><div class="prog-fill" style="width:98%;animation-delay:.2s"></div></div>
+          <p>
+            A plataforma M7 centraliza sua conta, recursos, atualizações,
+            documentação, suporte e informações da comunidade em um único
+            ambiente. Acesse os serviços disponíveis pelo menu principal.
+          </p>
+
+          <div class="hero-actions">
+            <a class="download" href="{{ url_for('login') }}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/>
+              </svg>
+              ABRIR CONTA
+            </a>
+            <a class="btn-secondary" href="{{ url_for('technical') }}">
+              VER RECURSOS
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m8 12 2.2 2.2L16 8.5"/>
+              </svg>
+              <div><strong data-count="30">0+</strong><span>Atualizações</span></div>
+            </div>
+            <div class="stat">
+              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>
+              </svg>
+              <div><strong data-count="30">0+</strong><span>Atualizações</span></div>
+            </div>
+            <div class="stat">
+              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="3"/><path d="M3 20c.5-3.5 2.5-5 6-5s5.5 1.5 6 5"/><path d="M14 15c3.5-.2 5.8 1.4 6 5"/>
+              </svg>
+              <div><strong data-count="30">0K+</strong><span>Membros</span></div>
+            </div>
+          </div>
         </div>
-        <div class="prog-item">
-          <div class="prog-label"><span>Inovação</span><span>96%</span></div>
-          <div class="prog-track"><div class="prog-fill" style="width:96%;animation-delay:.4s"></div></div>
-        </div>
-        <div class="prog-item">
-          <div class="prog-label"><span>Satisfação do Cliente</span><span>99%</span></div>
-          <div class="prog-track"><div class="prog-fill" style="width:99%;animation-delay:.6s"></div></div>
-        </div>
-        <div class="prog-item">
-          <div class="prog-label"><span>Sustentabilidade</span><span>87%</span></div>
-          <div class="prog-track"><div class="prog-fill" style="width:87%;animation-delay:.8s"></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<div class="glow-line"></div>
+        <div class="hero-art reveal">
+          <div class="hero-person-glow"></div>
+          <img class="hero-person" src="{{ url_for('plataforma_asset', filename='m7-hero.png') }}" alt="M7">
 
-<!-- REVIEWS -->
-<section class="section">
-  <div class="section-header fade-up">
-    <div class="section-tag">// AVALIAÇÕES</div>
-    <h2 class="section-title">O que nossos <span>Clientes</span> dizem</h2>
-  </div>
-  <div class="reviews-grid">
-    <div class="review-card fade-up">
-      <div class="review-header">
-        <div class="reviewer-avatar">MR</div>
-        <div>
-          <div class="reviewer-name">Marcos Rodrigues</div>
+          <div class="product-panel">
+            <div class="product-top">
+              <div class="product-logo">M7</div>
+              <label class="search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>
+                </svg>
+                <input id="searchInput" placeholder="Buscar recursos..." autocomplete="off">
+              </label>
+              <div class="product-tabs">
+                <button>Legitbot</button>
+                <button>Visuais</button>
+                <button class="active">Misc</button>
+                <button>Configs</button>
+              </div>
+            </div>
 
-      <script>
-        // Atualiza badge do carrinho com itens salvos em localStorage
-        try{
-          const cart = JSON.parse(localStorage.getItem('cart')||'[]');
-          const badge = document.querySelector('.cart-badge');
-          if(badge) badge.textContent = String((cart && cart.length) || 0);
-        }catch(e){/* ignore */}
-      </script>
-
-      <script>
-        // Substitui botão Entrar por nome do usuário quando autenticado
-        (function(){
-          try{
-            const user = JSON.parse(localStorage.getItem('user')||'null');
-            const token = localStorage.getItem('access_token');
-            const cta = document.querySelector('.cta-sm');
-            if(user && token && cta){
-              const wrap = document.createElement('div'); wrap.style.display='flex'; wrap.style.gap='0.6rem'; wrap.style.alignItems='center';
-              const name = document.createElement('div'); name.textContent = user.name||'Minha conta'; name.style.fontWeight='600'; name.style.color='var(--w)';
-              const logout = document.createElement('a'); logout.href='#'; logout.textContent='Sair'; logout.style.color='var(--g3)'; logout.style.textDecoration='none'; logout.addEventListener('click', async function(e){e.preventDefault(); try{ await fetch('/api/logout',{method:'POST',headers:{'Authorization':'Bearer '+localStorage.getItem('access_token')}});}catch(e){} localStorage.removeItem('access_token'); localStorage.removeItem('refresh_token'); localStorage.removeItem('user'); location.reload(); });
-              wrap.appendChild(name); wrap.appendChild(logout);
-              cta.replaceWith(wrap);
-            }
-          }catch(e){/*ignore*/}
-        })();
-      </script>
-
-      <script>
-      // Carrega produtos da API e renderiza cards
-      loadProducts();
-      </script>
-          <div class="reviewer-badge">⬡ CLIENTE VERIFICADO</div>
-        </div>
-        <div class="stars" style="margin-left:auto">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-        </div>
-      </div>
-      <p class="review-text">"O smartwatch chegou em 2 dias e superou todas as expectativas. O display holográfico é incrível, parece gadget de ficção científica. Atendimento impecável."</p>
-      <div class="review-footer">
-        <span class="review-product">NEXUS Watch Pro X</span>
-        <span class="verified">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-          Verificado
-        </span>
-      </div>
-    </div>
-
-    <div class="review-card fade-up" style="transition-delay:.1s">
-      <div class="review-header">
-        <div class="reviewer-avatar" style="background:linear-gradient(135deg,#7C3AED,#A855F7)">AG</div>
-        <div>
-          <div class="reviewer-name">Ana Gomes</div>
-          <div class="reviewer-badge">⬡ CLIENTE VIP</div>
-        </div>
-        <div class="stars" style="margin-left:auto">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-        </div>
-      </div>
-      <p class="review-text">"Compro aqui há 1 ano. Os earbuds com cancelamento ativo são os melhores que já tive. A IA de equalização aprende minhas preferências. Produto premium de verdade."</p>
-      <div class="review-footer">
-        <span class="review-product">AirPulse Neural Pro</span>
-        <span class="verified">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-          Verificado
-        </span>
-      </div>
-    </div>
-
-    <div class="review-card fade-up" style="transition-delay:.2s">
-      <div class="review-header">
-        <div class="reviewer-avatar" style="background:linear-gradient(135deg,#0891b2,#06b6d4)">LS</div>
-        <div>
-          <div class="reviewer-name">Lucas Souza</div>
-          <div class="reviewer-badge">⬡ EMBAIXADOR</div>
-        </div>
-        <div class="stars" style="margin-left:auto">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-        </div>
-      </div>
-      <p class="review-text">"Recebi o kit completo de setup gamer. O monitor OLED com taxa de 360Hz é simplesmente de outro nível. A NEXUS entrega o que promete. Sem palavras."</p>
-      <div class="review-footer">
-        <span class="review-product">Quantum Display OLED</span>
-        <span class="verified">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-          Verificado
-        </span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- NEWSLETTER -->
-<div style="padding:0 clamp(1rem,4vw,4rem) 4rem">
-  <div class="newsletter-section">
-    <div class="newsletter-inner">
-      <div>
-        <div class="section-tag">// ACESSO ANTECIPADO</div>
-        <h2 style="font-family:var(--font-display);font-weight:800;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:.8rem">
-          Seja o Primeiro a<br>
-          <span style="background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Descobrir o Futuro</span>
-        </h2>
-        <p style="font-size:.9rem;color:var(--g3);line-height:1.6">Receba novidades exclusivas, drops limitados e ofertas para assinantes antes de qualquer um.</p>
-      </div>
-      <div>
-        <div class="newsletter-form">
-          <input type="email" class="newsletter-input" placeholder="seu@email.com">
-          <button class="btn-primary" style="white-space:nowrap;padding:.85rem 1.5rem">
-            Quero Entrar
-          </button>
-        </div>
-        <p style="font-size:.7rem;color:var(--g4);margin-top:.75rem">Sem spam. Apenas tecnologia premium.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-    <div class="footer-grid">
-        <div class="footer-brand">
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" stroke="#A855F7" stroke-width="1.2" fill="rgba(168,85,247,.15)"/>
-                        <path d="M7 4V10M4 5.5L10 8.5" stroke="#A855F7" stroke-width="1"/>
-                    </svg>
+            <div class="product-body">
+              <div class="product-col">
+                <div class="box">
+                  <div class="box-title">Exploits</div>
+                  <div class="box-body">
+                    <div class="row"><span>CombatRoll Time</span><button class="check toggle on">✓</button></div>
+                    <div class="row"><span>CombatRoll Glitch</span><button class="check toggle on">✓</button></div>
+                    <div class="row"><span>Invisível</span><span class="key">ScrollLock</span></div>
+                  </div>
                 </div>
-                <a href="index.html">NEXUS</a>
-            </div>
-            <p class="footer-desc">Tecnologia do futuro, disponível agora. Curadoria de produtos premium para quem não aceita menos que o melhor.</p>
-            <div class="social-links">
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h5>Produtos</h5>
-            <div class="footer-links">
-                <a href="index.html#produtos">Smartwatches</a>
-                <a href="index.html#produtos">Earbuds</a>
-                <a href="index.html#produtos">Monitores</a>
-                <a href="index.html#produtos">Câmeras</a>
-                <a href="index.html#produtos">Acessórios</a>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h5>Empresa</h5>
-            <div class="footer-links">
-                <a href="about.html">Sobre Nós</a>
-                <a href="#">Blog</a>
-                <a href="careers.html">Carreiras</a>
-                <a href="partners.html">Parcerias</a>
-                <a href="press.html">Imprensa</a>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h5>Suporte</h5>
-            <div class="footer-links">
-                <a href="help.html">Central de Ajuda</a>
-                <a href="track.html">Rastrear Pedido</a>
-                <a href="returns.html">Devoluções</a>
-                <a href="warranty.html">Garantia</a>
-                <a href="contact.html">Contato</a>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2025 NEXUS Technology. Todos os direitos reservados.</p>
-        <div class="tech-badges">
-            <span class="tech-badge">SSL SECURE</span><span class="tech-badge">ISO 27001</span><span class="tech-badge">LGPD</span>
-        </div>
-    </div>
-</footer>
 
-<!-- ============================================================ -->
-<!-- QUICK VIEW MODAL                                            -->
-<!-- ============================================================ -->
-<div id="qv-backdrop" onclick="closeQuickView()" style="
-  position:fixed;inset:0;z-index:2000;
-  background:rgba(0,0,0,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  opacity:0;visibility:hidden;
-  transition:opacity .4s ease,visibility .4s ease;
-"></div>
+                <div class="box">
+                  <div class="box-title">LocalPlayer</div>
+                  <div class="box-body">
+                    <div class="row"><span>Anti HeadShot</span><button class="check toggle on">✓</button></div>
+                    <div class="row"><span>Ragdoll</span><button class="check toggle on">✓</button></div>
+                    <div class="row"><span>Verificar Veículos Próximos</span><span class="key">F</span></div>
+                    <div class="row"><span>Sem Colisão</span><button class="check toggle on">✓</button></div>
+                    <div class="row"><span>Sem Ações</span><button class="check toggle on">✓</button></div>
+                    <div class="row"><span>Stamina</span><button class="check toggle on">✓</button></div>
+                    <div class="row"><span>Velocidade Infinita</span><button class="check toggle on">✓</button></div>
+                    <div class="slider"><i></i></div>
+                  </div>
+                </div>
+              </div>
 
-<div id="qv-modal" role="dialog" aria-modal="true" aria-label="Detalhes do produto" style="
-  position:fixed;inset:0;z-index:2001;
-  display:flex;align-items:center;justify-content:center;
-  padding:1rem;pointer-events:none;
-">
-  <div id="qv-panel" style="
-    width:100%;max-width:960px;max-height:92vh;
-    background:linear-gradient(145deg,#0d0d0d,#0a0a0a);
-    border:1px solid rgba(139,92,246,.25);border-radius:24px;
-    overflow:hidden;display:grid;grid-template-columns:1fr 1fr;
-    transform:translateY(28px) scale(.97);opacity:0;
-    transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .35s ease;
-    box-shadow:0 40px 120px rgba(0,0,0,.7),0 0 0 1px rgba(139,92,246,.1),0 0 80px rgba(139,92,246,.08);
-    pointer-events:all;position:relative;
-  ">
+              <div class="product-col">
+                <div class="box">
+                  <div class="box-title">Teleportar</div>
+                  <div class="box-body">
+                    <div class="row"><span>Sem Clip</span><span class="key">4</span></div>
+                    <div class="row"><span>Velocidade</span><span class="value">50m/s</span></div>
+                    <div class="slider"><i></i></div>
+                    <div class="row"><span>Invisível em NC</span><button class="check toggle on">✓</button></div>
+                    <button class="wide-btn">Teleportar para Waypoint</button>
+                  </div>
+                </div>
 
-    <!-- Close button -->
-    <button onclick="closeQuickView()" style="
-      position:absolute;top:16px;right:16px;z-index:10;
-      width:36px;height:36px;border-radius:10px;border:1px solid rgba(255,255,255,.1);
-      background:rgba(0,0,0,.6);backdrop-filter:blur(8px);
-      color:#9CA3AF;cursor:pointer;display:grid;place-items:center;
-      transition:all .25s;
-    " onmouseenter="this.style.borderColor='rgba(139,92,246,.5)';this.style.color='#fff'"
-       onmouseleave="this.style.borderColor='rgba(255,255,255,.1)';this.style.color='#9CA3AF'">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+                <div class="box">
+                  <div class="box-title">Jogador</div>
+                  <div class="box-body">
+                    <div class="row"><span>Vida</span><span class="value">100</span></div>
+                    <div class="slider"><i style="width:70%"></i></div>
+                    <button class="wide-btn">Aplicar Vida</button>
+                  </div>
+                </div>
 
-    <!-- LEFT — Product visual -->
-    <div id="qv-left" style="
-      position:relative;background:linear-gradient(145deg,#0f0f14,#0a0a10);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      min-height:460px;overflow:hidden;
-    ">
-      <!-- Background glow -->
-      <div id="qv-glow" style="
-        position:absolute;width:320px;height:320px;border-radius:50%;
-        background:radial-gradient(ellipse,rgba(139,92,246,.2) 0%,transparent 70%);
-        animation:qvpulse 3s ease-in-out infinite;pointer-events:none;
-      "></div>
-
-      <!-- Grid lines -->
-      <div style="
-        position:absolute;inset:0;
-        background-image:linear-gradient(rgba(139,92,246,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,.04) 1px,transparent 1px);
-        background-size:40px 40px;
-        mask-image:radial-gradient(ellipse at 50% 50%,black 30%,transparent 80%);
-      "></div>
-
-      <!-- Product image / emoji -->
-      <div id="qv-img-wrap" style="position:relative;z-index:2;padding:2rem;text-align:center">
-        <div id="qv-emoji" style="
-          font-size:7rem;line-height:1;
-          filter:drop-shadow(0 0 30px rgba(139,92,246,.5));
-          animation:qvfloat 5s ease-in-out infinite;
-          display:block;
-        "></div>
-        <img id="qv-img" src="" alt="" style="
-          max-width:240px;max-height:240px;object-fit:contain;display:none;
-          filter:drop-shadow(0 20px 50px rgba(139,92,246,.35));
-          animation:qvfloat 5s ease-in-out infinite;
-        ">
-      </div>
-
-      <!-- Orbiting ring -->
-      <div style="
-        position:absolute;width:280px;height:280px;border-radius:50%;
-        border:1px dashed rgba(139,92,246,.15);
-        animation:qvorbit 18s linear infinite;pointer-events:none;
-      "></div>
-
-      <!-- Tags row -->
-      <div id="qv-tags" style="
-        position:absolute;bottom:20px;left:0;right:0;
-        display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;padding:0 1rem;
-      "></div>
-
-      <!-- Stock indicator -->
-      <div id="qv-stock-bar" style="
-        position:absolute;top:20px;left:20px;
-        background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
-        border:1px solid rgba(255,255,255,.08);border-radius:10px;
-        padding:.4rem .8rem;font-family:'JetBrains Mono',monospace;font-size:.65rem;
-        display:flex;align-items:center;gap:.5rem;color:#9CA3AF;
-      ">
-        <span id="qv-stock-dot" style="width:6px;height:6px;border-radius:50%;background:#10B981;box-shadow:0 0 6px #10B981;flex-shrink:0"></span>
-        <span id="qv-stock-txt">— em estoque</span>
-      </div>
-    </div>
-
-    <!-- RIGHT — Product info -->
-    <div style="
-      overflow-y:auto;padding:2rem 2rem 2rem 1.75rem;
-      display:flex;flex-direction:column;gap:1.25rem;
-    ">
-      <!-- Category + badge -->
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap">
-        <div id="qv-cat" style="
-          font-family:'JetBrains Mono',monospace;font-size:.65rem;
-          color:#C4B5FD;letter-spacing:.14em;text-transform:uppercase;
-          background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);
-          border-radius:20px;padding:.25rem .75rem;
-        "></div>
-        <div id="qv-badge" style="
-          font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.06em;
-          background:linear-gradient(135deg,#7C3AED,#A855F7);
-          border-radius:8px;padding:.25rem .7rem;color:#fff;
-          box-shadow:0 4px 12px rgba(124,58,237,.4);display:none;
-        "></div>
-      </div>
-
-      <!-- Name -->
-      <h2 id="qv-name" style="
-        font-family:'Syne',sans-serif;font-weight:800;
-        font-size:clamp(1.3rem,2.5vw,1.7rem);line-height:1.15;letter-spacing:-.02em;
-        color:#fff;
-      "></h2>
-
-      <!-- Stars + reviews + sold -->
-      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
-        <div style="display:flex;gap:2px" id="qv-stars"></div>
-        <span id="qv-rating-num" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#C4B5FD;font-weight:600"></span>
-        <span id="qv-reviews" style="font-size:.75rem;color:#6B7280"></span>
-        <span style="color:#374151">·</span>
-        <span id="qv-sold" style="font-size:.75rem;color:#6B7280"></span>
-      </div>
-
-      <!-- Price block -->
-      <div style="
-        background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.15);
-        border-radius:16px;padding:1rem 1.2rem;
-        display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-      ">
-        <div>
-          <div id="qv-price" style="
-            font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;
-            background:linear-gradient(135deg,#fff,#C4B5FD);
-            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-            line-height:1;
-          "></div>
-          <div id="qv-old-price" style="font-size:.8rem;color:#6B7280;text-decoration:line-through;margin-top:.2rem"></div>
-          <div id="qv-installment" style="font-size:.72rem;color:#9CA3AF;margin-top:.15rem"></div>
-        </div>
-        <div id="qv-discount-pill" style="
-          background:linear-gradient(135deg,#059669,#10B981);
-          border-radius:10px;padding:.35rem .8rem;
-          font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;
-          color:#fff;box-shadow:0 4px 12px rgba(5,150,105,.35);display:none;
-        "></div>
-      </div>
-
-      <!-- Tabs -->
-      <div>
-        <div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:1rem">
-          <button class="qv-tab active" data-tab="desc" onclick="qvTab(this,'desc')" style="
-            padding:.55rem 1.1rem;background:none;border:none;
-            font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:500;
-            letter-spacing:.08em;color:#6B7280;cursor:pointer;
-            border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .25s;
-          ">DESCRIÇÃO</button>
-          <button class="qv-tab" data-tab="specs" onclick="qvTab(this,'specs')" style="
-            padding:.55rem 1.1rem;background:none;border:none;
-            font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:500;
-            letter-spacing:.08em;color:#6B7280;cursor:pointer;
-            border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .25s;
-          ">SPECS</button>
-          <button class="qv-tab" data-tab="ship" onclick="qvTab(this,'ship')" style="
-            padding:.55rem 1.1rem;background:none;border:none;
-            font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:500;
-            letter-spacing:.08em;color:#6B7280;cursor:pointer;
-            border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .25s;
-          ">ENTREGA</button>
-        </div>
-
-        <div id="qv-tab-desc" class="qv-tabpane" style="animation:qvtabfade .3s ease">
-          <p id="qv-desc" style="font-size:.88rem;color:#9CA3AF;line-height:1.75"></p>
-        </div>
-        <div id="qv-tab-specs" class="qv-tabpane" style="display:none;animation:qvtabfade .3s ease">
-          <div id="qv-specs-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem"></div>
-        </div>
-        <div id="qv-tab-ship" class="qv-tabpane" style="display:none;animation:qvtabfade .3s ease">
-          <div style="display:flex;flex-direction:column;gap:.65rem">
-            <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:10px">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              <div>
-                <div style="font-family:'Syne',sans-serif;font-size:.8rem;font-weight:600;color:#10B981">Frete Grátis</div>
-                <div style="font-size:.7rem;color:#6B7280">Em pedidos acima de R$&nbsp;199</div>
+                <div class="box">
+                  <div class="box-title">Armas</div>
+                  <div class="box-body">
+                    <div class="row"><span>Munição Infinita</span><button class="check toggle on">✓</button></div>
+                    <div class="row"><span>Sem Recuo</span><button class="check toggle on">✓</button></div>
+                    <div class="row"><span>Sem Recarregar</span><button class="check toggle on">✓</button></div>
+                    <div class="row"><span>Recarga Rápida</span><button class="check toggle on">✓</button></div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <div>
-                <div style="font-family:'Syne',sans-serif;font-size:.8rem;font-weight:600;color:#fff">Entrega Nacional</div>
-                <div style="font-size:.7rem;color:#6B7280">SP 3 dias · RJ 5 dias · Outros até 10 dias</div>
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <div>
-                <div style="font-family:'Syne',sans-serif;font-size:.8rem;font-weight:600;color:#fff">Garantia 12 meses</div>
-                <div style="font-size:.7rem;color:#6B7280">Troca sem burocracia</div>
-              </div>
-            </div>
-
-            <!-- CEP checker -->
-            <div style="margin-top:.25rem;display:flex;gap:.5rem">
-              <input id="qv-cep" type="text" placeholder="00000-000" maxlength="9"
-                oninput="maskQvCep(this)"
-                style="
-                  flex:1;background:rgba(10,10,10,.8);border:1px solid rgba(255,255,255,.08);border-radius:10px;
-                  padding:.65rem 1rem;color:#fff;font-family:'JetBrains Mono',monospace;font-size:.8rem;outline:none;
-                  transition:border-color .3s,box-shadow .3s;
-                "
-                onfocus="this.style.borderColor='rgba(139,92,246,.5)';this.style.boxShadow='0 0 0 3px rgba(139,92,246,.1)'"
-                onblur="this.style.borderColor='rgba(255,255,255,.08)';this.style.boxShadow='none'"
-              >
-              <button onclick="calcQvShipping()" style="
-                background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(139,92,246,.15));
-                border:1px solid rgba(139,92,246,.3);border-radius:10px;
-                padding:.65rem 1rem;color:#C4B5FD;
-                font-family:'Syne',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.04em;
-                cursor:pointer;white-space:nowrap;transition:all .3s;
-              " onmouseenter="this.style.background='linear-gradient(135deg,#7C3AED,#A855F7)';this.style.color='#fff'"
-                onmouseleave="this.style.background='linear-gradient(135deg,rgba(124,58,237,.2),rgba(139,92,246,.15))';this.style.color='#C4B5FD'">
-                Calcular
-              </button>
-            </div>
-            <div id="qv-ship-result" style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#9CA3AF;min-height:18px"></div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Qty + CTA -->
-      <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap">
-        <div style="
-          display:flex;align-items:center;
-          background:rgba(10,10,10,.8);border:1px solid rgba(255,255,255,.08);border-radius:12px;
-          overflow:hidden;
-        ">
-          <button onclick="qvQty(-1)" style="
-            width:40px;height:44px;background:none;border:none;color:#9CA3AF;
-            font-size:1.2rem;cursor:pointer;transition:color .2s;
-          " onmouseenter="this.style.color='#fff'" onmouseleave="this.style.color='#9CA3AF'">−</button>
-          <span id="qv-qty" style="
-            min-width:36px;text-align:center;
-            font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#fff;font-weight:600;
-          ">1</span>
-          <button onclick="qvQty(1)" style="
-            width:40px;height:44px;background:none;border:none;color:#9CA3AF;
-            font-size:1.2rem;cursor:pointer;transition:color .2s;
-          " onmouseenter="this.style.color='#fff'" onmouseleave="this.style.color='#9CA3AF'">+</button>
+    <section class="section reveal" id="recursos">
+      <div class="container">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Recursos poderosos</h2>
+              <div class="blue-line"></div>
+              <p>Serviços disponíveis dentro da plataforma M7.</p>
+            </div>
+          </div>
+
+          <div class="resource-grid">
+            <article class="resource">
+              <div class="resource-icon">✦</div>
+              <h3>Conta e acesso</h3>
+              <p>Gerencie seu acesso, dados da conta e sessão da plataforma.</p>
+            </article>
+            <article class="resource">
+              <div class="resource-icon">↻</div>
+              <h3>Atualizações</h3>
+              <p>Acompanhe novidades, versões e mudanças disponíveis para a comunidade.</p>
+            </article>
+            <article class="resource">
+              <div class="resource-icon">◎</div>
+              <h3>Recursos e docs</h3>
+              <p>Consulte guias técnicos, instruções e informações da plataforma.</p>
+            </article>
+            <article class="resource">
+              <div class="resource-icon">♙</div>
+              <h3>Suporte</h3>
+              <p>Encontre ajuda, contato e canais oficiais da M7.</p>
+            </article>
+          </div>
         </div>
-
-        <button id="qv-cart-btn" onclick="qvAddToCart()" style="
-          flex:1;min-width:160px;
-          background:linear-gradient(135deg,#7C3AED,#A855F7);
-          border:none;border-radius:14px;height:44px;
-          color:#fff;font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.05em;
-          cursor:pointer;position:relative;overflow:hidden;
-          transition:all .35s cubic-bezier(.34,1.56,.64,1);
-          box-shadow:0 8px 25px rgba(124,58,237,.35);
-          display:flex;align-items:center;justify-content:center;gap:.5rem;
-        ">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <span id="qv-cart-txt">Adicionar ao Carrinho</span>
-        </button>
-
-        <button id="qv-wish-btn" title="Salvar" style="
-          width:44px;height:44px;
-          background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
-          border-radius:12px;cursor:pointer;display:grid;place-items:center;
-          transition:all .3s;color:#6B7280;
-        " onmouseenter="this.style.borderColor='rgba(239,68,68,.4)';this.style.color='#F87171'"
-           onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.color='#6B7280'"
-           onclick="this.style.color='#F87171';this.style.borderColor='rgba(239,68,68,.4)'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </button>
       </div>
+    </section>
 
-      <!-- Trust row -->
-      <div style="
-        display:flex;gap:1rem;flex-wrap:wrap;
-        padding-top:.85rem;border-top:1px solid rgba(255,255,255,.05);
-      ">
-        <span style="display:flex;align-items:center;gap:.35rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#374151">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Pagamento seguro
-        </span>
-        <span style="display:flex;align-items:center;gap:.35rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#374151">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Garantia 12 meses
-        </span>
-        <span style="display:flex;align-items:center;gap:.35rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#374151">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          Produto original
-        </span>
+    <section class="section reveal" id="exploits">
+      <div class="container">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Exploits & configurações</h2>
+              <div class="blue-line"></div>
+              <p>Painéis de recursos disponíveis dentro da experiência M7.</p>
+            </div>
+          </div>
+          <div class="resource-grid">
+            <a class="resource" href="{{ url_for('account') }}"><div class="resource-icon">♙</div><h3>Minha conta</h3><p>Gerencie seu perfil, sessão e informações de acesso.</p></a>
+            <a class="resource" href="{{ url_for('technical') }}"><div class="resource-icon">⌘</div><h3>Recursos e docs</h3><p>Consulte guias, instruções e informações técnicas.</p></a>
+            <a class="resource" href="{{ url_for('returns') }}"><div class="resource-icon">↻</div><h3>Pedidos e acesso</h3><p>Consulte processos relacionados a pedidos e serviços.</p></a>
+            <a class="resource" href="{{ url_for('help_page') }}"><div class="resource-icon">?</div><h3>Central de ajuda</h3><p>Encontre respostas e canais de suporte da M7.</p></a>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <!-- Loading skeleton (hidden by default) -->
-      <div id="qv-skeleton" style="display:none;flex-direction:column;gap:.75rem">
-        <div style="height:18px;background:rgba(255,255,255,.05);border-radius:6px;width:40%;animation:qvskel 1.2s ease infinite alternate"></div>
-        <div style="height:28px;background:rgba(255,255,255,.05);border-radius:6px;width:75%;animation:qvskel 1.2s ease .1s infinite alternate"></div>
-        <div style="height:14px;background:rgba(255,255,255,.05);border-radius:6px;width:55%;animation:qvskel 1.2s ease .2s infinite alternate"></div>
-        <div style="height:70px;background:rgba(255,255,255,.04);border-radius:12px;animation:qvskel 1.2s ease .3s infinite alternate"></div>
-        <div style="height:44px;background:rgba(139,92,246,.08);border-radius:14px;animation:qvskel 1.2s ease .4s infinite alternate"></div>
+    <section class="section reveal" id="visuais">
+      <div class="container">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Visuais</h2>
+              <div class="blue-line"></div>
+              <p>Informações organizadas em uma interface consistente e responsiva.</p>
+            </div>
+          </div>
+          <div class="community">
+            <div class="community-box">
+              <h3>Uma plataforma organizada.</h3>
+              <p>O ambiente foi estruturado para concentrar navegação, conta, recursos, documentação e suporte em páginas independentes.</p>
+              <div class="community-actions">
+                <a href="{{ url_for('partners') }}" class="download">PARCEIROS</a>
+                <a href="{{ url_for('contact') }}" class="btn-secondary">CONTATO</a>
+              </div>
+            </div>
+            <div class="community-box">
+              <div class="quote-list">
+                <div class="quote"><strong>Performance visual</strong><span>Glow, contraste e profundidade.</span></div>
+                <div class="quote"><strong>Responsivo</strong><span>Adaptação para desktop e mobile.</span></div>
+                <div class="quote"><strong>Integrado</strong><span>Sem necessidade de header.html.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div><!-- /right -->
-  </div><!-- /panel -->
-</div><!-- /modal -->
+    </section>
 
-<!-- Quick View global CSS (keyframes + tab style) -->
-<style>
-@keyframes qvpulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.9;transform:scale(1.12)}}
-@keyframes qvfloat{0%,100%{transform:translateY(0) rotateY(0)}50%{transform:translateY(-14px) rotateY(6deg)}}
-@keyframes qvorbit{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-@keyframes qvtabfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@keyframes qvskel{from{opacity:.4}to{opacity:.8}}
-@keyframes qvtoast{0%{opacity:0;transform:translate(-50%,10px)}15%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-6px)}}
+    <section class="section reveal" id="depoimentos">
+      <div class="container">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Depoimentos</h2>
+              <div class="blue-line"></div>
+              <p>Informações e opiniões da comunidade M7.</p>
+            </div>
+          </div>
+          <div class="resource-grid">
+            <article class="resource"><div class="resource-icon">★</div><h3>Experiência M7</h3><p>Uma navegação centralizada para acessar os serviços da comunidade.</p></article>
+            <article class="resource"><div class="resource-icon">★</div><h3>Conta</h3><p>Área dedicada para gerenciamento de acesso e informações do usuário.</p></article>
+            <article class="resource"><div class="resource-icon">★</div><h3>Recursos e docs</h3><p>Guias e informações técnicas disponíveis em uma área própria.</p></article>
+            <article class="resource"><div class="resource-icon">★</div><h3>Suporte</h3><p>Canais de ajuda e contato para a comunidade M7.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
 
-#qv-backdrop.qv-open{opacity:1;visibility:visible}
-#qv-modal.qv-open #qv-panel{transform:none;opacity:1}
+    <section class="section reveal" id="comunidade">
+      <div class="container">
+        <div class="section-card">
+          <div class="community">
+            <div class="community-box">
+              <h3>Comunidade M7.</h3>
+              <p>Acompanhe atualizações, consulte os canais oficiais e encontre suporte para os serviços disponíveis na plataforma.</p>
+              <div class="community-actions">
+                <a class="download" href="{{ url_for('partners') }}">PARCEIROS</a>
+                <a href="{{ url_for('contact') }}" class="btn-secondary">CONTATO</a>
+              </div>
+            </div>
+            <div class="community-box">
+              <h3>30.000+</h3>
+              <p>Membros acompanhando novidades, atualizações e conteúdos da comunidade.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-.qv-tab{font-family:'JetBrains Mono',monospace!important}
-.qv-tab.active{color:#C4B5FD!important;border-bottom-color:#A855F7!important}
-.qv-tab:hover:not(.active){color:#9CA3AF!important}
+    <section class="section reveal" id="suporte">
+      <div class="container">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Suporte</h2>
+              <div class="blue-line"></div>
+              <p>Central de ajuda, contato e documentação da plataforma.</p>
+            </div>
+          </div>
+          <div class="community-box">
+            <p>Consulte a documentação e os canais oficiais para acessar serviços, suporte, atualizações e recursos da plataforma.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-.qv-spec-item{
-  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:8px;
-  padding:.5rem .7rem;
-}
-.qv-spec-label{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#6B7280;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
-.qv-spec-val{font-size:.78rem;color:#E5E7EB;font-weight:500}
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">M7</div>
+      <div class="footer-links">
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('about') }}">Sobre</a>
+        <a href="{{ url_for('technical') }}">Recursos e docs</a>
+        <a href="{{ url_for('help_page') }}">Ajuda</a>
+        <a href="{{ url_for('contact') }}">Contato</a>
+        <a href="{{ url_for('account') }}">Conta</a>
+      </div>
+      <div style="font-size:11px">© 2026 M7 Community</div>
+    </div>
+  </footer>
 
-#qv-toast{
-  position:fixed;bottom:6rem;left:50%;transform:translate(-50%,10px);
-  background:rgba(10,10,10,.95);border:1px solid rgba(139,92,246,.4);border-radius:14px;
-  padding:.75rem 1.4rem;color:#fff;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;
-  display:flex;align-items:center;gap:.6rem;z-index:3000;pointer-events:none;opacity:0;
-  box-shadow:0 8px 30px rgba(0,0,0,.5),var(--glow);
-}
-#qv-toast svg{flex-shrink:0}
+  <div class="toast" id="toast"></div>
 
-@media(max-width:700px){
-  #qv-panel{grid-template-columns:1fr!important;max-height:95vh}
-  #qv-left{min-height:220px!important}
-}
-</style>
+  <script>
+    const header = document.getElementById('header');
+    const toast = document.getElementById('toast');
 
-<!-- Toast element -->
-<div id="qv-toast">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-  <span id="qv-toast-txt">Adicionado ao carrinho!</span>
-</div>
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 30);
+    });
 
-<!-- Floating Nav -->
-<div class="float-nav" id="floatNav">
-  <div class="float-nav-item active" onclick="scrollTo('hero')">Início</div>
-  <div class="float-nav-item" onclick="scrollTo('produtos')">Produtos</div>
-  <div class="float-nav-item" onclick="scrollTo('destaques')">Destaque</div>
-  <div class="float-nav-item" onclick="scrollTo('tecnologia')">Tech</div>
-</div>
+    // Menu mobile
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      const nav = document.querySelector('nav');
+      const open = nav.style.display === 'flex';
+      nav.style.display = open ? '' : 'flex';
+      nav.style.position = open ? '' : 'absolute';
+      nav.style.top = '68px';
+      nav.style.left = '15px';
+      nav.style.right = '15px';
+      nav.style.padding = '16px';
+      nav.style.flexDirection = 'column';
+      nav.style.alignItems = 'flex-start';
+      nav.style.background = 'rgba(4,12,22,.97)';
+      nav.style.border = '1px solid rgba(88,146,230,.18)';
+      nav.style.borderRadius = '10px';
+    });
+
+    // Toggles visuais
+    document.querySelectorAll('.toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        toggle.classList.toggle('off');
+        toggle.textContent = toggle.classList.contains('off') ? '✓' : '✓';
+      });
+    });
+
+    // Busca visual
+    const search = document.getElementById('searchInput');
+    search.addEventListener('input', e => {
+      const term = e.target.value.toLowerCase().trim();
+      document.querySelectorAll('.box').forEach(box => {
+        box.style.opacity = !term || box.textContent.toLowerCase().includes(term) ? '1' : '.28';
+      });
+    });
+
+    function showToast(message){
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(window.__toast);
+      window.__toast = setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    // Tabs visuais
+    document.querySelectorAll('.product-tabs button').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.product-tabs button').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        showToast('Seção selecionada: ' + tab.textContent);
+      });
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Contadores
+    function countUp(el, target, suffix){
+      let start = null;
+      const duration = 1400;
+      function tick(time){
+        if(!start) start = time;
+        const progress = Math.min((time-start)/duration, 1);
+        const eased = 1 - Math.pow(1-progress, 3);
+        el.textContent = Math.floor(target * eased).toLocaleString('pt-BR') + suffix;
+        if(progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const stats = document.querySelectorAll('[data-count]');
+    const statObserver = new IntersectionObserver(entries => {
+      if(entries.some(e => e.isIntersecting)){
+        countUp(stats[0],100,'%');
+        countUp(stats[1],50,'+');
+        countUp(stats[2],30,'K+');
+        statObserver.disconnect();
+      }
+    }, {threshold:.5});
+    statObserver.observe(document.querySelector('.stats'));
+  </script>
 
 <script>
-// =================== PRODUCTS DATA ===================
-const products = [
-  {
-    id:1, name:'NEXUS Watch Pro X', cat:'SMARTWATCH',
-    price:'R$ 2.497', old:'R$ 3.299', installment:'12x de R$ 208',
-    rating:4.9, reviews:847, discount:'-24%',
-    color:'#8B5CF6', badge:'NOVO',
-    icon:`<svg viewBox="0 0 120 160" fill="none" width="90">
-      <rect x="30" y="30" width="60" height="100" rx="16" fill="#1a1a2e" stroke="rgba(139,92,246,0.5)" stroke-width="1.5"/>
-      <rect x="38" y="42" width="44" height="76" rx="10" fill="#0a0a1a"/>
-      <rect x="38" y="42" width="44" height="76" rx="10" fill="rgba(139,92,246,0.1)"/>
-      <rect x="44" y="52" width="32" height="8" rx="3" fill="rgba(255,255,255,0.12)"/>
-      <rect x="44" y="66" width="20" height="20" rx="5" fill="rgba(139,92,246,0.3)"/>
-      <rect x="44" y="92" width="32" height="5" rx="2" fill="rgba(255,255,255,0.08)"/>
-      <rect x="44" y="101" width="22" height="5" rx="2" fill="rgba(139,92,246,0.3)"/>
-      <rect x="25" y="55" width="8" height="20" rx="4" fill="rgba(139,92,246,0.4)"/>
-      <rect x="87" y="55" width="8" height="20" rx="4" fill="rgba(139,92,246,0.4)"/>
-      <rect x="42" y="22" width="14" height="10" rx="3" fill="rgba(139,92,246,0.5)"/>
-      <rect x="64" y="22" width="14" height="10" rx="3" fill="rgba(139,92,246,0.5)"/>
-      <rect x="42" y="128" width="14" height="10" rx="3" fill="rgba(139,92,246,0.5)"/>
-      <rect x="64" y="128" width="14" height="10" rx="3" fill="rgba(139,92,246,0.5)"/>
-    </svg>`
-  },
-  {
-    id:2, name:'AirPulse Neural Pro', cat:'EARBUDS',
-    price:'R$ 1.189', old:'R$ 1.599', installment:'12x de R$ 99',
-    rating:4.8, reviews:2341, discount:'-26%',
-    color:'#A855F7', badge:'TOP',
-    icon:`<svg viewBox="0 0 120 140" fill="none" width="80">
-      <rect x="20" y="40" width="80" height="60" rx="20" fill="#111" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
-      <circle cx="35" cy="70" r="12" fill="rgba(168,85,247,0.2)" stroke="rgba(168,85,247,0.5)" stroke-width="1"/>
-      <circle cx="35" cy="70" r="5" fill="rgba(168,85,247,0.6)"/>
-      <circle cx="85" cy="70" r="12" fill="rgba(168,85,247,0.2)" stroke="rgba(168,85,247,0.5)" stroke-width="1"/>
-      <circle cx="85" cy="70" r="5" fill="rgba(168,85,247,0.6)"/>
-      <rect x="50" y="62" width="20" height="16" rx="4" fill="rgba(255,255,255,0.05)"/>
-      <line x1="50" y1="70" x2="70" y2="70" stroke="rgba(168,85,247,0.4)" stroke-width="1"/>
-    </svg>`
-  },
-  {
-    id:3, name:'HoloLens Vision 4', cat:'AR HEADSET',
-    price:'R$ 8.990', old:'R$ 11.500', installment:'24x de R$ 374',
-    rating:4.9, reviews:312, discount:'-22%',
-    color:'#7C3AED', badge:'-22%',
-    icon:`<svg viewBox="0 0 140 100" fill="none" width="110">
-      <rect x="10" y="30" width="120" height="45" rx="18" fill="#111" stroke="rgba(124,58,237,0.5)" stroke-width="1.5"/>
-      <ellipse cx="40" cy="52" rx="18" ry="14" fill="rgba(124,58,237,0.15)" stroke="rgba(124,58,237,0.4)" stroke-width="1"/>
-      <ellipse cx="40" cy="52" rx="11" ry="8" fill="rgba(124,58,237,0.3)"/>
-      <ellipse cx="100" cy="52" rx="18" ry="14" fill="rgba(124,58,237,0.15)" stroke="rgba(124,58,237,0.4)" stroke-width="1"/>
-      <ellipse cx="100" cy="52" rx="11" ry="8" fill="rgba(124,58,237,0.3)"/>
-      <rect x="58" y="47" width="24" height="10" rx="3" fill="rgba(255,255,255,0.05)"/>
-      <line x1="10" y1="52" x2="28" y2="52" stroke="rgba(124,58,237,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
-      <line x1="112" y1="52" x2="130" y2="52" stroke="rgba(124,58,237,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
-    </svg>`
-  },
-  {
-    id:4, name:'QuantumPad Ultra', cat:'TABLET',
-    price:'R$ 4.799', old:'R$ 5.999', installment:'12x de R$ 399',
-    rating:4.7, reviews:1203, discount:'-20%',
-    color:'#6D28D9', badge:'-20%',
-    icon:`<svg viewBox="0 0 100 140" fill="none" width="75">
-      <rect x="10" y="10" width="80" height="120" rx="12" fill="#111" stroke="rgba(109,40,217,0.5)" stroke-width="1.5"/>
-      <rect x="18" y="22" width="64" height="90" rx="8" fill="#0a0a1a"/>
-      <rect x="18" y="22" width="64" height="90" rx="8" fill="rgba(109,40,217,0.06)"/>
-      <rect x="24" y="30" width="52" height="6" rx="2" fill="rgba(255,255,255,0.08)"/>
-      <rect x="24" y="42" width="24" height="24" rx="5" fill="rgba(109,40,217,0.2)"/>
-      <rect x="52" y="42" width="24" height="24" rx="5" fill="rgba(109,40,217,0.15)"/>
-      <rect x="24" y="72" width="52" height="5" rx="2" fill="rgba(255,255,255,0.06)"/>
-      <rect x="24" y="82" width="35" height="5" rx="2" fill="rgba(109,40,217,0.3)"/>
-      <rect x="24" y="92" width="52" height="5" rx="2" fill="rgba(255,255,255,0.04)"/>
-      <rect x="24" y="102" width="28" height="5" rx="2" fill="rgba(255,255,255,0.04)"/>
-      <circle cx="50" cy="125" r="4" fill="rgba(255,255,255,0.1)"/>
-    </svg>`
-  },
-  {
-    id:5, name:'FusionKey Mech Pro', cat:'TECLADO',
-    price:'R$ 1.890', old:'R$ 2.499', installment:'12x de R$ 157',
-    rating:4.8, reviews:756, discount:'-24%',
-    color:'#8B5CF6', badge:'LIMITED',
-    icon:`<svg viewBox="0 0 140 80" fill="none" width="110">
-      <rect x="5" y="15" width="130" height="55" rx="10" fill="#111" stroke="rgba(139,92,246,0.4)" stroke-width="1.5"/>
-      <rect x="14" y="24" width="14" height="10" rx="3" fill="rgba(139,92,246,0.2)"/>
-      <rect x="32" y="24" width="14" height="10" rx="3" fill="rgba(139,92,246,0.15)"/>
-      <rect x="50" y="24" width="14" height="10" rx="3" fill="rgba(139,92,246,0.2)"/>
-      <rect x="68" y="24" width="14" height="10" rx="3" fill="rgba(139,92,246,0.15)"/>
-      <rect x="86" y="24" width="14" height="10" rx="3" fill="rgba(168,85,247,0.3)" filter="url(#soft-glow)"/>
-      <rect x="104" y="24" width="14" height="10" rx="3" fill="rgba(139,92,246,0.2)"/>
-      <rect x="14" y="39" width="14" height="10" rx="3" fill="rgba(139,92,246,0.15)"/>
-      <rect x="32" y="39" width="14" height="10" rx="3" fill="rgba(139,92,246,0.2)"/>
-      <rect x="50" y="39" width="14" height="10" rx="3" fill="rgba(139,92,246,0.15)"/>
-      <rect x="68" y="39" width="14" height="10" rx="3" fill="rgba(168,85,247,0.25)"/>
-      <rect x="86" y="39" width="14" height="10" rx="3" fill="rgba(139,92,246,0.15)"/>
-      <rect x="104" y="39" width="27" height="10" rx="3" fill="rgba(139,92,246,0.2)"/>
-      <rect x="14" y="54" width="22" height="10" rx="3" fill="rgba(139,92,246,0.2)"/>
-      <rect x="40" y="54" width="62" height="10" rx="3" fill="rgba(139,92,246,0.1)"/>
-      <rect x="106" y="54" width="25" height="10" rx="3" fill="rgba(139,92,246,0.2)"/>
-    </svg>`
-  },
-  {
-    id:6, name:'NeuroLink Band 3', cat:'BIOMÉTRICO',
-    price:'R$ 3.299', old:'R$ 4.199', installment:'12x de R$ 274',
-    rating:4.9, reviews:589, discount:'-21%',
-    color:'#A855F7', badge:'IA',
-    icon:`<svg viewBox="0 0 120 60" fill="none" width="95">
-      <rect x="10" y="10" width="100" height="40" rx="20" fill="#0a0a1a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
-      <rect x="35" y="18" width="50" height="24" rx="8" fill="rgba(168,85,247,0.1)" stroke="rgba(168,85,247,0.3)" stroke-width="1"/>
-      <rect x="41" y="24" width="18" height="4" rx="1" fill="rgba(255,255,255,0.1)"/>
-      <rect x="41" y="32" width="12" height="4" rx="1" fill="rgba(168,85,247,0.4)"/>
-      <circle cx="67" cy="30" r="8" fill="rgba(168,85,247,0.2)"/>
-      <circle cx="67" cy="30" r="4" fill="rgba(168,85,247,0.5)"/>
-      <circle cx="67" cy="30" r="2" fill="rgba(255,255,255,0.6)"/>
-      <line x1="10" y1="30" x2="35" y2="30" stroke="rgba(168,85,247,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
-      <line x1="85" y1="30" x2="110" y2="30" stroke="rgba(168,85,247,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
-    </svg>`
-  }
-];
-
-
-
-let currentProductId = null;
-
-function openProductModal(product) {
-  currentProductId = product.id;
-
-  document.getElementById('modalImage').src = product.image || '/static/images/products/default.svg';
-  document.getElementById('modalCategory').textContent = product.category || 'NEXUS';
-  document.getElementById('modalName').textContent = product.name;
-  document.getElementById('modalPrice').textContent = `R$ ${Number(product.price).toFixed(2)}`;
-  document.getElementById('modalOldPrice').textContent = product.original_price ? 
-    `R$ ${Number(product.original_price).toFixed(2)}` : '';
-  
-  document.getElementById('modalDescription').innerHTML = product.description || 
-    "Produto premium com tecnologia de ponta da NEXUS.";
-
-  const rating = Math.floor(product.rating || 5);
-  document.getElementById('modalStars').innerHTML = '★'.repeat(rating);
-  document.getElementById('modalReviews').textContent = `(${product.reviews || 0} avaliações)`;
-
-  const modal = document.getElementById('productModal');
-  modal.classList.add('active');
-}
-
-function closeModal() {
-  const modal = document.getElementById('productModal');
-  modal.classList.remove('active');
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === "Escape") closeModal();
-});
-
-async function addCurrentProductToCart() {
-  if (!currentProductId) return;
-  
-  const token = localStorage.getItem('access_token');
-  if (!token) {
-    alert("Faça login para adicionar ao carrinho");
-    return;
-  }
-
-  try {
-    await fetch('/api/cart', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({id: currentProductId, qty: 1})
-    });
-    alert("Produto adicionado ao carrinho!");
-    closeModal();
-  } catch (e) {
-    alert("Erro ao adicionar ao carrinho");
-  }
-}
-
-// =================== RENDER PRODUCTS COM CLIQUE ===================
-function renderStars(rating) {
-  const full = Math.round(rating || 0);
-  return '★'.repeat(full) + '☆'.repeat(5 - full);
-}
-function renderProduct(p) {
-  const isBadgeNew = p.badge === 'NOVO' || p.badge === 'IA' || p.badge === 'TOP' || p.badge === 'LIMITED';
-  const html = `
-  <div class="product-card fade-up">
-    <div class="product-img">
-      <div class="product-glow-ring"></div>
-      <div class="product-img-inner">${p.icon}</div>
-      <span class="badge-discount ${isBadgeNew?'badge-new':''}">${p.badge}</span>
-    </div>
-    <div class="product-info">
-      <div class="product-cat">${p.cat}</div>
-      <div class="product-name">${p.name}</div>
-      <div class="product-rating">
-        <div class="stars">${renderStars(p.rating)}</div>
-        <span>${p.rating} (${p.reviews.toLocaleString('pt-BR')})</span>
-      </div>
-      <div class="product-price-row">
-        <div class="product-price">
-          <span class="price-current">${p.price}</span>
-          <span class="price-old">${p.old}</span>
-          <span class="price-installment">${p.installment}</span>
-        </div>
-      </div>
-      <button class="btn-buy">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        Adicionar ao Carrinho
-      </button>
-    </div>
-  </div>`;
-
-  const temp = document.createElement('div');
-  temp.innerHTML = html;
-  const card = temp.firstElementChild;
-
-  // Clique no card (exceto botão comprar)
-  card.addEventListener('click', (e) => {
-    if (!e.target.closest('.btn-buy')) {
-      openProductModal(p);
-    }
-  });
-
-  return card;
-}
-
-// Atualiza a renderização
-const productsGrid = document.getElementById('products-grid');
-productsGrid.innerHTML = '';
-products.forEach(p => {
-  productsGrid.appendChild(renderProduct(p));
-});
-
-// =================== LOADING ===================
-window.addEventListener('load', async () => {
-
-  try {
-
-    const token = localStorage.getItem('access_token');
-
-    if (token) {
-      try {
-        const res = await fetch('/api/cart', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-
-          const badge = document.querySelector('.cart-badge');
-
-          if (badge) {
-            badge.textContent = String(
-              (data.items || []).length
-            );
-          }
-        }
-
-      } catch (e) {
-        console.error('Erro carrinho:', e);
-      }
-    }
-
-    initAnimations?.();
-
-  } catch (e) {
-
-    console.error('Erro inicialização:', e);
-
-  } finally {
-
-    const loading = document.getElementById('loading');
-
-    if (loading) {
-
-      loading.classList.add('hidden');
-
-      loading.style.opacity = '0';
-      loading.style.visibility = 'hidden';
-      loading.style.pointerEvents = 'none';
-    }
-  }
-});
-
-// =================== CURSOR ===================
-const cursor = document.getElementById('cursor');
-const cursorTrail = document.getElementById('cursor-trail');
-let mx=0,my=0,tx=0,ty=0;
-
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = (mx-6) + 'px';
-  cursor.style.top = (my-6) + 'px';
-});
-
-function animateCursor() {
-  tx += (mx - tx) * 0.12;
-  ty += (my - ty) * 0.12;
-  cursorTrail.style.left = (tx-16) + 'px';
-  cursorTrail.style.top = (ty-16) + 'px';
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
-
-document.querySelectorAll('button,a,.product-card,.carousel-btn').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.transform = 'scale(2.5)';
-    cursor.style.opacity = '.6';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.transform = 'scale(1)';
-    cursor.style.opacity = '1';
-  });
-});
-
-// =================== HEADER SCROLL ===================
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-  header.classList.toggle('scrolled', window.scrollY > 40);
-  updateFloatNav();
-});
-
-// =================== PARTICLES ===================
-function createParticles() {
-  const container = document.getElementById('particles');
-  for(let i=0; i<35; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.cssText = `
-      left:${Math.random()*100}%;
-      animation-duration:${8+Math.random()*15}s;
-      animation-delay:${Math.random()*12}s;
-      --dx:${(Math.random()-.5)*2};
-      width:${1+Math.random()*2}px;
-      height:${1+Math.random()*2}px;
-      opacity:.5;
-    `;
-    container.appendChild(p);
-  }
-}
-createParticles();
-
-// =================== SCROLL ANIMATIONS ===================
-function initAnimations() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if(e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-      }
-    });
-  }, {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
-
-  document.querySelectorAll('.fade-up,.fade-in').forEach(el => observer.observe(el));
-}
-
-// =================== COUNTER ANIMATION ===================
-function animateCounter(el, target, isFloat) {
-  const duration = 2000;
-  const start = performance.now();
-  const from = 0;
-
-  function update(now) {
-    const t = Math.min((now-start)/duration, 1);
-    const ease = 1 - Math.pow(1-t, 3);
-    const val = from + (target - from) * ease;
-    el.textContent = isFloat ? val.toFixed(1) : Math.floor(val).toLocaleString('pt-BR');
-    if(t < 1) requestAnimationFrame(update);
-  }
-  requestAnimationFrame(update);
-}
-
-const statsObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting) {
-      document.querySelectorAll('[data-count]').forEach(el => {
-        const val = parseFloat(el.dataset.count);
-        animateCounter(el, val, val % 1 !== 0);
-      });
-      statsObserver.disconnect();
-    }
-  });
-},{threshold:.5});
-
-const statsEl = document.querySelector('.hero-stats');
-if(statsEl) statsObserver.observe(statsEl);
-
-// =================== FLOAT NAV ===================
-function scrollTo(id) {
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
-}
-
-function updateFloatNav() {
-  const sections = ['hero','produtos','destaques','tecnologia'];
-  const items = document.querySelectorAll('.float-nav-item');
-  const scrollY = window.scrollY + 200;
-  sections.forEach((id, i) => {
-    const el = document.getElementById(id);
-    if(el && scrollY >= el.offsetTop) {
-      items.forEach(item => item.classList.remove('active'));
-      items[i].classList.add('active');
-    }
-  });
-}
-
-// =================== PROGRESS BARS ANIMATION ===================
-const progObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting) {
-      e.target.querySelectorAll('.prog-fill').forEach(bar => {
-        bar.style.transform = 'scaleX(1)';
-      });
-      progObserver.unobserve(e.target);
-    }
-  });
-},{threshold:.3});
-
-const techSection = document.getElementById('tecnologia');
-if(techSection) progObserver.observe(techSection);
+(function(){
+  const loading=document.getElementById('loading');
+  if(!loading) return;
+  const started=performance.now();
+  const finish=()=>{
+    const elapsed=performance.now()-started;
+    const wait=Math.max(350,1800-elapsed);
+    setTimeout(()=>loading.classList.add('hidden'),wait);
+  };
+  if(document.readyState==='complete') finish();
+  else window.addEventListener('load',finish,{once:true});
+})();
 </script>
+
 </body>
 </html>

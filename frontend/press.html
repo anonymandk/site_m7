@@ -1,176 +1,184 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imprensa - NEXUS</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Imprensa — M7 Cheats</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
-<!-- Loading Screen -->
-<div id="loading">
-    <div class="load-logo">NEXUS</div>
-    <div class="load-bar-wrap"><div class="load-bar"></div></div>
-    <div class="load-text">INICIALIZANDO SISTEMA...</div>
+<style id="m7-blue-theme">
+:root{
+  --v:#0d7cff !important; --v2:#0064ea !important; --v3:#36a7ff !important;
+  --v4:#0756b8 !important; --v5:#a8dcff !important;
+  --glow:0 0 30px rgba(13,124,255,.42),0 0 60px rgba(13,124,255,.18) !important;
+  --glow2:0 0 15px rgba(13,124,255,.62),0 0 30px rgba(13,124,255,.28) !important;
+}
+#loading{
+  position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 42%,rgba(0,102,255,.18),transparent 38%),#030811;
+  transition:opacity .65s ease, visibility .65s ease;
+}
+#loading.hidden{opacity:0;visibility:hidden;pointer-events:none}
+#loading .load-logo{font-family:'Syne',sans-serif;font-size:clamp(4rem,10vw,7rem);font-weight:800;letter-spacing:-.08em;line-height:1;
+  background:linear-gradient(135deg,#fff 20%,#0d7cff 55%,#36a7ff 88%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 26px rgba(13,124,255,.48));margin-bottom:2rem}
+#loading .load-bar-wrap{width:min(360px,72vw);height:3px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden;border:1px solid rgba(54,167,255,.16)}
+#loading .load-bar{height:100%;width:0;background:linear-gradient(90deg,#0064ea,#36a7ff);box-shadow:0 0 16px rgba(54,167,255,.65);animation:m7Loading 2s cubic-bezier(.2,.8,.2,1) forwards}
+#loading .load-text{margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.22em;color:#8ebcff}
+#loading .load-sub{margin-top:.45rem;font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.14em;color:#50657f}
+@keyframes m7Loading{0%{width:0}35%{width:48%}70%{width:76%}100%{width:100%}}
+.m7-page-card{border-color:rgba(13,124,255,.18)!important;box-shadow:0 18px 55px rgba(0,55,140,.14)}
+</style>
+
+<style>.m7-content{max-width:860px;margin:140px auto 80px;padding:0 24px}.m7-card{background:linear-gradient(145deg,rgba(7,19,33,.92),rgba(4,12,22,.98));border:1px solid rgba(54,167,255,.16);border-radius:20px;padding:42px;box-shadow:0 24px 80px rgba(0,0,0,.28)}.m7-tag{font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.18em;color:#36a7ff;margin-bottom:16px}.m7-title{font-family:'Syne',sans-serif;font-size:clamp(40px,6vw,72px);letter-spacing:-.04em;line-height:.98;color:#f4f8ff;margin-bottom:16px}.m7-title span{background:linear-gradient(135deg,#0d7cff,#a8dcff);-webkit-background-clip:text;background-clip:text;color:transparent}.m7-sub{color:#93a6ba;line-height:1.8;max-width:680px;font-size:15px}.m7-actions{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}.m7-btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:8px;text-decoration:none;font-weight:800;font-size:13px}.m7-btn-primary{background:linear-gradient(135deg,#0d7cff,#0064ea);color:#fff;box-shadow:0 10px 28px rgba(13,124,255,.28)}.m7-btn-secondary{border:1px solid rgba(54,167,255,.2);color:#cfe7ff;background:rgba(7,19,33,.7)}.m7-points{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.m7-point{padding:18px;background:rgba(255,255,255,.02);border:1px solid rgba(54,167,255,.1);border-radius:12px}.m7-point strong{display:block;color:#fff;font-size:14px;margin-bottom:6px}.m7-point span{font-size:12px;color:#778da7;line-height:1.5}@media(max-width:700px){.m7-content{margin-top:110px}.m7-card{padding:26px}.m7-points{grid-template-columns:1fr}}</style>
+
+<style id="m7-header-style">
+.m7-site-header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+  height:84px;
+  display:flex;
+  align-items:center;
+  background:rgba(3,8,17,.94);
+  border-bottom:1px solid rgba(48,139,255,.12);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.m7-site-header .m7-header-inner{
+  width:min(1420px,calc(100% - 64px));
+  height:100%;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+}
+.m7-site-header .m7-brand{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:#f2f7ff;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.m7-site-header .m7-logo-mark{
+  font-family:"Space Grotesk","Syne",Arial,sans-serif;
+  font-size:35px;
+  font-weight:700;
+  font-style:italic;
+  letter-spacing:-5px;
+  line-height:1;
+  color:#0d7cff;
+  text-shadow:0 0 18px rgba(13,124,255,.28);
+}
+.m7-site-header .m7-logo-word{
+  font-family:"Space Grotesk","Syne",Arial,sans-serif;
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:.9px;
+  line-height:1;
+  color:#eef5ff;
+}
+.m7-site-header .m7-nav{
+  display:flex;
+  align-items:center;
+  gap:26px;
+}
+.m7-site-header .m7-nav a{
+  color:#a8b7c9;
+  text-decoration:none;
+  font:600 13px/1 "Inter","DM Sans",Arial,sans-serif;
+  transition:.2s ease;
+}
+.m7-site-header .m7-nav a:hover{
+  color:#36a7ff;
+}
+.m7-site-header .m7-account{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:94px;
+  padding:10px 15px;
+  border-radius:7px;
+  color:#fff !important;
+  background:linear-gradient(135deg,#0d7cff,#0064ea);
+  box-shadow:0 8px 24px rgba(13,124,255,.22);
+}
+.m7-site-header .m7-menu{
+  display:none;
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:25px;
+  cursor:pointer;
+}
+@media(max-width:900px){
+  .m7-site-header{height:72px}
+  .m7-site-header .m7-header-inner{width:min(100% - 30px,720px)}
+  .m7-site-header .m7-nav{display:none}
+  .m7-site-header .m7-account{display:none}
+  .m7-site-header .m7-menu{display:block}
+}
+</style>
+
+  <link rel="stylesheet" href="m7-community.css">
+</head><body>
+<!-- M7 system boot -->
+<div id="loading" aria-live="polite" aria-label="Carregando a plataforma M7">
+  <div class="load-logo">M7</div>
+  <div class="load-bar-wrap"><div class="load-bar"></div></div>
+  <div class="load-text">INICIALIZANDO SISTEMA...</div>
+  <div class="load-sub">CARREGANDO PLATAFORMA M7</div>
 </div>
-
-<!-- Custom Cursor -->
-<div id="cursor"></div>
-<div id="cursor-trail"></div>
-
-<!-- HEADER -->
 <div id="header-placeholder"></div>
 <script>
-  fetch('header.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('header-placeholder').innerHTML = data;
-    });
-</script>
-
-<!-- MAIN CONTENT -->
-<main class="section">
-    <div class="section-header fade-up">
-        <div class="section-tag">// COMUNICAÇÃO</div>
-        <h2 class="section-title">Sala de <span style="background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Imprensa</span></h2>
-        <p class="section-sub">Informações oficiais e assets de marca</p>
+fetch("header.html")
+  .then(response => response.text())
+  .then(data => { document.getElementById("header-placeholder").innerHTML = data; })
+  .catch(() => {});
+</script><main style="padding-top:84px;" class="m7-content"><section class="m7-card"><div class="m7-tag">// COMUNICAÇÃO</div><h1 class="m7-title">Central <span>de imprensa</span></h1><p class="m7-sub">Materiais, informações oficiais e contato para cobertura da M7 Cheats.</p><div class="m7-actions"><a class="m7-btn m7-btn-primary" href="mailto:staff@m7community.com.br">Falar com a assessoria</a><a class="m7-btn m7-btn-secondary" href="{{ url_for('index') }}">Voltar para M7</a></div><div class="m7-points"><div class="m7-point"><strong>Conta M7</strong><span>Acesse dados e status da sua conta.</span></div><div class="m7-point"><strong>Licenças</strong><span>Gerencie acesso e validade dos seus serviços.</span></div><div class="m7-point"><strong>Suporte</strong><span>Atendimento e documentação em um só lugar.</span></div></div></section></main><footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo"><div class="logo-icon">M7</div><a href="{{ url_for('index') if 'index' in url_for else 'index.html' }}">M7</a></div>
+      <p class="footer-desc">M7 Cheats: plataforma para acesso às licenças, recursos, atualizações, documentação e suporte da comunidade.</p>
+      <div class="social-links">
+        <a class="social-link" href="#" aria-label="Discord">DS</a>
+        <a class="social-link" href="#" aria-label="Instagram">IG</a>
+        <a class="social-link" href="#" aria-label="YouTube">YT</a>
+      </div>
     </div>
-    <div class="main-content fade-up" style="max-width: 700px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: var(--g2); line-height: 1.8;">
-        <p>Bem-vindo à central de imprensa da NEXUS. Aqui você encontra materiais oficiais, press-kits e canais diretos de comunicação com nossa assessoria.</p>
-        <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem;">
-            <a href="mailto:staff@nexustechnology.com.br" class="btn-primary" style="text-decoration:none">Contato de Assessoria</a>
-        </div>
-    </div>
-</main>
-
-<!-- FOOTER -->
-<footer>
-    <div class="footer-grid">
-        <div class="footer-brand">
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" stroke="#A855F7" stroke-width="1.2" fill="rgba(168,85,247,.15)"/>
-                        <path d="M7 4V10M4 5.5L10 8.5" stroke="#A855F7" stroke-width="1"/>
-                    </svg>
-                </div>
-                <a href="index.html">NEXUS</a>
-            </div>
-            <p class="footer-desc">Tecnologia do futuro, disponível agora. Curadoria de produtos premium para quem não aceita menos que o melhor.</p>
-            <div class="social-links">
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
-                <a class="social-link" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h5>Produtos</h5>
-            <div class="footer-links">
-                <a href="index.html#produtos">Smartwatches</a>
-                <a href="index.html#produtos">Earbuds</a>
-                <a href="index.html#produtos">Monitores</a>
-                <a href="index.html#produtos">Câmeras</a>
-                <a href="index.html#produtos">Acessórios</a>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h5>Empresa</h5>
-            <div class="footer-links">
-                <a href="about.html">Sobre Nós</a>
-                <a href="#">Blog</a>
-                <a href="careers.html">Carreiras</a>
-                <a href="partners.html">Parcerias</a>
-                <a href="press.html">Imprensa</a>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h5>Suporte</h5>
-            <div class="footer-links">
-                <a href="help.html">Central de Ajuda</a>
-                <a href="track.html">Rastrear Pedido</a>
-                <a href="returns.html">Devoluções</a>
-                <a href="warranty.html">Garantia</a>
-                <a href="contact.html">Contato</a>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2025 NEXUS Technology. Todos os direitos reservados.</p>
-        <div class="tech-badges">
-            <span class="tech-badge">SSL SECURE</span><span class="tech-badge">ISO 27001</span><span class="tech-badge">LGPD</span>
-        </div>
-    </div>
+    <div class="footer-col"><h5>M7 Cheats</h5><div class="footer-links">
+      <a href="{{ url_for('index') }}">Início</a>
+      <a href="{{ url_for('account') }}">Conta</a>
+      <a href="{{ url_for('technical') }}">Documentação</a>
+      <a href="{{ url_for('help_page') }}">Central de Ajuda</a>
+    </div></div>
+    <div class="footer-col"><h5>Plataforma</h5><div class="footer-links">
+      <a href="{{ url_for('cart') }}">Licenças</a>
+      <a href="{{ url_for('payment') }}">Pagamento</a>
+      <a href="{{ url_for('partners') }}">Parceiros</a>
+      <a href="{{ url_for('about') }}">Sobre a M7</a>
+    </div></div>
+    <div class="footer-col"><h5>Suporte</h5><div class="footer-links">
+      <a href="{{ url_for('contact') }}">Contato</a>
+      <a href="{{ url_for('technical') }}">Suporte Técnico</a>
+      <a href="{{ url_for('warranty') }}">Licença e Cobertura</a>
+      <a href="{{ url_for('returns') }}">Cancelamento</a>
+    </div></div>
+  </div>
+  <div class="footer-bottom"><p>© {{ current_year if current_year else 2026 }} M7 Cheats. Todos os direitos reservados.</p><div class="tech-badges"><span class="tech-badge">M7 CORE</span><span class="tech-badge">SECURE</span><span class="tech-badge">24/7</span></div></div>
 </footer>
-
-<!-- Floating Nav -->
-<div class="float-nav" id="floatNav">
-    <div class="float-nav-item active" onclick="scrollTo('hero')">Início</div>
-    <div class="float-nav-item" onclick="scrollTo('produtos')">Produtos</div>
-    <div class="float-nav-item" onclick="scrollTo('destaques')">Destaque</div>
-    <div class="float-nav-item" onclick="scrollTo('tecnologia')">Tech</div>
-</div>
-
 <script>
-    // Cursor
-    const cursor = document.getElementById('cursor');
-    const cursorTrail = document.getElementById('cursor-trail');
-    let mx=0,my=0,tx=0,ty=0;
-    document.addEventListener('mousemove', e => {
-        mx = e.clientX; my = e.clientY;
-        cursor.style.left = (mx-6) + 'px';
-        cursor.style.top = (my-6) + 'px';
-    });
-    function animateCursor() {
-        tx += (mx - tx) * 0.12;
-        ty += (my - ty) * 0.12;
-        cursorTrail.style.left = (tx-16) + 'px';
-        cursorTrail.style.top = (ty-16) + 'px';
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-    document.querySelectorAll('button,a,.product-card,.carousel-btn').forEach(el => {
-        el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; cursor.style.opacity = '.6'; });
-        el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; cursor.style.opacity = '1'; });
-    });
-
-    // Loading
-    window.addEventListener('load', () => {
-        const loading = document.getElementById('loading');
-        if(loading) {
-            loading.classList.add('hidden');
-            loading.style.opacity = '0';
-            loading.style.visibility = 'hidden';
-            loading.style.pointerEvents = 'none';
-        }
-    });
-
-    // Header Scroll
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.scrollY > 40);
-    });
-
-    // Animations
-    function initAnimations() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((e, i) => {
-                if(e.isIntersecting) {
-                    setTimeout(() => e.target.classList.add('visible'), i * 80);
-                }
-            });
-        }, {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
-        document.querySelectorAll('.fade-up,.fade-in').forEach(el => observer.observe(el));
-    }
-    initAnimations();
-
-    function scrollTo(id) {
-        document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
-    }
+(function(){
+  const loading=document.getElementById('loading');
+  if(!loading) return;
+  const started=performance.now();
+  const finish=()=>{
+    const elapsed=performance.now()-started;
+    const wait=Math.max(350,1800-elapsed);
+    setTimeout(()=>loading.classList.add('hidden'),wait);
+  };
+  if(document.readyState==='complete') finish();
+  else window.addEventListener('load',finish,{once:true});
+})();
 </script>
-</body>
-</html>
+</body></html>

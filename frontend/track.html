@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rastrear Pedido - NEXUS</title>
+    <title>Pagamento — M7</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="m7-community.css">
 </head>
 <body>
 
 <!-- Loading Screen -->
 <div id="loading">
-    <div class="load-logo">NEXUS</div>
+    <div class="load-logo">M7</div>
     <div class="load-bar-wrap"><div class="load-bar"></div></div>
     <div class="load-text">INICIALIZANDO SISTEMA...</div>
 </div>
@@ -32,22 +33,32 @@
     });
 </script>
 
-<!-- MAIN CONTENT -->
 <main class="section">
     <div class="section-header fade-up">
-        <div class="section-tag">// LOGÍSTICA</div>
-        <h2 class="section-title">Rastrear <span style="background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Pedido</span></h2>
-        <p class="section-sub">Acompanhe a chegada da sua tecnologia premium</p>
+        <div class="section-tag">// CHECKOUT</div>
+        <h2 class="section-title">Finalizar <span style="background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Pagamento</span></h2>
+        <p class="section-sub">Segurança de nível militar para sua transação</p>
     </div>
 
-    <div class="main-content fade-up" style="max-width: 600px; margin: 0 auto; text-align: center;">
-        <div style="background: var(--glass); border: 1px solid var(--glassborder); padding: 3rem; border-radius: 24px; backdrop-filter: blur(12px);">
-            <p style="color: var(--g2); margin-bottom: 2rem; font-size: 1.1rem;">Insira o código de rastreamento para localizar seu pedido.</p>
-            <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
-                <input type="text" id="track-id" placeholder="# NEXUS-XXXXX" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glassborder); padding: 1rem; border-radius: 12px; color: white; font-family: var(--font-mono); width: 250px; outline: none;">
-                <button class="btn-primary" onclick="trackOrder()">Rastrear</button>
+    <div class="main-content fade-up" style="max-width: 600px; margin: 0 auto;">
+        <div style="background: var(--glass); border: 1px solid var(--glassborder); padding: 3rem; border-radius: 24px; backdrop-filter: blur(12px); text-align: center;">
+            <div style="margin-bottom: 2rem; display: flex; justify-content: center; gap: 1rem;">
+                <div style="padding: 1rem; border-radius: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--glassborder); cursor: pointer; transition: 0.3s; width: 120px;" class="pay-method active" onclick="selectMethod(this)">
+                    <div style="font-weight: 800; color: var(--w); font-size: 0.9rem;">PIX</div>
+                    <div style="font-size: 0.7rem; color: var(--g3);">Instantâneo</div>
+                </div>
+                <div style="padding: 1rem; border-radius: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--glassborder); cursor: pointer; transition: 0.3s; width: 120px;" class="pay-method" onclick="selectMethod(this)">
+                    <div style="font-weight: 800; color: var(--w); font-size: 0.9rem;">CARD</div>
+                    <div style="font-size: 0.7rem; color: var(--g3);">Até 12x</div>
+                </div>
             </div>
-            <div id="track-result" style="color: var(--g3); font-size: 0.9rem; min-height: 1.2rem;"></div>
+
+            <div id="payment-detail" style="margin-bottom: 2rem; padding: 2rem; background: rgba(0,0,0,0.2); border-radius: 15px; border: 1px dashed var(--v3); color: var(--g2); font-family: var(--font-mono); font-size: 0.9rem;">
+                Aguardando seleção de método...
+            </div>
+
+            <a href="cart.html" class="btn-secondary" style="text-decoration: none; margin-right: 1rem;">Voltar ao Carrinho</a>
+            <button class="btn-primary" onclick="processPayment()">Confirmar Pagamento</button>
         </div>
     </div>
 </main>
@@ -63,7 +74,7 @@
                         <path d="M7 4V10M4 5.5L10 8.5" stroke="#A855F7" stroke-width="1"/>
                     </svg>
                 </div>
-                <a href="index.html">NEXUS</a>
+                <a href="index.html">M7</a>
             </div>
             <p class="footer-desc">Tecnologia do futuro, disponível agora. Curadoria de produtos premium para quem não aceita menos que o melhor.</p>
             <div class="social-links">
@@ -105,7 +116,7 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p>© 2025 NEXUS Technology. Todos os direitos reservados.</p>
+        <p>© 2025 M7 Community. Todos os direitos reservados.</p>
         <div class="tech-badges">
             <span class="tech-badge">SSL SECURE</span><span class="tech-badge">ISO 27001</span><span class="tech-badge">LGPD</span>
         </div>
@@ -165,14 +176,27 @@
     }
     initAnimations();
 
-    function trackOrder() {
-        const id = document.getElementById('track-id').value;
-        const result = document.getElementById('track-result');
-        if(!id) { result.textContent = 'Por favor, insira um ID.'; return; }
-        result.textContent = 'Buscando no sistema NEXUS...';
-        setTimeout(() => {
-            result.textContent = 'Funcionalidade de rastreamento em tempo real será implementada em breve.';
-        }, 1500);
+    function selectMethod(el) {
+        document.querySelectorAll('.pay-method').forEach(m => {
+            m.style.borderColor = 'var(--glassborder)';
+            m.style.background = 'rgba(255,255,255,0.05)';
+            m.style.boxShadow = 'none';
+        });
+        el.style.borderColor = 'var(--v3)';
+        el.style.background = 'rgba(139,92,246,0.1)';
+        el.style.boxShadow = '0 0 15px var(--v3)';
+
+        const detail = document.getElementById('payment-detail');
+        if(el.textContent.includes('PIX')) {
+            detail.innerHTML = 'Gerando QR Code via API de Pagamentos...';
+        } else {
+            detail.innerHTML = 'Aguardando dados do cartão de crédito...';
+        }
+    }
+
+    function processPayment() {
+        alert('Integração de pagamento em processamento. Redirecionando para a confirmação do pedido...');
+        window.location.href = 'index.html';
     }
 </script>
 </body>

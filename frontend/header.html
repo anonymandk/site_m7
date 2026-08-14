@@ -1,19 +1,132 @@
-<header>
-  <a class="logo" href="index.html">
-    <div class="logo-icon">
-      <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-        <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" stroke="#A855F7" stroke-width="1.2" fill="rgba(168,85,247,.15)"/>
-        <path d="M7 4V10M4 5.5L10 8.5" stroke="#A855F7" stroke-width="1"/>
-      </svg>
-    </div>
-    NEXUS
-  </a>
-  <div class="header-actions" style="display:flex; flex:1; justify-content:flex-end; align-items:center; gap:1rem;">
-    <a href="cart.html" class="cart-btn" aria-label="Carrinho">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M7 3l1 13h12l1-13H7zM11 7h6v2h-6zM5 7h2v2H5z"/>
-      </svg>
+
+<style id="m7-header-style">
+.m7-site-header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+  height:84px;
+  display:flex;
+  align-items:center;
+  background:rgba(3,8,17,.94);
+  border-bottom:1px solid rgba(48,139,255,.12);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.m7-site-header .m7-header-inner{
+  width:min(1420px,calc(100% - 64px));
+  height:100%;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+}
+.m7-site-header .m7-brand{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:#f2f7ff;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.m7-site-header .m7-logo-mark{
+  font-family:"Space Grotesk","Syne",Arial,sans-serif;
+  font-size:35px;
+  font-weight:700;
+  font-style:italic;
+  letter-spacing:-5px;
+  line-height:1;
+  color:#0d7cff;
+  text-shadow:0 0 18px rgba(13,124,255,.28);
+}
+.m7-site-header .m7-logo-word{
+  font-family:"Space Grotesk","Syne",Arial,sans-serif;
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:.9px;
+  line-height:1;
+  color:#eef5ff;
+}
+.m7-site-header .m7-nav{
+  display:flex;
+  align-items:center;
+  gap:26px;
+}
+.m7-site-header .m7-nav a{
+  color:#a8b7c9;
+  text-decoration:none;
+  font:600 13px/1 "Inter","DM Sans",Arial,sans-serif;
+  transition:.2s ease;
+}
+.m7-site-header .m7-nav a:hover{
+  color:#36a7ff;
+}
+.m7-site-header .m7-account{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:94px;
+  padding:10px 15px;
+  border-radius:7px;
+  color:#fff !important;
+  background:linear-gradient(135deg,#0d7cff,#0064ea);
+  box-shadow:0 8px 24px rgba(13,124,255,.22);
+}
+.m7-site-header .m7-menu{
+  display:none;
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:25px;
+  cursor:pointer;
+}
+@media(max-width:900px){
+  .m7-site-header{height:72px}
+  .m7-site-header .m7-header-inner{width:min(100% - 30px,720px)}
+  .m7-site-header .m7-nav{display:none}
+  .m7-site-header .m7-account{display:none}
+  .m7-site-header .m7-menu{display:block}
+}
+</style>
+
+<header class="m7-site-header" id="header">
+  <div class="m7-header-inner">
+    <a class="m7-brand" href="index.html">
+      <span class="m7-logo-mark">M7</span>
+      <span class="m7-logo-word">COMMUNITY</span>
     </a>
-    <a href="login.html" class="btn btn-primary">Entrar</a>
+
+    <nav class="m7-nav" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="account.html">Conta</a>
+      <a href="help.html">Suporte</a>
+      <a href="technical.html">Técnico</a>
+      <a href="contact.html">Contato</a>
+    </nav>
+
+    <a class="m7-account" href="login.html">ENTRAR</a>
+    <button class="m7-menu" type="button" aria-label="Abrir menu" onclick="toggleM7Menu()">☰</button>
   </div>
 </header>
+
+<script>
+function toggleM7Menu(){
+  const nav = document.querySelector('.m7-nav');
+  if(!nav) return;
+  const open = nav.dataset.open === '1';
+  nav.dataset.open = open ? '0' : '1';
+  nav.style.display = open ? '' : 'flex';
+  nav.style.position = open ? '' : 'absolute';
+  nav.style.top = '72px';
+  nav.style.left = '15px';
+  nav.style.right = '15px';
+  nav.style.padding = '16px';
+  nav.style.flexDirection = 'column';
+  nav.style.alignItems = 'flex-start';
+  nav.style.background = 'rgba(3,8,17,.98)';
+  nav.style.border = '1px solid rgba(48,139,255,.16)';
+  nav.style.borderRadius = '10px';
+}
+</script>
