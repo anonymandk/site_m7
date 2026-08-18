@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Imprensa — M7 Cheats</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Imprensa — M7 Community</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style id="m7-blue-theme">
 :root{
   --v:#0d7cff !important; --v2:#0064ea !important; --v3:#36a7ff !important;
@@ -135,38 +134,13 @@ fetch("header.html")
   .then(response => response.text())
   .then(data => { document.getElementById("header-placeholder").innerHTML = data; })
   .catch(() => {});
-</script><main style="padding-top:84px;" class="m7-content"><section class="m7-card"><div class="m7-tag">// COMUNICAÇÃO</div><h1 class="m7-title">Central <span>de imprensa</span></h1><p class="m7-sub">Materiais, informações oficiais e contato para cobertura da M7 Cheats.</p><div class="m7-actions"><a class="m7-btn m7-btn-primary" href="mailto:staff@m7community.com.br">Falar com a assessoria</a><a class="m7-btn m7-btn-secondary" href="{{ url_for('index') }}">Voltar para M7</a></div><div class="m7-points"><div class="m7-point"><strong>Conta M7</strong><span>Acesse dados e status da sua conta.</span></div><div class="m7-point"><strong>Licenças</strong><span>Gerencie acesso e validade dos seus serviços.</span></div><div class="m7-point"><strong>Suporte</strong><span>Atendimento e documentação em um só lugar.</span></div></div></section></main><footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="logo"><div class="logo-icon">M7</div><a href="{{ url_for('index') if 'index' in url_for else 'index.html' }}">M7</a></div>
-      <p class="footer-desc">M7 Cheats: plataforma para acesso às licenças, recursos, atualizações, documentação e suporte da comunidade.</p>
-      <div class="social-links">
-        <a class="social-link" href="#" aria-label="Discord">DS</a>
-        <a class="social-link" href="#" aria-label="Instagram">IG</a>
-        <a class="social-link" href="#" aria-label="YouTube">YT</a>
-      </div>
-    </div>
-    <div class="footer-col"><h5>M7 Cheats</h5><div class="footer-links">
-      <a href="{{ url_for('index') }}">Início</a>
-      <a href="{{ url_for('account') }}">Conta</a>
-      <a href="{{ url_for('technical') }}">Documentação</a>
-      <a href="{{ url_for('help_page') }}">Central de Ajuda</a>
-    </div></div>
-    <div class="footer-col"><h5>Plataforma</h5><div class="footer-links">
-      <a href="{{ url_for('cart') }}">Licenças</a>
-      <a href="{{ url_for('payment') }}">Pagamento</a>
-      <a href="{{ url_for('partners') }}">Parceiros</a>
-      <a href="{{ url_for('about') }}">Sobre a M7</a>
-    </div></div>
-    <div class="footer-col"><h5>Suporte</h5><div class="footer-links">
-      <a href="{{ url_for('contact') }}">Contato</a>
-      <a href="{{ url_for('technical') }}">Suporte Técnico</a>
-      <a href="{{ url_for('warranty') }}">Licença e Cobertura</a>
-      <a href="{{ url_for('returns') }}">Cancelamento</a>
-    </div></div>
-  </div>
-  <div class="footer-bottom"><p>© {{ current_year if current_year else 2026 }} M7 Cheats. Todos os direitos reservados.</p><div class="tech-badges"><span class="tech-badge">M7 CORE</span><span class="tech-badge">SECURE</span><span class="tech-badge">24/7</span></div></div>
-</footer>
+</script><main style="padding-top:84px;" class="m7-content"><section class="m7-card"><div class="m7-tag">// COMUNICAÇÃO</div><h1 class="m7-title">Central <span>de imprensa</span></h1><p class="m7-sub">Materiais, informações oficiais e contato para cobertura da M7 Community.</p><div class="m7-actions"><a class="m7-btn m7-btn-primary" href="mailto:staff@m7community.com.br">Falar com a assessoria</a><a class="m7-btn m7-btn-secondary" href="index.html">Voltar para M7</a></div><div class="m7-points"><div class="m7-point"><strong>Conta M7</strong><span>Acesse dados e status da sua conta.</span></div><div class="m7-point"><strong>Licenças</strong><span>Gerencie acesso e validade dos seus serviços.</span></div><div class="m7-point"><strong>Suporte</strong><span>Atendimento e documentação em um só lugar.</span></div></div></section></main><div id="footer-placeholder"></div>
+<script>
+fetch("footer.html")
+  .then(response => response.text())
+  .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
+  .catch(() => {});
+</script>
 <script>
 (function(){
   const loading=document.getElementById('loading');

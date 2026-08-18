@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
 
 <style id="m7-blue-theme">
 :root{
@@ -155,7 +154,7 @@ fetch("header.html")
     <div class="section-header fade-up">
         <div class="section-tag">// SUPORTE</div>
         <h2 class="section-title">Central de <span style="background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Ajuda</span></h2>
-        <p class="section-sub">Tudo o que você precisa para usar a plataforma M7 Cheats</p>
+        <p class="section-sub">Tudo o que você precisa para usar a plataforma M7 Community</p>
     </div>
 
     <div class="help-grid fade-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 3rem auto;">
@@ -193,46 +192,14 @@ fetch("header.html")
 </main>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="logo"><div class="logo-icon">M7</div><a href="{{ url_for('index') if 'index' in url_for else 'index.html' }}">M7</a></div>
-      <p class="footer-desc">M7 Cheats: plataforma para acesso às licenças, recursos, atualizações, documentação e suporte da comunidade.</p>
-      <div class="social-links">
-        <a class="social-link" href="#" aria-label="Discord">DS</a>
-        <a class="social-link" href="#" aria-label="Instagram">IG</a>
-        <a class="social-link" href="#" aria-label="YouTube">YT</a>
-      </div>
-    </div>
-    <div class="footer-col"><h5>M7 Cheats</h5><div class="footer-links">
-      <a href="{{ url_for('index') }}">Início</a>
-      <a href="{{ url_for('account') }}">Conta</a>
-      <a href="{{ url_for('technical') }}">Documentação</a>
-      <a href="{{ url_for('help_page') }}">Central de Ajuda</a>
-    </div></div>
-    <div class="footer-col"><h5>Plataforma</h5><div class="footer-links">
-      <a href="{{ url_for('cart') }}">Licenças</a>
-      <a href="{{ url_for('payment') }}">Pagamento</a>
-      <a href="{{ url_for('partners') }}">Parceiros</a>
-      <a href="{{ url_for('about') }}">Sobre a M7</a>
-    </div></div>
-    <div class="footer-col"><h5>Suporte</h5><div class="footer-links">
-      <a href="{{ url_for('contact') }}">Contato</a>
-      <a href="{{ url_for('technical') }}">Suporte Técnico</a>
-      <a href="{{ url_for('warranty') }}">Licença e Cobertura</a>
-      <a href="{{ url_for('returns') }}">Cancelamento</a>
-    </div></div>
-  </div>
-  <div class="footer-bottom"><p>© {{ current_year if current_year else 2026 }} M7 Cheats. Todos os direitos reservados.</p><div class="tech-badges"><span class="tech-badge">M7 CORE</span><span class="tech-badge">SECURE</span><span class="tech-badge">24/7</span></div></div>
-</footer>
+<div id="footer-placeholder"></div>
+<script>
+fetch("footer.html")
+  .then(response => response.text())
+  .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
+  .catch(() => {});
+</script>
 
-<!-- Floating Nav -->
-<div class="float-nav" id="floatNav">
-    <div class="float-nav-item active" onclick="scrollTo('hero')">Início</div>
-    <div class="float-nav-item" onclick="scrollTo('produtos')">Produtos</div>
-    <div class="float-nav-item" onclick="scrollTo('destaques')">Destaque</div>
-    <div class="float-nav-item" onclick="scrollTo('tecnologia')">Tech</div>
-</div>
 
 <script>
     // Cursor
@@ -270,9 +237,8 @@ fetch("header.html")
     })();
 
     // Header Scroll
-    const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.scrollY > 40);
+        document.getElementById('header')?.classList.toggle('scrolled', window.scrollY > 40);
     });
 
     // Animations

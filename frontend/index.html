@@ -4,346 +4,181 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#050b16">
-  <title>M7 Cheats — Plataforma</title>
-  <meta name="description" content="M7 Cheats — plataforma da comunidade para recursos, atualizações, suporte e gerenciamento da sua conta.">
+  <title>M7 Community — Interface</title>
+  <meta name="description" content="M7 Community — interface premium dark blue com abas funcionais.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="m7-community.css">
 
+  <!-- CSS mínimo para garantir que as abas funcionem mesmo sem regras específicas no arquivo externo. -->
   <style>
-    :root{
-      --bg:#030811;
-      --bg2:#06101d;
-      --panel:#071321;
-      --panel2:#0a1726;
-      --line:rgba(89,151,255,.18);
-      --line2:rgba(255,255,255,.08);
-      --blue:#0d7cff;
-      --blue2:#0064ea;
-      --cyan:#36a7ff;
-      --text:#f4f8ff;
-      --muted:#91a0b4;
-      --muted2:#63748a;
-      --green:#2bd67b;
-      --shadow:0 24px 80px rgba(0,0,0,.48);
-      --glow:0 0 28px rgba(13,124,255,.28);
-      --radius:14px;
+    .demo-panel {
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      transform: translateY(-210px);
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      background:
-        radial-gradient(circle at 62% 25%,rgba(0,111,255,.10),transparent 30%),
-        radial-gradient(circle at 12% 75%,rgba(0,80,190,.07),transparent 28%),
-        var(--bg);
-      color:var(--text);
-      font-family:Inter,Arial,sans-serif;
-      overflow-x:hidden;
-    }
-    body::before{
-      content:"";
-      position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.16;
-      background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
-                       linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
-      background-size:72px 72px;
-      mask-image:linear-gradient(to bottom,black,transparent 85%);
-    }
-    a{color:inherit;text-decoration:none}
-    button,input{font:inherit}
-    button{border:0}
-    ::selection{background:#147eff;color:#fff}
-    ::-webkit-scrollbar{width:7px}
-    ::-webkit-scrollbar-track{background:#030811}
-    ::-webkit-scrollbar-thumb{background:#0b5fc8;border-radius:10px}
-
-    .container{width:min(1420px,calc(100% - 64px));margin:auto}
-
-    /* HEADER */
-    .header{
-      position:fixed;left:0;right:0;top:0;height:80px;z-index:100;
-      background:rgba(3,8,17,.78);
-      backdrop-filter:blur(18px);
-      border-bottom:1px solid rgba(88,146,230,.11);
-      transition:.3s ease;
-    }
-    .header.scrolled{background:rgba(3,8,17,.94);box-shadow:0 10px 40px rgba(0,0,0,.25)}
-    .header-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:28px}
-    .brand{display:flex;align-items:center;min-width:150px}
-    .brand-mark{
-      font-family:"Space Grotesk",sans-serif;font-size:45px;font-weight:700;line-height:1;
-      font-style:italic;letter-spacing:-7px;
-      background:linear-gradient(135deg,#1586ff 15%,#fff 75%);
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      filter:drop-shadow(0 0 10px rgba(0,112,255,.3));
-    }
-    .brand small{
-      display:block;margin-left:11px;margin-top:15px;font-size:7px;letter-spacing:3px;color:#6c7c91;
-    }
-    nav{display:flex;align-items:center;gap:33px}
-    nav a{font-size:14px;color:#c1cbd8;position:relative;transition:.2s}
-    nav a:hover,nav a.active{color:#1b87ff}
-    nav a.active::after{
-      content:"";position:absolute;left:0;right:0;bottom:-25px;height:2px;
-      background:#1180ff;box-shadow:0 0 12px #1180ff;
-    }
-    .download{
-      display:inline-flex;align-items:center;justify-content:center;gap:9px;
-      background:linear-gradient(135deg,#0c83ff,#075fe0);
-      color:white;font-weight:700;font-size:13px;padding:12px 20px;border-radius:7px;
-      box-shadow:0 7px 25px rgba(0,111,255,.27);cursor:pointer;transition:.25s;
-      white-space:nowrap;
-    }
-    .download:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,111,255,.42)}
-    .hamburger{display:none;background:transparent;color:white;font-size:25px;cursor:pointer}
-
-    /* HERO */
-    .hero{
-      min-height:800px;padding-top:80px;position:relative;overflow:hidden;
-      border-bottom:1px solid rgba(75,133,216,.12);
-    }
-    .hero::before{
-      content:"";position:absolute;width:780px;height:780px;left:31%;top:-70px;
-      background:radial-gradient(circle,rgba(0,119,255,.18),rgba(0,53,120,.05) 45%,transparent 70%);
-      filter:blur(10px);
-    }
-    .hero-grid{
-      min-height:720px;display:grid;grid-template-columns:41% 59%;align-items:center;position:relative;column-gap:36px;
-    }
-    .hero-copy{position:relative;z-index:5;padding-bottom:45px;padding-left:14px}
-    .eyebrow{
-      display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(14,126,255,.6);
-      color:#1482ff;padding:7px 13px;border-radius:5px;font-weight:800;font-size:14px;letter-spacing:1.1px;
-      background:rgba(5,44,90,.22);box-shadow:0 0 18px rgba(0,103,255,.08);margin-bottom:20px;
-    }
-    .eyebrow svg{width:17px}
-    h1{
-      font-family:"Space Grotesk",sans-serif;font-size:clamp(47px,5.5vw,78px);
-      line-height:.96;letter-spacing:-3.5px;font-weight:700;margin-bottom:24px;
-      text-transform:uppercase;
-    }
-    h1 .blue{color:#096fff;text-shadow:0 0 30px rgba(0,106,255,.2)}
-    h1 .white{color:#f5f8fc}
-    .hero-copy p{max-width:530px;color:#aeb9c8;line-height:1.7;font-size:15px;margin-bottom:28px}
-    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:45px}
-    .btn-secondary{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      color:#eef5ff;background:rgba(9,24,40,.82);border:1px solid #285078;border-radius:7px;
-      padding:13px 20px;font-weight:700;font-size:13px;cursor:pointer;transition:.25s;
-    }
-    .btn-secondary:hover{border-color:#0d7cff;background:#0b1e34;transform:translateY(-2px)}
-    .stats{display:flex;gap:35px}
-    .stat{display:flex;align-items:center;gap:10px}
-    .stat-icon{color:#0781ff;width:28px;height:28px}
-    .stat strong{display:block;color:#1483ff;font-size:22px;line-height:1.05}
-    .stat span{display:block;color:#8694a7;font-size:12px;margin-top:3px}
-
-    .hero-art{height:720px;position:relative;display:flex;align-items:flex-end;justify-content:flex-start;z-index:0;padding-left:18px}
-    .hero-person{
-      position:absolute;bottom:0;left:-120px;height:680px;width:min(520px,82%);
-      object-fit:cover;object-position:center top;
-      filter:saturate(1.08) contrast(1.05);
-      mix-blend-mode:screen;
-      mask-image:linear-gradient(to bottom,black 82%,transparent 100%);
-      -webkit-mask-image:linear-gradient(to bottom,black 82%,transparent 100%);
-      z-index:1;pointer-events:none;
-    }
-    .hero-person-glow{
-      position:absolute;left:-60px;bottom:70px;width:560px;height:530px;
-      background:radial-gradient(ellipse,rgba(0,113,255,.27),transparent 68%);
-      filter:blur(25px);z-index:0;
+    .demo-tabs {
+      display: flex;
+      align-items: stretch;
+      gap: 2px;
+      flex-wrap: nowrap;
     }
 
-    /* PRODUCT PANEL */
-    .product-panel{
-      position:absolute;right:-60px;top:40px;width:min(650px,64vw);z-index:3;
-      background:linear-gradient(145deg,rgba(7,19,33,.94),rgba(4,12,22,.96));
-      border:1px solid rgba(92,153,226,.23);border-radius:10px;box-shadow:var(--shadow);
-      overflow:hidden;backdrop-filter:blur(16px);
+    .demo-tabs .tab-btn {
+      position: relative;
+      border: 0;
+      background: transparent;
+      color: #aab7c9;
+      cursor: pointer;
+      font: inherit;
+      padding: 12px 16px;
+      transition: color .2s ease, background .2s ease;
+      white-space: nowrap;
     }
-    .product-top{height:64px;border-bottom:1px solid var(--line2);display:flex;align-items:center;padding:0 18px;gap:18px}
-    .product-logo{font-family:"Space Grotesk";font-size:31px;font-weight:700;font-style:italic;color:#0d7cff;letter-spacing:-3px}
-    .search{
-      width:220px;height:39px;display:flex;align-items:center;gap:9px;padding:0 11px;
-      border:1px solid rgba(110,140,175,.18);background:#07111e;border-radius:5px;color:#7e8ca0;
-    }
-    .search input{border:0;outline:0;background:transparent;color:#eaf2ff;width:100%;font-size:12px}
-    .product-tabs{display:flex;gap:28px;margin-left:auto;height:100%;align-items:center}
-    .product-tabs button{background:none;color:#c0cbd9;font-size:12px;cursor:pointer;height:100%;position:relative}
-    .product-tabs button.active{color:#fff}
-    .product-tabs button.active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#087cff;box-shadow:0 0 10px #087cff}
-    .product-body{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .product-col{display:flex;flex-direction:column;gap:12px}
-    .box{border:1px solid rgba(90,138,193,.15);border-radius:7px;background:rgba(4,13,23,.78);overflow:hidden}
-    .box-title{padding:12px 14px;border-bottom:1px solid rgba(90,138,193,.12);font-size:12px;font-weight:700;color:#edf5ff}
-    .box-body{padding:8px 12px 12px}
-    .row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:31px;color:#aeb9c7;font-size:11px}
-    .check{
-      width:19px;height:19px;border-radius:4px;background:#086ee9;display:grid;place-items:center;color:#fff;
-      cursor:pointer;box-shadow:0 0 10px rgba(0,107,255,.12);flex:0 0 auto
-    }
-    .check.off{background:#0b1521;border:1px solid #263b50;color:transparent;box-shadow:none}
-    .key{border:1px solid #26394d;border-radius:4px;padding:3px 8px;color:#b7c4d4;background:#0b1624;font-size:10px}
-    .slider{height:4px;background:#102337;border-radius:10px;position:relative;margin:7px 0 13px}
-    .slider i{display:block;height:100%;width:65%;background:#0b7cff;border-radius:10px;box-shadow:0 0 10px rgba(0,124,255,.5)}
-    .slider i::after{content:"";position:absolute;left:65%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:#e8f2ff}
-    .wide-btn{width:100%;padding:9px;background:#091827;border:1px solid #19354e;color:#dfe8f4;border-radius:5px;font-size:11px;cursor:pointer}
-    .wide-btn:hover{border-color:#0c7dff;color:white}
-    .value{color:#dfe8f4}
 
-    /* SECTIONS */
-    .section{padding:50px 0 0}
-    .section-card{
-      border:1px solid rgba(82,137,202,.16);background:linear-gradient(145deg,#06101d,#050c16);
-      border-radius:10px;padding:27px 38px 38px;box-shadow:0 20px 70px rgba(0,0,0,.18)
+    .demo-tabs .tab-btn:hover,
+    .demo-tabs .tab-btn.active {
+      color: #f3f7ff;
+      background: rgba(39, 132, 255, .05);
     }
-    .section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:20px}
-    .section-head h2{font-family:"Space Grotesk";font-size:29px;text-transform:uppercase;letter-spacing:-1px}
-    .section-head p{font-size:13px;color:#738398;margin-top:6px}
-    .blue-line{width:70px;height:2px;background:#087cff;box-shadow:0 0 12px #087cff;margin-top:10px}
 
-    .resource-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-    .resource{
-      min-height:125px;padding:20px;background:linear-gradient(145deg,#091728,#07111d);
-      border:1px solid rgba(84,139,202,.16);border-radius:8px;transition:.25s
+    .demo-tabs .tab-btn.active::after {
+      content: "";
+      position: absolute;
+      left: 15%;
+      right: 15%;
+      bottom: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: #0b82ff;
+      box-shadow: 0 0 14px rgba(11, 130, 255, .65);
     }
-    .resource:hover{transform:translateY(-4px);border-color:rgba(10,125,255,.5);box-shadow:0 14px 35px rgba(0,65,140,.16)}
-    .resource-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:9px;border:1px solid rgba(7,124,255,.22);color:#0c80ff;background:rgba(0,100,230,.07);margin-bottom:14px}
-    .resource h3{font-size:14px;margin-bottom:6px}
-    .resource p{font-size:11px;line-height:1.55;color:#75869b}
 
-    .community{
-      margin-top:18px;display:grid;grid-template-columns:1.3fr .7fr;gap:18px
+    .demo-tab-panels {
+      width: 100%;
     }
-    .community-box{
-      border:1px solid rgba(76,130,194,.15);border-radius:9px;padding:26px;background:#07111d
-    }
-    .community-box h3{font-family:"Space Grotesk";font-size:24px;margin-bottom:8px}
-    .community-box p{color:#8291a4;font-size:13px;line-height:1.65;max-width:620px}
-    .community-actions{display:flex;gap:10px;margin-top:18px}
-    .quote-list{display:grid;gap:10px}
-    .quote{padding:14px;border-left:2px solid #087cff;background:#091522;border-radius:4px}
-    .quote strong{font-size:12px}
-    .quote span{display:block;color:#78899e;font-size:11px;margin-top:5px}
 
-    footer{margin-top:70px;border-top:1px solid rgba(75,133,216,.12);padding:28px 0 42px;color:#607086}
-    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
-    .footer-brand{font-family:"Space Grotesk";font-size:27px;font-weight:700;font-style:italic;color:#0c7cff}
-    .footer-links{display:flex;gap:22px;font-size:12px}
-    .footer-links a:hover{color:#0c7cff}
+    .demo-tab-panel {
+      display: none;
+      width: 100%;
+      animation: demoPanelIn .18s ease;
+    }
 
-    /* TOAST / REVEAL */
-    .toast{
-      position:fixed;right:24px;bottom:24px;z-index:300;transform:translateY(30px);opacity:0;
-      background:#0b1a2b;border:1px solid #1b5a95;color:#e9f4ff;padding:13px 17px;border-radius:8px;
-      box-shadow:0 15px 50px rgba(0,0,0,.45);font-size:12px;transition:.3s
+    .demo-tab-panel.active {
+      display: block;
     }
-    .toast.show{transform:translateY(0);opacity:1}
-    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
-    .reveal.visible{opacity:1;transform:none}
 
-    @media(max-width:1150px){
-      nav{gap:20px}
-      .hero-grid{grid-template-columns:46% 54%}
-      .product-panel{width:66vw}
-      .hero-person{left:-5%}
-      .resource-grid{grid-template-columns:repeat(2,1fr)}
+    @keyframes demoPanelIn {
+      from { opacity: .35; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    @media(max-width:900px){
-      .container{width:min(100% - 30px,700px)}
-      .header{height:68px}
-      nav,.header .download{display:none}
-      .hamburger{display:block}
-      .hero{min-height:auto;padding-top:68px}
-      .hero-grid{grid-template-columns:1fr;min-height:auto;padding:65px 0 20px}
-      .hero-copy{text-align:center;padding:0}
-      .hero-copy p{margin-left:auto;margin-right:auto}
-      .hero-actions,.stats{justify-content:center}
-      .hero-art{height:570px;margin-top:15px}
-      .product-panel{top:30px;right:0;width:100%}
-      .hero-person{height:500px;width:390px;left:50%;transform:translateX(-50%);bottom:0}
-      .community{grid-template-columns:1fr}
+
+    .demo-tab-panel .demo-body {
+      margin-top: 0;
     }
-    @media(max-width:620px){
-      h1{font-size:43px;letter-spacing:-2px}
-      .stats{display:grid;grid-template-columns:1fr 1fr;text-align:left;gap:18px}
-      .hero-art{height:510px}
-      .hero-person{height:430px;width:340px}
-      .product-top{height:56px;gap:10px}
-      .product-logo{font-size:26px}
-      .search{width:145px}
-      .product-tabs{display:none}
-      .product-body{grid-template-columns:1fr}
-      .product-col:last-child{display:none}
-      .section-card{padding:22px 16px 25px}
-      .resource-grid{grid-template-columns:1fr}
-      .section-head{display:block}
-      .footer-inner{flex-direction:column;align-items:flex-start}
-      .footer-links{flex-wrap:wrap}
+
+    .demo-empty {
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 28px;
+    }
+
+    .demo-empty strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .demo-empty span {
+      opacity: .68;
+      font-size: 12px;
+    }
+
+    .value.online {
+      color: #5ce49b;
+    }
+
+    .mini-input,
+    .select-input {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid rgba(113, 160, 218, .18);
+      background: rgba(5, 16, 29, .72);
+      color: #e7eef9;
+      border-radius: 7px;
+      padding: 9px 10px;
+      outline: none;
+    }
+
+    .mini-input:focus,
+    .select-input:focus {
+      border-color: rgba(38, 137, 255, .65);
+      box-shadow: 0 0 0 3px rgba(38, 137, 255, .09);
+    }
+
+    .stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    .settings-actions {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .demo-body.is-searching .box:not(.search-match) {
+      opacity: .22;
+    }
+
+    .box.search-match {
+      opacity: 1;
+    }
+
+    @media (max-width: 900px) {
+      .demo-panel {
+        transform: translateY(-120px);
+      }
+
+      .demo-tabs .tab-btn {
+        padding-inline: 11px;
+        font-size: 12px;
+      }
     }
   </style>
-
-<style id="m7-blue-theme">
-:root{
-  --v:#0d7cff !important; --v2:#0064ea !important; --v3:#36a7ff !important;
-  --v4:#0756b8 !important; --v5:#a8dcff !important;
-  --glow:0 0 30px rgba(13,124,255,.42),0 0 60px rgba(13,124,255,.18) !important;
-  --glow2:0 0 15px rgba(13,124,255,.62),0 0 30px rgba(13,124,255,.28) !important;
-}
-#loading{
-  position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:radial-gradient(circle at 50% 42%,rgba(0,102,255,.18),transparent 38%),#030811;
-  transition:opacity .65s ease, visibility .65s ease;
-}
-#loading.hidden{opacity:0;visibility:hidden;pointer-events:none}
-#loading .load-logo{font-family:'Syne',sans-serif;font-size:clamp(4rem,10vw,7rem);font-weight:800;letter-spacing:-.08em;line-height:1;
-  background:linear-gradient(135deg,#fff 20%,#0d7cff 55%,#36a7ff 88%);-webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 0 26px rgba(13,124,255,.48));margin-bottom:2rem}
-#loading .load-bar-wrap{width:min(360px,72vw);height:3px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden;border:1px solid rgba(54,167,255,.16)}
-#loading .load-bar{height:100%;width:0;background:linear-gradient(90deg,#0064ea,#36a7ff);box-shadow:0 0 16px rgba(54,167,255,.65);animation:m7Loading 2s cubic-bezier(.2,.8,.2,1) forwards}
-#loading .load-text{margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.22em;color:#8ebcff}
-#loading .load-sub{margin-top:.45rem;font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.14em;color:#50657f}
-@keyframes m7Loading{0%{width:0}35%{width:48%}70%{width:76%}100%{width:100%}}
-.m7-page-card{border-color:rgba(13,124,255,.18)!important;box-shadow:0 18px 55px rgba(0,55,140,.14)}
-</style>
-
-  <link rel="stylesheet" href="m7-community.css">
 </head>
 
 <body>
-
-<!-- M7 system boot -->
-<div id="loading" aria-live="polite" aria-label="Carregando a plataforma M7">
-  <div class="load-logo">M7</div>
-  <div class="load-bar-wrap"><div class="load-bar"></div></div>
-  <div class="load-text">INICIALIZANDO SISTEMA...</div>
-  <div class="load-sub">CARREGANDO PLATAFORMA M7</div>
-</div>
-
   <header class="header" id="header">
     <div class="container header-inner">
-      <a href="{{ url_for('index') }}" class="brand" aria-label="M7 Cheats">
+      <a href="#inicio" class="brand" aria-label="M7 Community">
         <span class="brand-mark">M7</span>
         <small>COMMUNITY</small>
       </a>
 
       <nav>
-        <a href="{{ url_for('index') }}" class="active">Início</a>
-        <a href="{{ url_for('about') }}">Sobre</a>
-        <a href="{{ url_for('account') }}">Conta</a>
-        <a href="{{ url_for('partners') }}">Parceiros</a>
-        <a href="{{ url_for('technical') }}">Recursos e docs</a>
-        <a href="{{ url_for('help_page') }}">Ajuda</a>
-        <a href="{{ url_for('contact') }}">Contato</a>
+        <a href="#inicio" class="active">Início</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#exploits">Exploits</a>
+        <a href="#visuais">Visuais</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#comunidade">Comunidade</a>
+        <a href="#suporte">Suporte</a>
       </nav>
 
-      <a class="download" href="{{ url_for('login') }}">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <button class="download" data-action="download" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/>
         </svg>
-        ENTRAR
-      </a>
-      <button class="hamburger" id="menuBtn" aria-label="Abrir menu">☰</button>
+        BAIXAR AGORA
+      </button>
+
+      <button class="hamburger" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
     </div>
   </header>
 
@@ -352,34 +187,33 @@
       <div class="container hero-grid">
         <div class="hero-copy reveal">
           <div class="eyebrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M4 12h16M12 4v16"/><circle cx="12" cy="12" r="9"/>
             </svg>
-            M7 CHEATS
+            M7 COMMUNITY
           </div>
 
           <h1>
-            <span class="white">M7</span><br>
-            <span class="blue">PLATAFORMA.</span><br>
-            <span class="white">TUDO EM UM SÓ LUGAR.</span>
+            <span class="white">DOMINE.</span><br>
+            <span class="blue">SUPERE.</span><br>
+            <span class="white">SEJA LENDÁRIO.</span>
           </h1>
 
           <p>
-            A plataforma M7 centraliza sua conta, recursos, atualizações,
-            documentação, suporte e informações da comunidade em um único
-            ambiente. Acesse os serviços disponíveis pelo menu principal.
+            M7 Community oferece uma interface premium para centralizar recursos,
+            configurações e informações da sua comunidade.
           </p>
 
           <div class="hero-actions">
-            <a class="download" href="{{ url_for('login') }}">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="download" data-action="download" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/>
               </svg>
-              ABRIR CONTA
-            </a>
-            <a class="btn-secondary" href="{{ url_for('technical') }}">
+              BAIXAR AGORA
+            </button>
+            <a class="btn-secondary" href="#recursos">
               VER RECURSOS
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="m9 18 6-6-6-6"/>
               </svg>
             </a>
@@ -387,104 +221,196 @@
 
           <div class="stats">
             <div class="stat">
-              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
                 <path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m8 12 2.2 2.2L16 8.5"/>
               </svg>
-              <div><strong data-count="30">0+</strong><span>Atualizações</span></div>
+              <div><strong data-count="100">0%</strong><span>Disponibilidade</span></div>
             </div>
             <div class="stat">
-              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
                 <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>
               </svg>
-              <div><strong data-count="30">0+</strong><span>Atualizações</span></div>
+              <div><strong data-count="50">0+</strong><span>Recursos</span></div>
             </div>
             <div class="stat">
-              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
                 <circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="3"/><path d="M3 20c.5-3.5 2.5-5 6-5s5.5 1.5 6 5"/><path d="M14 15c3.5-.2 5.8 1.4 6 5"/>
               </svg>
-              <div><strong data-count="30">0K+</strong><span>Membros</span></div>
+              <div><strong data-count="30">0K+</strong><span>Usuários</span></div>
             </div>
           </div>
         </div>
 
         <div class="hero-art reveal">
           <div class="hero-person-glow"></div>
-          <img class="hero-person" src="{{ url_for('plataforma_asset', filename='m7-hero.png') }}" alt="M7">
+          <img class="hero-person" src="m7-hero.png" alt="Visual da referência M7">
 
-          <div class="product-panel">
-            <div class="product-top">
-              <div class="product-logo">M7</div>
-              <label class="search">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <div class="demo-panel" id="demoPanel">
+            <div class="demo-top">
+              <div class="demo-logo">M7</div>
+
+              <label class="search" aria-label="Buscar no painel">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>
                 </svg>
-                <input id="searchInput" placeholder="Buscar recursos..." autocomplete="off">
+                <input id="searchInput" placeholder="Buscar..." autocomplete="off" type="search">
               </label>
-              <div class="product-tabs">
-                <button>Legitbot</button>
-                <button>Visuais</button>
-                <button class="active">Misc</button>
-                <button>Configs</button>
+
+              <div class="demo-tabs" role="tablist" aria-label="Painel M7">
+                <button class="tab-btn active" id="tab-dashboard" data-tab="dashboard" type="button" role="tab" aria-selected="true" aria-controls="dashboard">Dashboard</button>
+                <button class="tab-btn" id="tab-visuals" data-tab="visuals" type="button" role="tab" aria-selected="false" aria-controls="visuals">Visuals</button>
+                <button class="tab-btn" id="tab-tools" data-tab="tools" type="button" role="tab" aria-selected="false" aria-controls="tools">Tools</button>
+                <button class="tab-btn" id="tab-configs" data-tab="configs" type="button" role="tab" aria-selected="false" aria-controls="configs">Configs</button>
               </div>
             </div>
 
-            <div class="product-body">
-              <div class="product-col">
-                <div class="box">
-                  <div class="box-title">Exploits</div>
-                  <div class="box-body">
-                    <div class="row"><span>CombatRoll Time</span><button class="check toggle on">✓</button></div>
-                    <div class="row"><span>CombatRoll Glitch</span><button class="check toggle on">✓</button></div>
-                    <div class="row"><span>Invisível</span><span class="key">ScrollLock</span></div>
-                  </div>
-                </div>
+            <div class="demo-tab-panels">
+              <!-- DASHBOARD -->
+              <section class="demo-tab-panel active" id="dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+                <div class="demo-body">
+                  <div class="demo-col">
+                    <div class="box">
+                      <div class="box-title">Sistema</div>
+                      <div class="box-body">
+                        <div class="row"><span>Status</span><span class="value online">Online</span></div>
+                        <div class="row"><span>Usuários</span><span class="value">1.245</span></div>
+                        <div class="row"><span>Ping</span><span class="value">24ms</span></div>
+                        <div class="row"><span>Versão</span><span class="value">2.1.0</span></div>
+                      </div>
+                    </div>
 
-                <div class="box">
-                  <div class="box-title">LocalPlayer</div>
-                  <div class="box-body">
-                    <div class="row"><span>Anti HeadShot</span><button class="check toggle on">✓</button></div>
-                    <div class="row"><span>Ragdoll</span><button class="check toggle on">✓</button></div>
-                    <div class="row"><span>Verificar Veículos Próximos</span><span class="key">F</span></div>
-                    <div class="row"><span>Sem Colisão</span><button class="check toggle on">✓</button></div>
-                    <div class="row"><span>Sem Ações</span><button class="check toggle on">✓</button></div>
-                    <div class="row"><span>Stamina</span><button class="check toggle on">✓</button></div>
-                    <div class="row"><span>Velocidade Infinita</span><button class="check toggle on">✓</button></div>
-                    <div class="slider"><i></i></div>
+                    <div class="box">
+                      <div class="box-title">Desempenho</div>
+                      <div class="box-body">
+                        <div class="row"><span>CPU</span><span class="value">42%</span></div>
+                        <div class="slider"><i style="width:42%"></i></div>
+                        <div class="row"><span>Memória</span><span class="value">61%</span></div>
+                        <div class="slider"><i style="width:61%"></i></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
 
-              <div class="product-col">
-                <div class="box">
-                  <div class="box-title">Teleportar</div>
-                  <div class="box-body">
-                    <div class="row"><span>Sem Clip</span><span class="key">4</span></div>
-                    <div class="row"><span>Velocidade</span><span class="value">50m/s</span></div>
-                    <div class="slider"><i></i></div>
-                    <div class="row"><span>Invisível em NC</span><button class="check toggle on">✓</button></div>
-                    <button class="wide-btn">Teleportar para Waypoint</button>
-                  </div>
-                </div>
+                  <div class="demo-col">
+                    <div class="box">
+                      <div class="box-title">Atividade recente</div>
+                      <div class="box-body">
+                        <div class="row"><span>Servidor iniciado</span><span class="key">agora</span></div>
+                        <div class="row"><span>Backup concluído</span><span class="key">2m</span></div>
+                        <div class="row"><span>Atualização disponível</span><span class="key">5m</span></div>
+                        <div class="row"><span>Novo membro</span><span class="key">8m</span></div>
+                      </div>
+                    </div>
 
-                <div class="box">
-                  <div class="box-title">Jogador</div>
-                  <div class="box-body">
-                    <div class="row"><span>Vida</span><span class="value">100</span></div>
-                    <div class="slider"><i style="width:70%"></i></div>
-                    <button class="wide-btn">Aplicar Vida</button>
+                    <div class="box">
+                      <div class="box-title">Atalhos</div>
+                      <div class="box-body">
+                        <div class="row"><span>Abrir configurações</span><span class="key">F2</span></div>
+                        <div class="row"><span>Atualizar painel</span><span class="key">F5</span></div>
+                        <div class="row"><span>Ajuda</span><span class="key">F1</span></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </section>
 
-                <div class="box">
-                  <div class="box-title">Armas</div>
-                  <div class="box-body">
-                    <div class="row"><span>Munição Infinita</span><button class="check toggle on">✓</button></div>
-                    <div class="row"><span>Sem Recuo</span><button class="check toggle on">✓</button></div>
-                    <div class="row"><span>Sem Recarregar</span><button class="check toggle on">✓</button></div>
-                    <div class="row"><span>Recarga Rápida</span><button class="check toggle on">✓</button></div>
+              <!-- VISUALS -->
+              <section class="demo-tab-panel" id="visuals" role="tabpanel" aria-labelledby="tab-visuals" hidden>
+                <div class="demo-body">
+                  <div class="demo-col">
+                    <div class="box">
+                      <div class="box-title">Aparência</div>
+                      <div class="box-body">
+                        <div class="row"><span>Modo escuro</span><button class="check toggle on" type="button" aria-pressed="true">✓</button></div>
+                        <div class="row"><span>Glow azul</span><button class="check toggle on" type="button" aria-pressed="true">✓</button></div>
+                        <div class="row"><span>Animações</span><button class="check toggle on" type="button" aria-pressed="true">✓</button></div>
+                        <div class="row"><span>Transparência</span><span class="value" id="opacityValue">80%</span></div>
+                        <div class="slider" data-slider="opacity"><i style="width:80%"></i></div>
+                      </div>
+                    </div>
+
+                    <div class="box">
+                      <div class="box-title">Indicadores</div>
+                      <div class="box-body">
+                        <div class="row"><span>Status de conexão</span><span class="value online">Ativo</span></div>
+                        <div class="row"><span>Notificações</span><button class="check toggle on" type="button" aria-pressed="true">✓</button></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="demo-col">
+                    <div class="box">
+                      <div class="box-title">Prévia</div>
+                      <div class="box-body">
+                        <div class="community-box">
+                          <h3>Interface limpa.</h3>
+                          <p>Contraste, profundidade e azul elétrico seguindo a identidade M7.</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </section>
+
+              <!-- TOOLS -->
+              <section class="demo-tab-panel" id="tools" role="tabpanel" aria-labelledby="tab-tools" hidden>
+                <div class="demo-body">
+                  <div class="demo-col">
+                    <div class="box">
+                      <div class="box-title">Ferramentas</div>
+                      <div class="box-body stack">
+                        <button class="wide-btn" type="button" data-tool="refresh">Atualizar painel</button>
+                        <button class="wide-btn" type="button" data-tool="clear-search">Limpar busca</button>
+                        <button class="wide-btn" type="button" data-tool="notification">Testar notificação</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="demo-col">
+                    <div class="box">
+                      <div class="box-title">Diagnóstico</div>
+                      <div class="box-body">
+                        <div class="row"><span>API</span><span class="value online">Online</span></div>
+                        <div class="row"><span>Cache</span><span class="value">12 MB</span></div>
+                        <div class="row"><span>Última verificação</span><span class="key">agora</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- CONFIGS -->
+              <section class="demo-tab-panel" id="configs" role="tabpanel" aria-labelledby="tab-configs" hidden>
+                <div class="demo-body">
+                  <div class="demo-col">
+                    <div class="box">
+                      <div class="box-title">Configuração atual</div>
+                      <div class="box-body">
+                        <div class="row"><span>Perfil</span><span class="value" id="profileValue">Padrão</span></div>
+                        <label class="stack">
+                          <span>Nome do perfil</span>
+                          <input id="profileName" class="mini-input" type="text" value="Padrão" maxlength="30">
+                        </label>
+
+                        <div class="settings-actions">
+                          <button class="wide-btn" type="button" id="saveConfig">Salvar configuração</button>
+                          <button class="wide-btn" type="button" id="resetConfig">Restaurar padrão</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="demo-col">
+                    <div class="box">
+                      <div class="box-title">Preferências</div>
+                      <div class="box-body">
+                        <div class="row"><span>Inicializar automaticamente</span><button class="check toggle on" type="button" aria-pressed="true">✓</button></div>
+                        <div class="row"><span>Salvar alterações automaticamente</span><button class="check toggle on" type="button" aria-pressed="true">✓</button></div>
+                        <div class="row"><span>Notificações</span><button class="check toggle on" type="button" aria-pressed="true">✓</button></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </div>
@@ -498,31 +424,15 @@
             <div>
               <h2>Recursos poderosos</h2>
               <div class="blue-line"></div>
-              <p>Serviços disponíveis dentro da plataforma M7.</p>
+              <p>Tudo que você precisa para levar sua experiência ao próximo nível.</p>
             </div>
           </div>
 
           <div class="resource-grid">
-            <article class="resource">
-              <div class="resource-icon">✦</div>
-              <h3>Conta e acesso</h3>
-              <p>Gerencie seu acesso, dados da conta e sessão da plataforma.</p>
-            </article>
-            <article class="resource">
-              <div class="resource-icon">↻</div>
-              <h3>Atualizações</h3>
-              <p>Acompanhe novidades, versões e mudanças disponíveis para a comunidade.</p>
-            </article>
-            <article class="resource">
-              <div class="resource-icon">◎</div>
-              <h3>Recursos e docs</h3>
-              <p>Consulte guias técnicos, instruções e informações da plataforma.</p>
-            </article>
-            <article class="resource">
-              <div class="resource-icon">♙</div>
-              <h3>Suporte</h3>
-              <p>Encontre ajuda, contato e canais oficiais da M7.</p>
-            </article>
+            <article class="resource"><div class="resource-icon">✦</div><h3>Interface premium</h3><p>Design escuro com azul elétrico e hierarquia visual consistente.</p></article>
+            <article class="resource"><div class="resource-icon">↻</div><h3>Atualizações regulares</h3><p>Estrutura preparada para receber novas funções e conteúdos.</p></article>
+            <article class="resource"><div class="resource-icon">◎</div><h3>Fácil de usar</h3><p>Navegação simples, rápida e organizada por painéis.</p></article>
+            <article class="resource"><div class="resource-icon">♙</div><h3>Comunidade ativa</h3><p>Área preparada para suporte, notícias e interação.</p></article>
           </div>
         </div>
       </div>
@@ -535,14 +445,14 @@
             <div>
               <h2>Exploits & configurações</h2>
               <div class="blue-line"></div>
-              <p>Painéis de recursos disponíveis dentro da experiência M7.</p>
+              <p>Área demonstrativa da interface e organização dos painéis.</p>
             </div>
           </div>
           <div class="resource-grid">
-            <a class="resource" href="{{ url_for('account') }}"><div class="resource-icon">♙</div><h3>Minha conta</h3><p>Gerencie seu perfil, sessão e informações de acesso.</p></a>
-            <a class="resource" href="{{ url_for('technical') }}"><div class="resource-icon">⌘</div><h3>Recursos e docs</h3><p>Consulte guias, instruções e informações técnicas.</p></a>
-            <a class="resource" href="{{ url_for('returns') }}"><div class="resource-icon">↻</div><h3>Pedidos e acesso</h3><p>Consulte processos relacionados a pedidos e serviços.</p></a>
-            <a class="resource" href="{{ url_for('help_page') }}"><div class="resource-icon">?</div><h3>Central de ajuda</h3><p>Encontre respostas e canais de suporte da M7.</p></a>
+            <article class="resource"><div class="resource-icon">⚡</div><h3>Atalhos</h3><p>Organização de comandos e acessos rápidos em um único painel.</p></article>
+            <article class="resource"><div class="resource-icon">◈</div><h3>Perfis</h3><p>Configurações agrupadas para diferentes necessidades.</p></article>
+            <article class="resource"><div class="resource-icon">⌖</div><h3>Ferramentas</h3><p>Componentes de manutenção e diagnóstico da interface.</p></article>
+            <article class="resource"><div class="resource-icon">▣</div><h3>Configs</h3><p>Persistência local para preferências e perfil do usuário.</p></article>
           </div>
         </div>
       </div>
@@ -555,23 +465,23 @@
             <div>
               <h2>Visuais</h2>
               <div class="blue-line"></div>
-              <p>Informações organizadas em uma interface consistente e responsiva.</p>
+              <p>Cards e indicadores com a mesma linguagem azul, escura e tecnológica.</p>
             </div>
           </div>
           <div class="community">
             <div class="community-box">
-              <h3>Uma plataforma organizada.</h3>
-              <p>O ambiente foi estruturado para concentrar navegação, conta, recursos, documentação e suporte em páginas independentes.</p>
+              <h3>Interface limpa.</h3>
+              <p>Hierarquia visual forte, painéis translúcidos, bordas discretas, azul elétrico e microinterações.</p>
               <div class="community-actions">
-                <a href="{{ url_for('partners') }}" class="download">PARCEIROS</a>
-                <a href="{{ url_for('contact') }}" class="btn-secondary">CONTATO</a>
+                <a href="#depoimentos" class="download">VER DEPOIMENTOS</a>
+                <a href="#comunidade" class="btn-secondary">COMUNIDADE</a>
               </div>
             </div>
             <div class="community-box">
               <div class="quote-list">
                 <div class="quote"><strong>Performance visual</strong><span>Glow, contraste e profundidade.</span></div>
                 <div class="quote"><strong>Responsivo</strong><span>Adaptação para desktop e mobile.</span></div>
-                <div class="quote"><strong>Integrado</strong><span>Sem necessidade de header.html.</span></div>
+                <div class="quote"><strong>Standalone</strong><span>Sem necessidade de header.html.</span></div>
               </div>
             </div>
           </div>
@@ -586,14 +496,14 @@
             <div>
               <h2>Depoimentos</h2>
               <div class="blue-line"></div>
-              <p>Informações e opiniões da comunidade M7.</p>
+              <p>Exemplos de cards para a seção social da comunidade.</p>
             </div>
           </div>
           <div class="resource-grid">
-            <article class="resource"><div class="resource-icon">★</div><h3>Experiência M7</h3><p>Uma navegação centralizada para acessar os serviços da comunidade.</p></article>
-            <article class="resource"><div class="resource-icon">★</div><h3>Conta</h3><p>Área dedicada para gerenciamento de acesso e informações do usuário.</p></article>
-            <article class="resource"><div class="resource-icon">★</div><h3>Recursos e docs</h3><p>Guias e informações técnicas disponíveis em uma área própria.</p></article>
-            <article class="resource"><div class="resource-icon">★</div><h3>Suporte</h3><p>Canais de ajuda e contato para a comunidade M7.</p></article>
+            <article class="resource"><div class="resource-icon">★</div><h3>“Interface absurda.”</h3><p>“Ficou exatamente com a vibe dark + blue que eu queria.”</p></article>
+            <article class="resource"><div class="resource-icon">★</div><h3>“Muito mais premium.”</h3><p>“Os painéis e o hero deram outra presença para a página.”</p></article>
+            <article class="resource"><div class="resource-icon">★</div><h3>“Rápido e direto.”</h3><p>“A navegação está simples e as seções ficaram bem organizadas.”</p></article>
+            <article class="resource"><div class="resource-icon">★</div><h3>“Responsivo.”</h3><p>“No celular a estrutura continua limpa e legível.”</p></article>
           </div>
         </div>
       </div>
@@ -604,16 +514,16 @@
         <div class="section-card">
           <div class="community">
             <div class="community-box">
-              <h3>Comunidade M7.</h3>
-              <p>Acompanhe atualizações, consulte os canais oficiais e encontre suporte para os serviços disponíveis na plataforma.</p>
+              <h3>Junte-se à comunidade M7.</h3>
+              <p>Uma área final de conversão para links, novidades e comunicação.</p>
               <div class="community-actions">
-                <a class="download" href="{{ url_for('partners') }}">PARCEIROS</a>
-                <a href="{{ url_for('contact') }}" class="btn-secondary">CONTATO</a>
+                <button class="download" data-action="discord" type="button">ENTRAR NA COMUNIDADE</button>
+                <a href="#suporte" class="btn-secondary">SUPORTE</a>
               </div>
             </div>
             <div class="community-box">
               <h3>30.000+</h3>
-              <p>Membros acompanhando novidades, atualizações e conteúdos da comunidade.</p>
+              <p>Jogadores e membros acompanhando novidades, atualizações e conteúdos da comunidade.</p>
             </div>
           </div>
         </div>
@@ -627,11 +537,11 @@
             <div>
               <h2>Suporte</h2>
               <div class="blue-line"></div>
-              <p>Central de ajuda, contato e documentação da plataforma.</p>
+              <p>Área pronta para FAQ, Discord, contato e documentação.</p>
             </div>
           </div>
           <div class="community-box">
-            <p>Consulte a documentação e os canais oficiais para acessar serviços, suporte, atualizações e recursos da plataforma.</p>
+            <p>Conecte aqui seus links reais, documentação e canais de atendimento quando quiser.</p>
           </div>
         </div>
       </div>
@@ -642,128 +552,328 @@
     <div class="container footer-inner">
       <div class="footer-brand">M7</div>
       <div class="footer-links">
-        <a href="{{ url_for('index') }}">Início</a>
-        <a href="{{ url_for('about') }}">Sobre</a>
-        <a href="{{ url_for('technical') }}">Recursos e docs</a>
-        <a href="{{ url_for('help_page') }}">Ajuda</a>
-        <a href="{{ url_for('contact') }}">Contato</a>
-        <a href="{{ url_for('account') }}">Conta</a>
+        <a href="#inicio">Início</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#visuais">Visuais</a>
+        <a href="#comunidade">Comunidade</a>
+        <a href="#suporte">Suporte</a>
       </div>
       <div style="font-size:11px">© 2026 M7 Community</div>
     </div>
   </footer>
 
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    const header = document.getElementById('header');
-    const toast = document.getElementById('toast');
-
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 30);
-    });
-
-    // Menu mobile
-    document.getElementById('menuBtn').addEventListener('click', () => {
+    document.addEventListener('DOMContentLoaded', () => {
+      const header = document.getElementById('header');
+      const toast = document.getElementById('toast');
+      const menuBtn = document.getElementById('menuBtn');
       const nav = document.querySelector('nav');
-      const open = nav.style.display === 'flex';
-      nav.style.display = open ? '' : 'flex';
-      nav.style.position = open ? '' : 'absolute';
-      nav.style.top = '68px';
-      nav.style.left = '15px';
-      nav.style.right = '15px';
-      nav.style.padding = '16px';
-      nav.style.flexDirection = 'column';
-      nav.style.alignItems = 'flex-start';
-      nav.style.background = 'rgba(4,12,22,.97)';
-      nav.style.border = '1px solid rgba(88,146,230,.18)';
-      nav.style.borderRadius = '10px';
-    });
+      const searchInput = document.getElementById('searchInput');
+      const demoPanel = document.getElementById('demoPanel');
 
-    // Toggles visuais
-    document.querySelectorAll('.toggle').forEach(toggle => {
-      toggle.addEventListener('click', () => {
-        toggle.classList.toggle('off');
-        toggle.textContent = toggle.classList.contains('off') ? '✓' : '✓';
+      function showToast(message) {
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(window.__m7ToastTimer);
+        window.__m7ToastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2400);
+      }
+
+      // Header / navegação da página
+      function updateHeader() {
+        if (header) header.classList.toggle('scrolled', window.scrollY > 30);
+
+        const sections = [...document.querySelectorAll('main section[id]')];
+        const links = [...document.querySelectorAll('nav a[href^="#"]')];
+        const y = window.scrollY + 120;
+        let current = 'inicio';
+
+        sections.forEach(section => {
+          if (y >= section.offsetTop) current = section.id;
+        });
+
+        links.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+      }
+
+      window.addEventListener('scroll', updateHeader, { passive: true });
+      updateHeader();
+
+      // Menu mobile
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', () => {
+          const isOpen = nav.style.display === 'flex';
+          nav.style.display = isOpen ? '' : 'flex';
+          nav.style.position = isOpen ? '' : 'absolute';
+          nav.style.top = isOpen ? '' : '68px';
+          nav.style.left = isOpen ? '' : '15px';
+          nav.style.right = isOpen ? '' : '15px';
+          nav.style.padding = isOpen ? '' : '16px';
+          nav.style.flexDirection = isOpen ? '' : 'column';
+          nav.style.alignItems = isOpen ? '' : 'flex-start';
+          nav.style.background = isOpen ? '' : 'rgba(4,12,22,.97)';
+          nav.style.border = isOpen ? '' : '1px solid rgba(88,146,230,.18)';
+          nav.style.borderRadius = isOpen ? '' : '10px';
+          menuBtn.setAttribute('aria-expanded', String(!isOpen));
+        });
+      }
+
+      // Fecha o menu depois de selecionar uma âncora no mobile.
+      document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 900 && nav && nav.style.display === 'flex') {
+            nav.style.display = '';
+            nav.style.position = '';
+            nav.style.top = '';
+            nav.style.left = '';
+            nav.style.right = '';
+            nav.style.padding = '';
+            nav.style.flexDirection = '';
+            nav.style.alignItems = '';
+            nav.style.background = '';
+            nav.style.border = '';
+            nav.style.borderRadius = '';
+            menuBtn?.setAttribute('aria-expanded', 'false');
+          }
+        });
       });
-    });
 
-    // Busca visual
-    const search = document.getElementById('searchInput');
-    search.addEventListener('input', e => {
-      const term = e.target.value.toLowerCase().trim();
-      document.querySelectorAll('.box').forEach(box => {
-        box.style.opacity = !term || box.textContent.toLowerCase().includes(term) ? '1' : '.28';
-      });
-    });
+      // Abas do painel: este é o ponto principal que foi corrigido.
+      const tabs = [...document.querySelectorAll('.demo-tabs .tab-btn')];
+      const panels = [...document.querySelectorAll('.demo-tab-panel')];
 
-    function showToast(message){
-      toast.textContent = message;
-      toast.classList.add('show');
-      clearTimeout(window.__toast);
-      window.__toast = setTimeout(() => toast.classList.remove('show'), 2600);
-    }
-
-    // Tabs visuais
-    document.querySelectorAll('.product-tabs button').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.product-tabs button').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        showToast('Seção selecionada: ' + tab.textContent);
-      });
-    });
-
-    // Reveal on scroll
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+      function activateTab(tabId, updateHash = true) {
+        const target = document.getElementById(tabId);
+        if (!target) {
+          console.warn('Aba M7 não encontrada:', tabId);
+          return;
         }
+
+        tabs.forEach(tab => {
+          const active = tab.dataset.tab === tabId;
+          tab.classList.toggle('active', active);
+          tab.setAttribute('aria-selected', String(active));
+        });
+
+        panels.forEach(panel => {
+          const active = panel.id === tabId;
+          panel.classList.toggle('active', active);
+          panel.hidden = !active;
+        });
+
+        // Busca sempre começa limpa ao trocar de aba.
+        if (searchInput) {
+          searchInput.value = '';
+          clearSearch();
+        }
+
+        if (updateHash && history.replaceState) {
+          history.replaceState(null, '', '#' + tabId);
+        }
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          activateTab(tab.dataset.tab);
+        });
       });
-    }, {threshold:.12});
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Contadores
-    function countUp(el, target, suffix){
-      let start = null;
-      const duration = 1400;
-      function tick(time){
-        if(!start) start = time;
-        const progress = Math.min((time-start)/duration, 1);
-        const eased = 1 - Math.pow(1-progress, 3);
-        el.textContent = Math.floor(target * eased).toLocaleString('pt-BR') + suffix;
-        if(progress < 1) requestAnimationFrame(tick);
+      // Abre a aba indicada na URL, sem conflitar com as seções principais.
+      const initialHash = window.location.hash.slice(1);
+      if (['dashboard', 'visuals', 'tools', 'configs'].includes(initialHash)) {
+        activateTab(initialHash, false);
+      } else {
+        activateTab('dashboard', false);
       }
-      requestAnimationFrame(tick);
-    }
 
-    const stats = document.querySelectorAll('[data-count]');
-    const statObserver = new IntersectionObserver(entries => {
-      if(entries.some(e => e.isIntersecting)){
-        countUp(stats[0],100,'%');
-        countUp(stats[1],50,'+');
-        countUp(stats[2],30,'K+');
-        statObserver.disconnect();
+      // Toggles visuais.
+      document.querySelectorAll('.toggle').forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const active = toggle.classList.toggle('on');
+          toggle.classList.toggle('off', !active);
+          toggle.setAttribute('aria-pressed', String(active));
+          toggle.textContent = active ? '✓' : '—';
+        });
+      });
+
+      // Busca apenas dentro da aba atualmente visível.
+      function clearSearch() {
+        document.querySelectorAll('.demo-tab-panel').forEach(panel => {
+          panel.querySelectorAll('.box').forEach(box => {
+            box.classList.remove('search-match');
+            box.style.opacity = '';
+          });
+          panel.querySelector('.demo-body')?.classList.remove('is-searching');
+        });
       }
-    }, {threshold:.5});
-    statObserver.observe(document.querySelector('.stats'));
+
+      if (searchInput) {
+        searchInput.addEventListener('input', event => {
+          const term = event.target.value.toLowerCase().trim();
+          const activePanel = document.querySelector('.demo-tab-panel.active');
+          if (!activePanel) return;
+
+          const body = activePanel.querySelector('.demo-body');
+          const boxes = [...activePanel.querySelectorAll('.box')];
+
+          if (!term) {
+            clearSearch();
+            return;
+          }
+
+          body?.classList.add('is-searching');
+
+          boxes.forEach(box => {
+            const match = box.textContent.toLowerCase().includes(term);
+            box.classList.toggle('search-match', match);
+          });
+        });
+      }
+
+      // Ações de ferramentas.
+      document.querySelectorAll('[data-tool]').forEach(button => {
+        button.addEventListener('click', () => {
+          const tool = button.dataset.tool;
+
+          if (tool === 'refresh') {
+            updateHeader();
+            showToast('Painel atualizado.');
+          } else if (tool === 'clear-search') {
+            if (searchInput) searchInput.value = '';
+            clearSearch();
+            showToast('Busca limpa.');
+          } else if (tool === 'notification') {
+            showToast('Notificação de teste enviada.');
+          }
+        });
+      });
+
+      // Configurações persistidas no navegador.
+      const profileName = document.getElementById('profileName');
+      const profileValue = document.getElementById('profileValue');
+      const saveConfig = document.getElementById('saveConfig');
+      const resetConfig = document.getElementById('resetConfig');
+      const STORAGE_KEY = 'm7-community-config';
+
+      function loadConfig() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          const config = JSON.parse(raw);
+          const name = typeof config.profile === 'string' && config.profile.trim() ? config.profile.trim() : 'Padrão';
+          if (profileName) profileName.value = name;
+          if (profileValue) profileValue.textContent = name;
+        } catch (error) {
+          console.warn('Não foi possível carregar a configuração local.', error);
+        }
+      }
+
+      if (saveConfig) {
+        saveConfig.addEventListener('click', () => {
+          const name = profileName?.value.trim() || 'Padrão';
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ profile: name }));
+            if (profileValue) profileValue.textContent = name;
+            showToast('Configuração salva.');
+          } catch (error) {
+            console.warn('Não foi possível salvar a configuração local.', error);
+            showToast('Não foi possível salvar a configuração.');
+          }
+        });
+      }
+
+      if (resetConfig) {
+        resetConfig.addEventListener('click', () => {
+          try {
+            localStorage.removeItem(STORAGE_KEY);
+          } catch (error) {
+            console.warn('Não foi possível limpar a configuração local.', error);
+          }
+          if (profileName) profileName.value = 'Padrão';
+          if (profileValue) profileValue.textContent = 'Padrão';
+          showToast('Configuração restaurada.');
+        });
+      }
+
+      loadConfig();
+
+      // Botões genéricos.
+      document.querySelectorAll('[data-action="download"]').forEach(button => {
+        button.addEventListener('click', () => showToast('Área de download pronta para receber o seu arquivo.'));
+      });
+
+      document.querySelectorAll('[data-action="discord"]').forEach(button => {
+        button.addEventListener('click', () => showToast('Adicione o link real da sua comunidade nesta ação.'));
+      });
+
+      // Reveal ao rolar.
+      const revealItems = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealItems.forEach(el => observer.observe(el));
+      } else {
+        revealItems.forEach(el => el.classList.add('visible'));
+      }
+
+      // Contadores.
+      function countUp(el, target, suffix) {
+        if (!el) return;
+        let start = null;
+        const duration = 1400;
+
+        function tick(time) {
+          if (!start) start = time;
+          const progress = Math.min((time - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(target * eased).toLocaleString('pt-BR') + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      const stats = [...document.querySelectorAll('[data-count]')];
+      const statsContainer = document.querySelector('.stats');
+      let statsStarted = false;
+
+      function startStats() {
+        if (statsStarted) return;
+        statsStarted = true;
+        countUp(stats[0], 100, '%');
+        countUp(stats[1], 50, '+');
+        countUp(stats[2], 30, 'K+');
+      }
+
+      if (statsContainer && 'IntersectionObserver' in window) {
+        const statObserver = new IntersectionObserver(entries => {
+          if (entries.some(entry => entry.isIntersecting)) {
+            startStats();
+            statObserver.disconnect();
+          }
+        }, { threshold: 0.5 });
+        statObserver.observe(statsContainer);
+      } else {
+        startStats();
+      }
+
+      // Evita que o painel receba teclas de atalho e cause comportamento inesperado.
+      demoPanel?.addEventListener('click', event => {
+        const button = event.target.closest('button');
+        if (button) event.stopPropagation();
+      });
+    });
   </script>
-
-<script>
-(function(){
-  const loading=document.getElementById('loading');
-  if(!loading) return;
-  const started=performance.now();
-  const finish=()=>{
-    const elapsed=performance.now()-started;
-    const wait=Math.max(350,1800-elapsed);
-    setTimeout(()=>loading.classList.add('hidden'),wait);
-  };
-  if(document.readyState==='complete') finish();
-  else window.addEventListener('load',finish,{once:true});
-})();
-</script>
-
 </body>
 </html>
