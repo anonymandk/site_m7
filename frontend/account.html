@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Conta — M7 Community</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style id="m7-blue-theme">
+:root{
+  --v:#0d7cff !important; --v2:#0064ea !important; --v3:#36a7ff !important;
+  --v4:#0756b8 !important; --v5:#a8dcff !important;
+  --glow:0 0 30px rgba(13,124,255,.42),0 0 60px rgba(13,124,255,.18) !important;
+  --glow2:0 0 15px rgba(13,124,255,.62),0 0 30px rgba(13,124,255,.28) !important;
+}
+#loading{
+  position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 42%,rgba(0,102,255,.18),transparent 38%),#030811;
+  transition:opacity .65s ease, visibility .65s ease;
+}
+#loading.hidden{opacity:0;visibility:hidden;pointer-events:none}
+#loading .load-logo{font-family:'Syne',sans-serif;font-size:clamp(4rem,10vw,7rem);font-weight:800;letter-spacing:-.08em;line-height:1;
+  background:linear-gradient(135deg,#fff 20%,#0d7cff 55%,#36a7ff 88%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 26px rgba(13,124,255,.48));margin-bottom:2rem}
+#loading .load-bar-wrap{width:min(360px,72vw);height:3px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden;border:1px solid rgba(54,167,255,.16)}
+#loading .load-bar{height:100%;width:0;background:linear-gradient(90deg,#0064ea,#36a7ff);box-shadow:0 0 16px rgba(54,167,255,.65);animation:m7Loading 2s cubic-bezier(.2,.8,.2,1) forwards}
+#loading .load-text{margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.22em;color:#8ebcff}
+#loading .load-sub{margin-top:.45rem;font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.14em;color:#50657f}
+@keyframes m7Loading{0%{width:0}35%{width:48%}70%{width:76%}100%{width:100%}}
+.m7-page-card{border-color:rgba(13,124,255,.18)!important;box-shadow:0 18px 55px rgba(0,55,140,.14)}
+</style>
+
+<style>.m7-content{max-width:860px;margin:140px auto 80px;padding:0 24px}.m7-card{background:linear-gradient(145deg,rgba(7,19,33,.92),rgba(4,12,22,.98));border:1px solid rgba(54,167,255,.16);border-radius:20px;padding:42px;box-shadow:0 24px 80px rgba(0,0,0,.28)}.m7-tag{font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.18em;color:#36a7ff;margin-bottom:16px}.m7-title{font-family:'Syne',sans-serif;font-size:clamp(40px,6vw,72px);letter-spacing:-.04em;line-height:.98;color:#f4f8ff;margin-bottom:16px}.m7-title span{background:linear-gradient(135deg,#0d7cff,#a8dcff);-webkit-background-clip:text;background-clip:text;color:transparent}.m7-sub{color:#93a6ba;line-height:1.8;max-width:680px;font-size:15px}.m7-actions{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}.m7-btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:8px;text-decoration:none;font-weight:800;font-size:13px}.m7-btn-primary{background:linear-gradient(135deg,#0d7cff,#0064ea);color:#fff;box-shadow:0 10px 28px rgba(13,124,255,.28)}.m7-btn-secondary{border:1px solid rgba(54,167,255,.2);color:#cfe7ff;background:rgba(7,19,33,.7)}.m7-points{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.m7-point{padding:18px;background:rgba(255,255,255,.02);border:1px solid rgba(54,167,255,.1);border-radius:12px}.m7-point strong{display:block;color:#fff;font-size:14px;margin-bottom:6px}.m7-point span{font-size:12px;color:#778da7;line-height:1.5}@media(max-width:700px){.m7-content{margin-top:110px}.m7-card{padding:26px}.m7-points{grid-template-columns:1fr}}</style>
+
+<style id="m7-header-style">
+.m7-site-header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+  height:84px;
+  display:flex;
+  align-items:center;
+  background:rgba(3,8,17,.94);
+  border-bottom:1px solid rgba(48,139,255,.12);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.m7-site-header .m7-header-inner{
+  width:min(1420px,calc(100% - 64px));
+  height:100%;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+}
+.m7-site-header .m7-brand{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:#f2f7ff;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.m7-site-header .m7-logo-mark{
+  font-family:"Space Grotesk","Syne",Arial,sans-serif;
+  font-size:35px;
+  font-weight:700;
+  font-style:italic;
+  letter-spacing:-5px;
+  line-height:1;
+  color:#0d7cff;
+  text-shadow:0 0 18px rgba(13,124,255,.28);
+}
+.m7-site-header .m7-logo-word{
+  font-family:"Space Grotesk","Syne",Arial,sans-serif;
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:.9px;
+  line-height:1;
+  color:#eef5ff;
+}
+.m7-site-header .m7-nav{
+  display:flex;
+  align-items:center;
+  gap:26px;
+}
+.m7-site-header .m7-nav a{
+  color:#a8b7c9;
+  text-decoration:none;
+  font:600 13px/1 "Inter","DM Sans",Arial,sans-serif;
+  transition:.2s ease;
+}
+.m7-site-header .m7-nav a:hover{
+  color:#36a7ff;
+}
+.m7-site-header .m7-account{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:94px;
+  padding:10px 15px;
+  border-radius:7px;
+  color:#fff !important;
+  background:linear-gradient(135deg,#0d7cff,#0064ea);
+  box-shadow:0 8px 24px rgba(13,124,255,.22);
+}
+.m7-site-header .m7-menu{
+  display:none;
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:25px;
+  cursor:pointer;
+}
+@media(max-width:900px){
+  .m7-site-header{height:72px}
+  .m7-site-header .m7-header-inner{width:min(100% - 30px,720px)}
+  .m7-site-header .m7-nav{display:none}
+  .m7-site-header .m7-account{display:none}
+  .m7-site-header .m7-menu{display:block}
+}
+</style>
+
+  <link rel="stylesheet" href="m7-community.css">
+</head><body>
+<!-- M7 system boot -->
+<div id="loading" aria-live="polite" aria-label="Carregando a plataforma M7">
+  <div class="load-logo">M7</div>
+  <div class="load-bar-wrap"><div class="load-bar"></div></div>
+  <div class="load-text">INICIALIZANDO SISTEMA...</div>
+  <div class="load-sub">CARREGANDO PLATAFORMA M7</div>
+</div>
+<div id="header-placeholder"></div>
+<script>
+fetch("header.html")
+  .then(response => response.text())
+  .then(data => { document.getElementById("header-placeholder").innerHTML = data; })
+  .catch(() => {});
+</script><main style="padding-top:84px;" class="m7-content"><section class="m7-card"><div class="m7-tag">// CONTA</div><h1 class="m7-title">Sua <span>conta M7</span></h1><p class="m7-sub">Acesse sua conta para gerenciar licenças, pedidos e configurações da plataforma M7.</p><div class="m7-actions"><a class="m7-btn m7-btn-primary" href="login.html">Entrar</a><a class="m7-btn m7-btn-secondary" href="register.html">Criar conta</a></div><div class="m7-points"><div class="m7-point"><strong>Licenças</strong><span>Acompanhe validade e status de tudo o que você adquiriu.</span></div><div class="m7-point"><strong>Pedidos</strong><span>Consulte o histórico e o status dos seus pedidos.</span></div><div class="m7-point"><strong>Segurança</strong><span>Gerencie seus dados de acesso com tranquilidade.</span></div></div></section></main><div id="footer-placeholder"></div>
+<script>
+fetch("footer.html")
+  .then(response => response.text())
+  .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
+  .catch(() => {});
+</script>
+<script>
+(function(){
+  const loading=document.getElementById('loading');
+  if(!loading) return;
+  const started=performance.now();
+  const finish=()=>{
+    const elapsed=performance.now()-started;
+    const wait=Math.max(350,1800-elapsed);
+    setTimeout(()=>loading.classList.add('hidden'),wait);
+  };
+  if(document.readyState==='complete') finish();
+  else window.addEventListener('load',finish,{once:true});
+})();
+</script>
+</body></html>
