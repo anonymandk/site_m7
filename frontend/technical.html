@@ -1,249 +1,652 @@
+``html
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suporte Técnico - M7</title>
+
+    <title>Suporte Técnico — M7 Community</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https
 
-<style id="m7-blue-theme">
-:root{
-  --v:#0d7cff !important; --v2:#0064ea !important; --v3:#36a7ff !important;
-  --v4:#0756b8 !important; --v5:#a8dcff !important;
-  --glow:0 0 30px rgba(13,124,255,.42),0 0 60px rgba(13,124,255,.18) !important;
-  --glow2:0 0 15px rgba(13,124,255,.62),0 0 30px rgba(13,124,255,.28) !important;
-}
-#loading{
-  position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:radial-gradient(circle at 50% 42%,rgba(0,102,255,.18),transparent 38%),#030811;
-  transition:opacity .65s ease, visibility .65s ease;
-}
-#loading.hidden{opacity:0;visibility:hidden;pointer-events:none}
-#loading .load-logo{font-family:'Syne',sans-serif;font-size:clamp(4rem,10vw,7rem);font-weight:800;letter-spacing:-.08em;line-height:1;
-  background:linear-gradient(135deg,#fff 20%,#0d7cff 55%,#36a7ff 88%);-webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 0 26px rgba(13,124,255,.48));margin-bottom:2rem}
-#loading .load-bar-wrap{width:min(360px,72vw);height:3px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden;border:1px solid rgba(54,167,255,.16)}
-#loading .load-bar{height:100%;width:0;background:linear-gradient(90deg,#0064ea,#36a7ff);box-shadow:0 0 16px rgba(54,167,255,.65);animation:m7Loading 2s cubic-bezier(.2,.8,.2,1) forwards}
-#loading .load-text{margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.22em;color:#8ebcff}
-#loading .load-sub{margin-top:.45rem;font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.14em;color:#50657f}
-@keyframes m7Loading{0%{width:0}35%{width:48%}70%{width:76%}100%{width:100%}}
-.m7-page-card{border-color:rgba(13,124,255,.18)!important;box-shadow:0 18px 55px rgba(0,55,140,.14)}
-</style>
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style id="m7-header-style">
-.m7-site-header{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:1000;
-  height:84px;
-  display:flex;
-  align-items:center;
-  background:rgba(3,8,17,.94);
-  border-bottom:1px solid rgba(48,139,255,.12);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-}
-.m7-site-header .m7-header-inner{
-  width:min(1420px,calc(100% - 64px));
-  height:100%;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:28px;
-}
-.m7-site-header .m7-brand{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  color:#f2f7ff;
-  text-decoration:none;
-  white-space:nowrap;
-}
-.m7-site-header .m7-logo-mark{
-  font-family:"Space Grotesk","Syne",Arial,sans-serif;
-  font-size:35px;
-  font-weight:700;
-  font-style:italic;
-  letter-spacing:-5px;
-  line-height:1;
-  color:#0d7cff;
-  text-shadow:0 0 18px rgba(13,124,255,.28);
-}
-.m7-site-header .m7-logo-word{
-  font-family:"Space Grotesk","Syne",Arial,sans-serif;
-  font-size:24px;
-  font-weight:700;
-  letter-spacing:.9px;
-  line-height:1;
-  color:#eef5ff;
-}
-.m7-site-header .m7-nav{
-  display:flex;
-  align-items:center;
-  gap:26px;
-}
-.m7-site-header .m7-nav a{
-  color:#a8b7c9;
-  text-decoration:none;
-  font:600 13px/1 "Inter","DM Sans",Arial,sans-serif;
-  transition:.2s ease;
-}
-.m7-site-header .m7-nav a:hover{
-  color:#36a7ff;
-}
-.m7-site-header .m7-account{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:94px;
-  padding:10px 15px;
-  border-radius:7px;
-  color:#fff !important;
-  background:linear-gradient(135deg,#0d7cff,#0064ea);
-  box-shadow:0 8px 24px rgba(13,124,255,.22);
-}
-.m7-site-header .m7-menu{
-  display:none;
-  border:0;
-  background:transparent;
-  color:#fff;
-  font-size:25px;
-  cursor:pointer;
-}
-@media(max-width:900px){
-  .m7-site-header{height:72px}
-  .m7-site-header .m7-header-inner{width:min(100% - 30px,720px)}
-  .m7-site-header .m7-nav{display:none}
-  .m7-site-header .m7-account{display:none}
-  .m7-site-header .m7-menu{display:block}
-}
-</style>
+    <title>Suporte Técnico — M7 Community</title>
 
-  <link rel="stylesheet" href="m7-community.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="m7-community.css">
 </head>
+
 <body>
 
-<!-- Loading Screen -->
-<div id="loading">
-    <div class="load-logo">M7</div>
-    <div class="load-bar-wrap"><div class="load-bar"></div></div>
-    <div class="load-text">INICIALIZANDO SISTEMA...</div><div class="load-sub">CARREGANDO PLATAFORMA M7</div>
-</div>
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-<!-- Custom Cursor -->
-<div id="cursor"></div>
-<div id="cursor-trail"></div>
+    <header class="header">
 
-<!-- HEADER -->
-<div id="header-placeholder"></div>
-<script>
-fetch("header.html")
-  .then(response => response.text())
-  .then(data => { document.getElementById("header-placeholder").innerHTML = data; })
-  .catch(() => {});
-</script>
+        <div class="container header-inner">
 
-<!-- MAIN CONTENT -->
-<main style="padding-top:84px;" class="section">
-    <div class="section-header fade-up">
-        <div class="section-tag">// CORE TECH</div>
-        <h2 class="section-title">Suporte <span style="background:linear-gradient(135deg,var(--v3),var(--v5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Técnico</span></h2>
-        <p class="section-sub">Diagnóstico e manutenção do cliente M7 Community</p>
-    </div>
-    <div class="main-content fade-up" style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; color: var(--g2); line-height: 1.8;">
-        <div style="background: var(--glass); border: 1px solid var(--glassborder); padding: 2.5rem; border-radius: 24px; backdrop-filter: blur(12px);">
-            <h3 style="color: var(--w); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--v3)" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.78 0l-1.6 1.6z"/><path d="m8 13 1 1"/><path d="m12 15l1 1"/><path d="m16 17l1 1"/><path d="M4 14h16"/><path d="M14 14v6a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-6"/></svg>
-                Diagnóstico Rápido
-            </h3>
-            <p>Se você está enfrentando problemas de inicialização, atualização ou desempenho do cliente M7, consulte os procedimentos de diagnóstico ou abra um ticket.</p>
-            <div style="margin-top: 1.5rem; display: grid; gap: 1rem;">
-                <div style="padding: 1rem; background: rgba(13,124,255,0.05); border-left: 3px solid var(--v3); border-radius: 4px;">
-                    <strong style="color: var(--w);">Atualização do Cliente:</strong> Confira se o cliente M7 está na versão mais recente disponível na sua conta.
-                </div>
-                <div style="padding: 1rem; background: rgba(13,124,255,0.05); border-left: 3px solid var(--v3); border-radius: 4px;">
-                    <strong style="color: var(--w);">Integridade do Cliente:</strong> Verifique arquivos do cliente, permissões e componentes necessários antes de iniciar o serviço.
-                </div>
-            </div>
-            <div style="margin-top: 2rem; text-align: center;">
-                <a href="mailto:staff@m7community.com.br" class="btn-primary" style="text-decoration:none">Abrir Ticket M7</a>
-            </div>
+            <a href="index.html" class="brand">
+
+                <span class="brand-mark">
+                    M7
+                </span>
+
+                <small>
+                    COMMUNITY
+                </small>
+
+            </a>
+
+            <nav>
+
+                <a href="index.html">
+                    Início
+                </a>
+
+                <a href="index.html#recursos">
+                    Recursos
+                </a>
+
+                <a href="index.html#exploits">
+                    Exploits
+                </a>
+
+                <a href="index.html#visuais">
+                    Visuais
+                </a>
+
+                <a href="index.html#comunidade">
+                    Comunidade
+                </a>
+
+                <a href="technical.html" class="active">
+                    Suporte
+                </a>
+
+            </nav>
+
+            <a
+                href="index.html"
+                class="download"
+            >
+                VOLTAR AO SITE
+            </a>
+
+            <button
+                class="hamburger"
+                id="hamburger"
+                type="button"
+                aria-label="Abrir menu"
+            >
+                ☰
+            </button>
+
         </div>
-    </div>
-</main>
 
-<!-- FOOTER -->
-<div id="footer-placeholder"></div>
-<script>
-fetch("footer.html")
-  .then(response => response.text())
-  .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
-  .catch(() => {});
-</script>
+    </header>
 
 
-<script>
-    // Cursor
-    const cursor = document.getElementById('cursor');
-    const cursorTrail = document.getElementById('cursor-trail');
-    let mx=0,my=0,tx=0,ty=0;
-    document.addEventListener('mousemove', e => {
-        mx = e.clientX; my = e.clientY;
-        cursor.style.left = (mx-6) + 'px';
-        cursor.style.top = (my-6) + 'px';
-    });
-    function animateCursor() {
-        tx += (mx - tx) * 0.12;
-        ty += (my - ty) * 0.12;
-        cursorTrail.style.left = (tx-16) + 'px';
-        cursorTrail.style.top = (ty-16) + 'px';
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-    document.querySelectorAll('button,a,.product-card,.carousel-btn').forEach(el => {
-        el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; cursor.style.opacity = '.6'; });
-        el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; cursor.style.opacity = '1'; });
-    });
-    // Loading
-    (() => {
-        const loading = document.getElementById('loading');
-        if (!loading) return;
-        const started = performance.now();
-        const finish = () => {
-            const elapsed = performance.now() - started;
-            setTimeout(() => loading.classList.add('hidden'), Math.max(350, 1800 - elapsed));
-        };
-        if (document.readyState === 'complete') finish();
-        else window.addEventListener('load', finish, { once: true });
-    })();
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
-    // Header Scroll
-    window.addEventListener('scroll', () => {
-        document.getElementById('header')?.classList.toggle('scrolled', window.scrollY > 40);
-    });
+    <main>
 
-    // Animations
-    function initAnimations() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((e, i) => {
-                if(e.isIntersecting) {
-                    setTimeout(() => e.target.classList.add('visible'), i * 80);
+        <section class="technical-hero">
+
+            <div class="container">
+
+                <div class="technical-hero-content reveal">
+
+                    <div class="eyebrow">
+                        <span>◆</span>
+                        M7 TECHNICAL SUPPORT
+                    </div>
+
+                    <h1>
+                        <span class="white">
+                            SUPORTE
+                        </span>
+                        <br>
+
+                        <span class="blue">
+                            TÉCNICO
+                        </span>
+                    </h1>
+
+                    <p>
+                        Diagnóstico, manutenção e suporte para o
+                        cliente M7 Community.
+                    </p>
+                    <P> </P>
+                    <div class="hero-actions">
+
+                        <a
+                            href="#diagnostico"
+                            class="download"
+                        >
+                            DIAGNÓSTICO RÁPIDO
+                        </a>
+
+                        <a
+                            href="#ticket"
+                            class="btn-secondary"
+                        >
+                            ABRIR TICKET
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             DIAGNÓSTICO
+        ================================================== -->
+
+        <section
+            class="section reveal"
+            id="diagnostico"
+        >
+
+            <div class="container">
+
+                <div class="section-card">
+
+                    <div class="section-head">
+
+                        <div>
+
+                            <h2>
+                                Diagnóstico rápido
+                            </h2>
+
+                            <div class="blue-line"></div>
+
+                            <p>
+                                Verifique os principais componentes
+                                antes de iniciar o cliente M7.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="diagnostic-grid">
+
+                        <!-- CARD 1 -->
+
+                        <article class="diagnostic-card">
+
+                            <div class="diagnostic-icon">
+                                ↻
+                            </div>
+
+                            <h3>
+                                Atualização do Cliente
+                            </h3>
+
+                            <p>
+                                Confira se o cliente M7 está na
+                                versão mais recente disponível
+                                na sua conta.
+                            </p>
+
+                        </article>
+
+
+                        <!-- CARD 2 -->
+
+                        <article class="diagnostic-card">
+
+                            <div class="diagnostic-icon">
+                                ◈
+                            </div>
+
+                            <h3>
+                                Integridade do Cliente
+                            </h3>
+
+                            <p>
+                                Verifique arquivos, permissões e
+                                componentes necessários antes
+                                de iniciar o serviço.
+                            </p>
+
+                        </article>
+
+
+                        <!-- CARD 3 -->
+
+                        <article class="diagnostic-card">
+
+                            <div class="diagnostic-icon">
+                                ⚡
+                            </div>
+
+                            <h3>
+                                Desempenho
+                            </h3>
+
+                            <p>
+                                Caso esteja enfrentando lentidão,
+                                travamentos ou problemas de
+                                inicialização, realize uma
+                                verificação completa.
+                            </p>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STATUS
+        ================================================== -->
+
+        <section class="section reveal">
+
+            <div class="container">
+
+                <div class="section-card">
+
+                    <div class="section-head">
+
+                        <div>
+
+                            <h2>
+                                Status do sistema
+                            </h2>
+
+                            <div class="blue-line"></div>
+
+                            <p>
+                                Informações gerais sobre os serviços
+                                da M7 Community.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-panel">
+
+                        <div class="community-box">
+
+                            <h3>
+                                Serviços M7
+                            </h3>
+
+                            <p>
+                                Consulte o estado dos principais
+                                componentes utilizados pelo cliente.
+                            </p>
+
+                            <div class="alert success">
+
+                                <span class="status online">
+                                    colocar o status do sistema aqui (vincular com o discord)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+        </section>
+
+
+        <!-- =================================================
+             TICKET
+        ================================================== -->
+
+        <section
+            class="section reveal"
+            id="ticket"
+        >
+
+            <div class="container">
+
+                <div class="section-card">
+
+                    <div class="section-head">
+
+                        <div>
+
+                            <h2>
+                                Abrir ticket
+                            </h2>
+
+                            <div class="blue-line"></div>
+
+                            <p>
+                                Não conseguiu resolver o problema?
+                                Entre em contato com a equipe M7.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-panel">
+
+                        <div class="community-box">
+
+                            <h3>
+                                Precisa de ajuda?
+                            </h3>
+
+                            <p>
+                                Se o diagnóstico não resolveu o
+                                problema, abra um ticket para que
+                                nossa equipe possa analisar sua
+                                situação.
+                            </p>
+
+                            <div class="community-actions">
+
+                                <a
+                                    href="mailto:staff@m7community.com.br"
+                                    class="download"
+                                >
+                                    ABRIR TICKET
+                                </a>
+
+                                <a
+                                    href="index.html"
+                                    class="btn-secondary"
+                                >
+                                    VOLTAR AO INÍCIO
+                                </a>
+                            </div>
+                        </div>
+            </div>
+
+        </section>
+
+
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-inner">
+
+                <div>
+
+                    <div class="footer-brand">
+                        M7
+                    </div>
+
+                    <small>
+                        © 2024 M7 Community
+                    </small>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <a href="index.html">
+                        Início
+                    </a>
+
+                    <a href="index.html#recursos">
+                        Recursos
+                    </a>
+
+                    <a href="index.html#comunidade">
+                        Comunidade
+                    </a>
+
+                    <a href="technical.html">
+                        Suporte
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        class="toast"
+        id="toast"
+    ></div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        /* Header */
+
+        const header = document.querySelector(".header");
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 30) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+
+        });
+
+
+        /* Reveal */
+
+        const revealElements =
+            document.querySelectorAll(".reveal");
+
+        const revealObserver =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+                            revealObserver.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.12
                 }
-            });
-        }, {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
-        document.querySelectorAll('.fade-up,.fade-in').forEach(el => observer.observe(el));
-    }
-    initAnimations();
+            );
 
-    function scrollTo(id) {
-        document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
-    }
-</script>
+
+        revealElements.forEach(element => {
+
+            revealObserver.observe(element);
+
+        });
+
+
+        /* Mobile menu */
+
+        const hamburger =
+            document.getElementById("hamburger");
+
+        const nav =
+            document.querySelector("nav");
+
+        hamburger?.addEventListener(
+            "click",
+            () => {
+
+                nav.classList.toggle("mobile-open");
+
+            }
+        );
+
+
+        /* Toast */
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById("toast");
+
+            toast.textContent = message;
+
+            toast.classList.add("show");
+
+            setTimeout(() => {
+
+                toast.classList.remove("show");
+
+            }, 3000);
+
+        }
+
+    </script>
+
 </body>
+
 </html>
+
+
+    <link rel="stylesheet" href="m7-community.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <span class="brand-mark">
+                    M7
+                </span>
+
+                <small>
+                    COMMUNITY
+                </small>
+
+            </a>
+
+            <nav>
+
+                <a href="index.html">
+                    Início
+                </a>
+
+                <a href="index.html#recursos">
+                    Recursos
+                </a>
+
+                <a href="index.html#exploits">
+                    Exploits
+                </a>
+
+                <a href="index.html#visuais">
+                    Visuais
+                </a>
+
+                <a href="index.html#comunidade">
+                    Comunidade
+                </a>
+
+                <a href="technical.html" class="active">
+                    Suporte
+                </a>
+
+            </nav>
+
+            <a
+                href="index.html"
+                class="download"
+            >
+                VOLTAR AO SITE
+            </a>
+
+            <button
+                class="hamburger"
+                id="hamburger"
+                type="button"
+                aria-label="Abrir menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <main>
+
+        <section class="technical-hero">
+
+            <div class="container">
+
+                <div class="technical-hero-content reveal">
+
+                    <div class="eyebrow">
+                        <span>◆</span>
+                        M7 TECHNICAL SUPPORT
